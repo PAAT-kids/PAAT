@@ -1,5 +1,3 @@
-# PAAT
-Capstone 2 Project - 2021
 # P.A.A.T
 
 P.A.A.T is a packet amplification assessment tool used to create packets, capture packets, send packet and eventually calculate the amplification factor of the response. 
