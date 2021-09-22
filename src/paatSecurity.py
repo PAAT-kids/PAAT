@@ -22,7 +22,7 @@ def passHash (password):
 
 
 """
-FUNCTION NAME: compPass
+FUNCTION NAME: comparePass
 PURPOSE: Compares the given input to the hashvalue from the database
 INPUT: String password , Bit String dbPassword
 OUTPUT: Boolean
