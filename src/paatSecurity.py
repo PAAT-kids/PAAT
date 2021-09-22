@@ -27,7 +27,7 @@ PURPOSE: Compares the given input to the hashvalue from the database
 INPUT: String password , Bit String dbPassword
 OUTPUT: Boolean
 """
-def compPass (password,dbPassword):
+def comparePass (password,dbPassword):
     passwordBits = password.encode("utf-8")
     
     if bcrypt.checkpw(passwordBits, dbPassword):
