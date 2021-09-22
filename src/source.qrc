@@ -1,0 +1,31 @@
+<RCC>
+  <qresource prefix="bg1">
+    <file>5.png</file>
+    <file>home.png</file>
+    <file>bg6.png</file>
+    <file>bg9.png</file>
+    <file>capstone bg.png</file>
+    <file>h3.png</file>
+    <file>h2.png</file>
+    <file>2.png</file>
+    <file>5.png</file>
+    <file>haha.png</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>dark.png</file>
+    <file>light.png</file>
+    <file>shrinkic.png</file>
+    <file>close.png</file>
+    <file>editic.png</file>
+    <file>homeic.png</file>
+    <file>min.png</file>
+    <file>notific.png</file>
+    <file>rec.png</file>
+    <file>sendic.png</file>
+    <file>settings.png</file>
+    <file>account.png</file>
+    <file>help.png</file>
+    <file>menu.png</file>
+    <file>settings.png</file>
+  </qresource>
+</RCC>
