@@ -8,9 +8,11 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PyQt5 import QtWidgets
+from PyQt5 import QtGui
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 import source_rc
 
@@ -148,40 +150,11 @@ class Ui_MainWindow(object):
     # retranslateUi
     
     def helpUi(self):
-        self.help_wgt = QWidget(self.centralwidget)
-        self.help_wgt.setObjectName(u"help_wgt")
-        self.help_wgt.setGeometry(QRect(50, 10, 591, 321))
-        self.help_wgt.setStyleSheet(u"background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(0, 160, 165) stop:0.55 rgb(0, 160, 165) , stop:0.98 rgb(1, 114, 148), stop:1 rgb(0, 0, 0))")
-        self.help_title = QLabel(self.help_wgt)
-        self.help_title.setObjectName(u"help_title")
-        self.help_title.setGeometry(QRect(240, 20, 111, 71))
-        self.help_title.setAutoFillBackground(False)
-        self.help_title.setStyleSheet(u"background: transparent;\n"
-"font: 26pt \"Franklin Gothic Heavy\";\n"
-"color: rgb(255, 255, 255)\n"
-"")
-        self.understood_bt = QPushButton(self.help_wgt)
-        self.understood_bt.setObjectName(u"understood_bt")
-        self.understood_bt.setGeometry(QRect(230, 230, 131, 41))
-        self.understood_bt.setAutoFillBackground(False)
-        self.understood_bt.setStyleSheet(u"font: 8pt \"Franklin Gothic Raw\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 8px;\n"
-"padding: 5px 10px;\n"
-"background: rgb(0, 194, 203);\n"
-"")
-        self.info_txt = QTextBrowser(self.help_wgt)
-        self.info_txt.setObjectName(u"info_txt")
-        self.info_txt.setGeometry(QRect(70, 100, 451, 111))
-        self.info_txt.setStyleSheet(u"border: transparent;\n"
-"background: transparent;\n"
-"color: rgb(255, 255, 255);\n"
-"font: 10pt \"Franklin Gothic Medium Cond\";")
-        self.help_wgt.raise_()
-        self.help_title.setText(QCoreApplication.translate("MainWindow", u"HELP", None))
-        self.understood_bt.setText(QCoreApplication.translate("MainWindow", u"Understood", None))
-        self.info_txt.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Franklin Gothic Medium Cond'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:7.8pt; font-weight:496;\">P.A.A.T. is a packet amplification assesment tool that enables the user to send and recieve packets between users on different servers easily. To access the tool please create an account and sign up if you're a new user, and log in with your credentials if you're an existing user.</span></p></body></html>", None))
+            
+        msg = QMessageBox()
+        msg.setWindowTitle("HELP")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">P.A.A.T. is a packet amplification assesment tool that enables the user to send and recieve packets between users on different servers easily. To access the tool please create an account and sign up if you're a new user, and log in with your credentials if you're an existing user.</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Understood'), QMessageBox.YesRole)
+
+        x = msg.exec_()
