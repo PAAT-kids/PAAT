@@ -43,6 +43,8 @@ class Ui_MainWindow(object):
         self.password_lg = QLineEdit(self.centralwidget)
         self.password_lg.setObjectName(u"password_lg")
         self.password_lg.setGeometry(QRect(460, 590, 381, 51))
+        self.password_lg.setEchoMode(QtWidgets.QLineEdit.Password)
+
 
         self.terms = QCheckBox(self.centralwidget)
         self.terms.setObjectName(u"terms")
@@ -79,6 +81,7 @@ class Ui_MainWindow(object):
         self.password_su = QLineEdit(self.centralwidget)
         self.password_su.setObjectName(u"password_su")
         self.password_su.setGeometry(QRect(1190, 660, 381, 51))
+        self.password_su.setEchoMode(QtWidgets.QLineEdit.Password)
 
         self.signup = QPushButton(self.centralwidget)
         self.signup.setObjectName(u"signup")
