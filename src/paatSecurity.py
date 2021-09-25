@@ -1,6 +1,6 @@
 """
 FILENAME: paatSecurity
-AUTHOR: Majid Jafar
+AUTHOR: Majid Jafar, Samrah Tahir
 PURPOSE: Contains all the important security aspect of the program
 DATE CREATED: 22/09/2021
 LAST EDITED DATE: 22/09/2021
@@ -88,6 +88,3 @@ def validatePassword(passW):
 		return False
 	
 	return True
-		
-		
-		
