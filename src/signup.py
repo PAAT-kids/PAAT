@@ -26,23 +26,13 @@ def signup(username, password):
 			#if emailSyntax_check(email):
 				#print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
 				#addNewUser(username, hashedPassword.decode('utf-8'), email)
-			else:
-				print('email not valid')
+			#else:
+				#print('email not valid')
 		else:
 			#print('password not valid')
 	else:
 		#print('username not valid')
 
-
-		
-def emailSyntax_check(email):
-
-	isTrue = True
-	if '@' not in email:
-		isTrue = False
-		print('must contain @ symbol')
-	
-	return isTrue
 
 """
 FUNCTION NAME: addNewUser
