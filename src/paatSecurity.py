@@ -36,3 +36,26 @@ def comparePass (password,dbPassword):
         return False
 
 
+"""
+FUNCTION NAME: validateUsername
+PURPOSE: Checks the given username for validity
+INPUT: String userName
+OUTPUT: int (1: Length Error , 2: Symbols Error, 3: Not unique)
+"""
+def validateUsername (username):
+    #Checking username length (4-15)
+    if len(username) < 4:
+        return 1
+    elif len(username) > 15:
+        return 1
+
+    #Checking for only Alpha Numeric symbols
+    if username.isalnum() == False:
+        return 2
+
+    #Checking if the username is unique
+    #TODO: Wait for database completion
+
+    return 0
+
+        

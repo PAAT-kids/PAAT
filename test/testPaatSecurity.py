@@ -11,7 +11,7 @@ import bcrypt
 #To Access the file in src directory
 import sys
 sys.path.insert(0, 'src')
-from paatSecurity import comparePass, passHash
+from paatSecurity import comparePass, passHash, validateUsername
 
 #Testing passHash
 print("----------- TESTING passHash -----------\n")
@@ -31,3 +31,29 @@ print("Actual Output: ", comparePass("ThisIsMyPassword123", hashedPassword))
 #Expected output False
 print("\nInput: ThisIsNotMyPassword123 , Hash of (ThisIsMyPassword123)\nExpected output: False")
 print("Actual Output: ", comparePass("ThisIsNotMyPassword123", hashedPassword))
+
+#Testing validateUsername
+print("\n----------- TESTING validateUsername -----------\n")
+
+#Expected output 0
+print("\nInput: Yeeticus\nExpected Output: 0")
+print("Actual Output: ", validateUsername("Yeeticus"))
+
+#Expected output 1
+print("\nInput: hi\nExpected Output: 1")
+print("Actual Output: ", validateUsername("Hi"))
+
+#Expected output 1
+print("\nInput: abcdefghijklmnopqrstuvwxyz\nExpected Output: 1")
+print("Actual Output: ", validateUsername("abcdefghijklmnopqrstuvwxyz"))
+
+#Expected output 2
+print("\nInput: @username\nExpected Output: 2")
+print("Actual Output: ", validateUsername("@username"))
+
+#Expected output 2
+print("\nInput: user name\nExpected Output: 2")
+print("Actual Output: ", validateUsername("user name"))
+
+#Expected output 3
+#TODO 
