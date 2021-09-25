@@ -25,7 +25,9 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1908, 1090)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet(u"background-image: url(:/bg1/bg9.png);")
+        MainWindow.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
+
+
 #####################################################
 ## Central Widget Object (All login/sign up page contents)
 #####################################################
@@ -103,10 +105,15 @@ class Ui_MainWindow(object):
         self.settings_icon.setAutoFillBackground(False)
         self.settings_icon.setStyleSheet(u"background: transparent;\n"
 "")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/settings.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.settings_icon.setIcon(icon1)
+        self.icon1 = QIcon()
+        self.icon1.addFile(u":/icons/light.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon1.addFile(u":/icons/dark.png", QSize(), QIcon.Normal, QIcon.On)
+        self.settings_icon.setIcon(self.icon1)
         self.settings_icon.setIconSize(QSize(86, 76))
+        self.settings_icon.setCheckable(True)
+        self.settings_icon.setChecked(True)
+        self.settings_icon.clicked.connect(self.dark)
+
 
 #####################################################
 ## Top Icon Buttons: Info icon + help window
@@ -161,3 +168,10 @@ class Ui_MainWindow(object):
         msg.addButton(QPushButton('Understood'), QMessageBox.YesRole)
 
         x = msg.exec_()
+
+    def dark(self, checked):
+
+        if not checked:
+                self.centralwidget.setStyleSheet(u"background-image: url(:/bg/darkbg.png)")
+        elif checked:
+                self.centralwidget.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
