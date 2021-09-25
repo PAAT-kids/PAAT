@@ -1,7 +1,7 @@
 """
 FILENAME: paatSecurity
 AUTHOR: Majid Jafar
-PURPOSE: Contains all the important security asoect of the program
+PURPOSE: Contains all the important security aspect of the program
 DATE CREATED: 22/09/2021
 LAST EDITED DATE: 22/09/2021
 """
