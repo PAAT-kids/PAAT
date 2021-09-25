@@ -1,6 +1,6 @@
 """
 FILENAME: paatSecurity
-AUTHOR: Majid Jafar, Samrah Tahir
+AUTHOR: Majid Jafar, Samrah Tahir, Ahmed larbi
 PURPOSE: Contains all the important security aspect of the program
 DATE CREATED: 22/09/2021
 LAST EDITED DATE: 22/09/2021
@@ -9,6 +9,7 @@ import bcrypt
 import re
 #run "pip install bcrypt" in terminal
 
+reg = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
 """
 FUNCTION NAME: passHash
@@ -20,6 +21,20 @@ def passHash (password):
     passwordBits = password.encode("utf-8")
     hashedPassword = bcrypt.hashpw(passwordBits, bcrypt.gensalt())
     return hashedPassword
+
+"""
+FUNCTION NAME: check
+PURPOSE: checks the email
+INPUT: Email string
+OUTPUT: boolean
+"""
+def check(email):
+ 
+    if(re.fullmatch(reg, email)):
+        return True
+ 
+    else:
+        return False
 
 
 """
