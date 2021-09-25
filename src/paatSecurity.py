@@ -1,11 +1,12 @@
 """
 FILENAME: paatSecurity
-AUTHOR: Majid Jafar
+AUTHOR: Majid Jafar, Samrah Tahir
 PURPOSE: Contains all the important security aspect of the program
 DATE CREATED: 22/09/2021
 LAST EDITED DATE: 22/09/2021
 """
 import bcrypt
+import re
 #run "pip install bcrypt" in terminal
 
 
@@ -58,4 +59,32 @@ def validateUsername (username):
 
     return 0
 
-        
+"""
+FUNCTION NAME: validatePassword
+PURPOSE: Checks the given password for validity
+INPUT: String pass
+OUTPUT: Boolean ( True: is valid, False: not valid)
+AUTHOR: Samrah Tahir
+"""
+def validatePassword(passW):
+	
+	if(len(passW)<8):
+	#check if pass < 8
+		return False
+	elif not re.search("[A-Z]", passW):
+	#check if pass contains atleast 1 Uppercase
+		return False
+	elif not re.search("[a-z]", passW):
+	#check if pass contains lowercase
+		return False
+	elif not re.search("[0-9]", passW):
+	#check if pass contains numbers
+		return False
+	elif not re.search("[_@$*+-]", passW):
+	#check if pass contains special characters
+		return False
+	elif re.search("\s", passW):
+	#check if pass contains space (should not)
+		return False
+	
+	return True
