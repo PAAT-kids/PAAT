@@ -1,9 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-from paatSecurity import passHash, validatePassword, validateUsername
-
-#def main():
-	#signup()
+from paatSecurity import passHash, validatePassword, validateUsername, check
 
 """
 FUNCTION NAME: signup
@@ -13,24 +10,22 @@ OUTPUT: none
 AUTHOR: Samrah Tahir
 """
 
-def signup(username, password):
-	username = input('input your name pls: ')
-	password = input('choose a strong password?  ')
+def signup(email, username, password):
 
 	if validateUsername(username) == 0:
-		#print('username valid')
+		print('username valid')
 		if validatePassword(password):
-			#print('password valid')
+			print('password valid')
 			hashedPassword = passHash(password)
 			#email validation
-			#if emailSyntax_check(email):
-				#print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
+			if check(email):
+				print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
 				#addNewUser(username, hashedPassword.decode('utf-8'), email)
 			#else:
 				#print('email not valid')
-		else:
+		#else:
 			#print('password not valid')
-	else:
+	#else:
 		#print('username not valid')
 
 
