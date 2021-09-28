@@ -13,14 +13,14 @@ AUTHOR: Samrah Tahir
 def signup(email, username, password):
 
 	if validateUsername(username) == 0:
-		print('username valid')
+		#print('username valid')
 		if validatePassword(password):
-			print('password valid')
+			#print('password valid')
 			hashedPassword = passHash(password)
 			#email validation
 			if check(email):
-				print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
-				#addNewUser(username, hashedPassword.decode('utf-8'), email)
+				#print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
+				addNewUser(username, hashedPassword.decode('utf-8'), email)
 			#else:
 				#print('email not valid')
 		#else:
@@ -61,8 +61,7 @@ AUTHOR: Samrah Tahir
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='192.168.231.173',database='paat',user='me',password='myUserpassword')
-
+		connection = mysql.connector.connect(host='',database='paat',user='me',password='')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')

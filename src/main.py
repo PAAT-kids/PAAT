@@ -54,8 +54,8 @@ if __name__ == "__main__":
 
 
 	#when login button is clicked
-	#window.ui.login.clicked.connect(lambda: connections().connect_database(window.ui.username_lg.text(), 
-									      #window.ui.password_lg.text()))
+	window.ui.login.clicked.connect(lambda: connections().connect_database(window.ui.username_lg.text(), 
+									      window.ui.password_lg.text()))
 	#when signup button is clicked
 	window.ui.signup.clicked.connect(lambda: signup(window.ui.email_su.text(), 
 							window.ui.username_su.text(),
