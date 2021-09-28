@@ -1,9 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-from paatSecurity import passHash, validatePassword, validateUsername
-
-#def main():
-	#signup()
+from paatSecurity import passHash, validatePassword, validateUsername, check
 
 """
 FUNCTION NAME: signup
@@ -13,9 +10,7 @@ OUTPUT: none
 AUTHOR: Samrah Tahir
 """
 
-def signup(username, password):
-	username = input('input your name pls: ')
-	password = input('choose a strong password?  ')
+def signup(email, username, password):
 
 	if validateUsername(username) == 0:
 		#print('username valid')
@@ -23,14 +18,14 @@ def signup(username, password):
 			#print('password valid')
 			hashedPassword = passHash(password)
 			#email validation
-			#if emailSyntax_check(email):
+			if check(email):
 				#print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
-				#addNewUser(username, hashedPassword.decode('utf-8'), email)
+				addNewUser(username, hashedPassword.decode('utf-8'), email)
 			#else:
 				#print('email not valid')
-		else:
+		#else:
 			#print('password not valid')
-	else:
+	#else:
 		#print('username not valid')
 
 
@@ -66,8 +61,7 @@ AUTHOR: Samrah Tahir
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='192.168.231.173',database='paat',user='me',password='myUserpassword')
-
+		connection = mysql.connector.connect(host='',database='paat',user='me',password='')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')

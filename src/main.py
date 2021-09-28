@@ -10,6 +10,8 @@
 ################################################################################
 import sys
 import os
+from signup import signup
+from login import connections
 from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
     QRect, QSize, QUrl, Qt)
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
@@ -49,6 +51,15 @@ if __name__ == "__main__":
 	########################################################################
 	window = MainWindow()
 	window.show()
+
+
+	#when login button is clicked
+	window.ui.login.clicked.connect(lambda: connections().connect_database(window.ui.username_lg.text(), 
+									      window.ui.password_lg.text()))
+	#when signup button is clicked
+	window.ui.signup.clicked.connect(lambda: signup(window.ui.email_su.text(), 
+							window.ui.username_su.text(),
+							window.ui.password_su.text()))
 	sys.exit(app.exec_())
 ########################################################################
 ## END===>
