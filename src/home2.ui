@@ -1,0 +1,1436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1906</width>
+    <height>1077</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="side_menu">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>60</width>
+      <height>1081</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgb(1, 58, 83)</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="home_icon">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>80</y>
+       <width>111</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;
+color: rgb(255, 255, 255);
+</string>
+     </property>
+     <property name="text">
+      <string>HOME</string>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/homeic.png</normaloff>:/icons/homeic.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="sent_icon">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>220</y>
+       <width>100</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;
+color: rgb(255, 255, 255);
+</string>
+     </property>
+     <property name="text">
+      <string>SENT</string>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/sendic.png</normaloff>:/icons/sendic.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="recieve_icon">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>360</y>
+       <width>121</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>RECIEVED</string>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/rec.png</normaloff>:/icons/rec.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="info_icon">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>760</y>
+       <width>100</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>HELP</string>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="drafts_icon">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>510</y>
+       <width>111</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>DRAFTS</string>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/editic.png</normaloff>:/icons/editic.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="top_menu">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1911</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+background-color: rgb(1, 67, 86);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="menu_icon">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>-10</y>
+       <width>100</width>
+       <height>82</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="notif_icon">
+     <property name="geometry">
+      <rect>
+       <x>910</x>
+       <y>10</y>
+       <width>91</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/notific.png</normaloff>:/icons/notific.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>45</width>
+       <height>45</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="settings_icon">
+     <property name="geometry">
+      <rect>
+       <x>1090</x>
+       <y>10</y>
+       <width>91</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>45</width>
+       <height>55</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="account_icon">
+     <property name="geometry">
+      <rect>
+       <x>730</x>
+       <y>10</y>
+       <width>91</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent;
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="haha/source.qrc">
+       <normaloff>:/icons/account.png</normaloff>:/icons/account.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>45</width>
+       <height>45</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>60</y>
+      <width>1851</width>
+      <height>1021</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/bg1/17.png);</string>
+    </property>
+    <property name="currentIndex">
+     <number>4</number>
+    </property>
+    <widget class="QWidget" name="home">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/home.png);</string>
+     </property>
+     <widget class="QLabel" name="sentl">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>610</y>
+        <width>211</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);</string>
+      </property>
+      <property name="text">
+       <string>     Send</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="sentop">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>610</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="accessibleName">
+       <string/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);</string>
+      </property>
+      <property name="editable">
+       <bool>false</bool>
+      </property>
+      <property name="currentText">
+       <string>Sent</string>
+      </property>
+      <property name="maxVisibleItems">
+       <number>10</number>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <item>
+       <property name="text">
+        <string>Sent</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Drafts</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Autocreate</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>New Packet</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="recieve_pack">
+      <property name="geometry">
+       <rect>
+        <x>1070</x>
+        <y>610</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Recieve</string>
+      </property>
+     </widget>
+     <zorder>sentop</zorder>
+     <zorder>recieve_pack</zorder>
+     <zorder>sentl</zorder>
+    </widget>
+    <widget class="QWidget" name="packets">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/newpc.png);</string>
+     </property>
+     <widget class="QPushButton" name="dns_bt">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>540</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>DNS</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ssdp_bt">
+      <property name="geometry">
+       <rect>
+        <x>1230</x>
+        <y>540</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>SSDP</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ntp_bt">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>540</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>NTP</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ETH">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/eth.png);</string>
+     </property>
+     <widget class="QLineEdit" name="source">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>390</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="dest">
+      <property name="geometry">
+       <rect>
+        <x>980</x>
+        <y>390</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 206, 212);</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="type">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>600</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 199, 206);</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="def_eth">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>790</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Cond&quot;;
+background: rgb(79, 192, 232);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Default</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="nxt_eth">
+      <property name="geometry">
+       <rect>
+        <x>1410</x>
+        <y>760</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>NEXT</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="info">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>850</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Place cursor over field name for more info on it!</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>450</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: italic 13pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Source Address</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dstad">
+      <property name="geometry">
+       <rect>
+        <x>980</x>
+        <y>450</y>
+        <width>211</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: italic 13pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Destination Address</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ty">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>660</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: italic 13pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Type</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="IP">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/ip.png);</string>
+     </property>
+     <widget class="QLineEdit" name="vrsn_box">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>260</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="versn">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>320</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Version</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="IHL_box">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>260</y>
+        <width>91</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ihl">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>320</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>IHL</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="tos">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>320</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>TOS</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="tos_box">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>260</y>
+        <width>161</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="length">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>320</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Total Length</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="len_box">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>260</y>
+        <width>381</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="id_box">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>380</y>
+        <width>401</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="idfn">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>440</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Identification</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="flgs">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>440</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Flags</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="flags_box">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>380</y>
+        <width>111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fragoff">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>440</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Fragment Offset</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="frag_box">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>380</y>
+        <width>251</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ttl">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>570</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>TTL</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="ttl_box">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>510</y>
+        <width>181</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="protcl">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>570</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Protocol</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="prtcl_box">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>510</y>
+        <width>191</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="hdrchksm">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>570</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Header Checksum</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="chksum_box">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>510</y>
+        <width>391</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="opts">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>700</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Options</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>640</y>
+        <width>811</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="srcad1">
+      <property name="geometry">
+       <rect>
+        <x>1220</x>
+        <y>380</y>
+        <width>351</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_txt">
+      <property name="geometry">
+       <rect>
+        <x>1300</x>
+        <y>340</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: italic 15pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Source Address</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dstad_txt">
+      <property name="geometry">
+       <rect>
+        <x>1290</x>
+        <y>500</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: italic 15pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Destination Address</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="dstad1">
+      <property name="geometry">
+       <rect>
+        <x>1220</x>
+        <y>540</y>
+        <width>351</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="nxt_ip">
+      <property name="geometry">
+       <rect>
+        <x>1410</x>
+        <y>760</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>NEXT</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="def_ip">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>810</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Cond&quot;;
+background: rgb(79, 192, 232);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Default</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="info_2">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>870</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Place cursor over field name for more info on it!</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="UDP">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/udp.png);</string>
+     </property>
+     <widget class="QPushButton" name="nxt_udp">
+      <property name="geometry">
+       <rect>
+        <x>1410</x>
+        <y>760</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>NEXT</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_txtt">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>390</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Source Port</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="ovr_chksm">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>350</y>
+        <width>321</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 12pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Override UDP Checksum Value </string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="source_box">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>330</y>
+        <width>251</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="leng_box">
+      <property name="geometry">
+       <rect>
+        <x>1190</x>
+        <y>470</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="dest_box">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>470</y>
+        <width>251</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="chksm_text">
+      <property name="geometry">
+       <rect>
+        <x>1190</x>
+        <y>390</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Checksum</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="chksum_box_2">
+      <property name="geometry">
+       <rect>
+        <x>1190</x>
+        <y>330</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="ovr_lenval">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>490</y>
+        <width>311</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 12pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Override UDP Length Value </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="leng_txt">
+      <property name="geometry">
+       <rect>
+        <x>1190</x>
+        <y>530</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Length</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dst_txt">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>530</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Destination Port</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="info3">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>820</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Place cursor over field name for more info on it!</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="def_udp">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>760</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Cond&quot;;
+background: rgb(79, 192, 232);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Default</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="haha/source.qrc"/>
+ </resources>
+ <connections/>
+</ui>
