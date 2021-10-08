@@ -31,14 +31,16 @@ def setVariables(srcip1,dstip1,totallength1,len1,version1,ihl1,tos1,id1,flgs1,fr
     cheksum = cheksum1
     options = options1
 
-def sendTCP():
-    scapy.sr(scapy.IP(dst=dstip, ttl = totallength)/scapy.TCP_SERVICES())
+def sendUDP():
+    scapy.sr(scapy.IP(dst=dstip, ttl = totallength)/scapy.UDP_SERVICES())
 
 def sendEther():
     scapy.sr(scapy.IP(dst=dstip, ttl = totallength)/scapy.Ether())
 
 
+def sendIP():
+    scapy.sr(scapy.IP(dst=dstip, ttl = totallength))
 
-
+sendIP()
 
 
