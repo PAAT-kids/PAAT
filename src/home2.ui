@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1906</width>
-    <height>1077</height>
+    <width>1909</width>
+    <height>1031</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -371,7 +371,7 @@ color: rgb(255, 255, 255);</string>
      <string notr="true">background-image: url(:/bg1/17.png);</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="home">
      <property name="styleSheet">
@@ -722,7 +722,7 @@ background: transparent;</string>
      <property name="styleSheet">
       <string notr="true">background-image: url(:/bg1/ip.png);</string>
      </property>
-     <widget class="QLineEdit" name="vrsn_box">
+     <widget class="QLineEdit" name="source_2">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -735,7 +735,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="versn">
+     <widget class="QLabel" name="srcad_2">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -753,7 +753,7 @@ background: transparent;</string>
        <string>Version</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="IHL_box">
+     <widget class="QLineEdit" name="source_3">
       <property name="geometry">
        <rect>
         <x>380</x>
@@ -766,7 +766,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="ihl">
+     <widget class="QLabel" name="srcad_3">
       <property name="geometry">
        <rect>
         <x>380</x>
@@ -784,7 +784,7 @@ background: transparent;</string>
        <string>IHL</string>
       </property>
      </widget>
-     <widget class="QLabel" name="tos">
+     <widget class="QLabel" name="srcad_4">
       <property name="geometry">
        <rect>
         <x>480</x>
@@ -802,7 +802,7 @@ background: transparent;</string>
        <string>TOS</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="tos_box">
+     <widget class="QLineEdit" name="source_4">
       <property name="geometry">
        <rect>
         <x>480</x>
@@ -815,7 +815,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="length">
+     <widget class="QLabel" name="srcad_5">
       <property name="geometry">
        <rect>
         <x>660</x>
@@ -833,7 +833,7 @@ background: transparent;</string>
        <string>Total Length</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="len_box">
+     <widget class="QLineEdit" name="source_5">
       <property name="geometry">
        <rect>
         <x>660</x>
@@ -846,7 +846,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="id_box">
+     <widget class="QLineEdit" name="source_6">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -862,7 +862,7 @@ background: transparent;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="idfn">
+     <widget class="QLabel" name="srcad_6">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -880,7 +880,7 @@ background: transparent;</string>
        <string>Identification</string>
       </property>
      </widget>
-     <widget class="QLabel" name="flgs">
+     <widget class="QLabel" name="srcad_7">
       <property name="geometry">
        <rect>
         <x>650</x>
@@ -898,7 +898,7 @@ background: transparent;</string>
        <string>Flags</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="flags_box">
+     <widget class="QLineEdit" name="source_7">
       <property name="geometry">
        <rect>
         <x>650</x>
@@ -911,7 +911,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="fragoff">
+     <widget class="QLabel" name="srcad_8">
       <property name="geometry">
        <rect>
         <x>790</x>
@@ -929,7 +929,7 @@ background: transparent;</string>
        <string>Fragment Offset</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="frag_box">
+     <widget class="QLineEdit" name="source_8">
       <property name="geometry">
        <rect>
         <x>790</x>
@@ -942,7 +942,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="ttl">
+     <widget class="QLabel" name="srcad_9">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -960,7 +960,7 @@ background: transparent;</string>
        <string>TTL</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="ttl_box">
+     <widget class="QLineEdit" name="source_9">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -973,7 +973,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="protcl">
+     <widget class="QLabel" name="srcad_10">
       <property name="geometry">
        <rect>
         <x>440</x>
@@ -991,7 +991,7 @@ background: transparent;</string>
        <string>Protocol</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="prtcl_box">
+     <widget class="QLineEdit" name="source_10">
       <property name="geometry">
        <rect>
         <x>440</x>
@@ -1004,7 +1004,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="hdrchksm">
+     <widget class="QLabel" name="srcad_11">
       <property name="geometry">
        <rect>
         <x>650</x>
@@ -1022,7 +1022,7 @@ background: transparent;</string>
        <string>Header Checksum</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="chksum_box">
+     <widget class="QLineEdit" name="source_11">
       <property name="geometry">
        <rect>
         <x>650</x>
@@ -1035,7 +1035,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="opts">
+     <widget class="QLabel" name="srcad_12">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -1066,7 +1066,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="srcad1">
+     <widget class="QLineEdit" name="source_12">
       <property name="geometry">
        <rect>
         <x>1220</x>
@@ -1079,7 +1079,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QLabel" name="srcad_txt">
+     <widget class="QLabel" name="srcad_13">
       <property name="geometry">
        <rect>
         <x>1300</x>
@@ -1097,7 +1097,7 @@ background: transparent;</string>
        <string>Source Address</string>
       </property>
      </widget>
-     <widget class="QLabel" name="dstad_txt">
+     <widget class="QLabel" name="srcad_14">
       <property name="geometry">
        <rect>
         <x>1290</x>
@@ -1115,7 +1115,7 @@ background: transparent;</string>
        <string>Destination Address</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="dstad1">
+     <widget class="QLineEdit" name="source_13">
       <property name="geometry">
        <rect>
         <x>1220</x>
@@ -1128,7 +1128,7 @@ background: transparent;</string>
        <string notr="true">background: rgb(183, 197, 208);</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="nxt_ip">
+     <widget class="QPushButton" name="nxt_eth_2">
       <property name="geometry">
        <rect>
         <x>1410</x>
@@ -1152,7 +1152,7 @@ background: rgb(0, 194, 203);
        <string>NEXT</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="def_ip">
+     <widget class="QPushButton" name="def_eth_2">
       <property name="geometry">
        <rect>
         <x>250</x>
@@ -1193,7 +1193,7 @@ background: transparent;</string>
      <property name="styleSheet">
       <string notr="true">background-image: url(:/bg1/udp.png);</string>
      </property>
-     <widget class="QPushButton" name="nxt_udp">
+     <widget class="QPushButton" name="nxt_eth_3">
       <property name="geometry">
        <rect>
         <x>1410</x>
@@ -1217,7 +1217,7 @@ background: rgb(0, 194, 203);
        <string>NEXT</string>
       </property>
      </widget>
-     <widget class="QLabel" name="srcad_txtt">
+     <widget class="QLabel" name="srcad_19">
       <property name="geometry">
        <rect>
         <x>420</x>
@@ -1235,7 +1235,7 @@ background: transparent;</string>
        <string>Source Port</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="ovr_chksm">
+     <widget class="QCheckBox" name="checkBox_3">
       <property name="geometry">
        <rect>
         <x>770</x>
@@ -1253,7 +1253,7 @@ background: transparent;</string>
        <string>Override UDP Checksum Value </string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="source_box">
+     <widget class="QLineEdit" name="source_18">
       <property name="geometry">
        <rect>
         <x>420</x>
@@ -1269,7 +1269,7 @@ background: transparent;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="leng_box">
+     <widget class="QLineEdit" name="source_19">
       <property name="geometry">
        <rect>
         <x>1190</x>
@@ -1285,7 +1285,7 @@ background: transparent;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="dest_box">
+     <widget class="QLineEdit" name="source_20">
       <property name="geometry">
        <rect>
         <x>420</x>
@@ -1301,7 +1301,7 @@ background: transparent;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="chksm_text">
+     <widget class="QLabel" name="srcad_20">
       <property name="geometry">
        <rect>
         <x>1190</x>
@@ -1319,7 +1319,7 @@ background: transparent;</string>
        <string>Checksum</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="chksum_box_2">
+     <widget class="QLineEdit" name="source_21">
       <property name="geometry">
        <rect>
         <x>1190</x>
@@ -1335,7 +1335,7 @@ background: transparent;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QCheckBox" name="ovr_lenval">
+     <widget class="QCheckBox" name="checkBox_4">
       <property name="geometry">
        <rect>
         <x>770</x>
@@ -1353,7 +1353,7 @@ background: transparent;</string>
        <string>Override UDP Length Value </string>
       </property>
      </widget>
-     <widget class="QLabel" name="leng_txt">
+     <widget class="QLabel" name="srcad_21">
       <property name="geometry">
        <rect>
         <x>1190</x>
@@ -1371,7 +1371,7 @@ background: transparent;</string>
        <string>Length</string>
       </property>
      </widget>
-     <widget class="QLabel" name="dst_txt">
+     <widget class="QLabel" name="srcad_22">
       <property name="geometry">
        <rect>
         <x>420</x>
@@ -1389,7 +1389,7 @@ background: transparent;</string>
        <string>Destination Port</string>
       </property>
      </widget>
-     <widget class="QLabel" name="info3">
+     <widget class="QLabel" name="info_5">
       <property name="geometry">
        <rect>
         <x>220</x>
@@ -1407,7 +1407,7 @@ background: transparent;</string>
        <string>Place cursor over field name for more info on it!</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="def_udp">
+     <widget class="QPushButton" name="def_eth_5">
       <property name="geometry">
        <rect>
         <x>220</x>
@@ -1423,6 +1423,967 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Default</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="NTP">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/ntp.png);</string>
+     </property>
+     <widget class="QPushButton" name="send_ntp">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>680</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Send Packet</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="draft_ntp">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>550</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Save As Draft</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="mode_field">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>290</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="dispersion_field">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>410</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="id_field">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>530</y>
+        <width>621</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="delay_field">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>410</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="poll_field">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>410</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="sent_field">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>770</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="stratum_field">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>290</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="version_field">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>290</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="precision_field">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>410</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="leap_field">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>290</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="referenceid_field">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>650</y>
+        <width>621</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="recieve_field">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>770</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="origin_field">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>770</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="reference_field">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>770</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_23">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>470</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Precision</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_24">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>470</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Dispersion</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_25">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>470</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Delay</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_26">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>470</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Poll</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_27">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>590</y>
+        <width>621</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_28">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>830</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Recieve</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_29">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>830</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Reference</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_30">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>830</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Origin</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_31">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>830</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Sent</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_32">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>710</y>
+        <width>621</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Reference ID</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_33">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>350</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Mode</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_34">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>350</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Stratum</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_35">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>350</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Version</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_36">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>350</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Leap</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="info_6">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>910</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Place cursor over field name for more info on it!</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="DNS">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/dns.png);</string>
+     </property>
+     <widget class="QPushButton" name="draft_dns">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>550</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Save As Draft</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="send_dns">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>680</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Send Packet</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_39">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>650</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Qtype</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_37">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>650</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Qclass</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qname_field">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>370</y>
+        <width>1021</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_38">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>430</y>
+        <width>1021</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Qname</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qtype_field">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>590</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qclass_field">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>590</y>
+        <width>141</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="info_7">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>910</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Place cursor over field name for more info on it!</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="SSDP">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/ssdp.png);</string>
+     </property>
+     <widget class="QPushButton" name="draft_dns_2">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>550</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Save As Draft</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="send_dns_2">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>680</y>
+        <width>241</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Send Packet</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_40">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>700</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>ST</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qtype_field_2">
+      <property name="geometry">
+       <rect>
+        <x>1020</x>
+        <y>490</y>
+        <width>371</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_41">
+      <property name="geometry">
+       <rect>
+        <x>1020</x>
+        <y>550</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>MX</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qclass_field_2">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>640</y>
+        <width>371</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_42">
+      <property name="geometry">
+       <rect>
+        <x>1020</x>
+        <y>420</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Port</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qtype_field_3">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>490</y>
+        <width>371</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_43">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>550</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>MAN</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qclass_field_3">
+      <property name="geometry">
+       <rect>
+        <x>1020</x>
+        <y>360</y>
+        <width>371</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srcad_44">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>420</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Host</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="qclass_field_4">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>360</y>
+        <width>371</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="info_8">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>910</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Place cursor over field name for more info on it!</string>
       </property>
      </widget>
     </widget>

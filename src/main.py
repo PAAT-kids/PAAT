@@ -12,18 +12,19 @@ import sys
 import os
 from signup import signup
 from login import connections
-from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
+from PyQt5.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
     QRect, QSize, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
+from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
     QRadialGradient)
-from PySide2.QtWidgets import *
+from PyQt5.QtWidgets import *
 
 import source_rc
 
 ################################################################################
 ## IMPORT GUI file
 from login_su import *
+from home2 import *
 ################################################################################
 
 ########################################################################
@@ -32,7 +33,7 @@ from login_su import *
 class MainWindow(QMainWindow):
 	def __init__(self, parent=None):
 		QMainWindow.__init__(self)
-		self.ui = Ui_MainWindow()
+		self.ui = Ui_OtherWindow()
 		self.ui.setupUi(self)
 
 		#######################################################################
