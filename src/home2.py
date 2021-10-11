@@ -8,19 +8,19 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
-    QRect, QSize, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-    QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
-    QRadialGradient)
-from PySide2.QtWidgets import *
+from typing import Text
+from PyQt5 import QtWidgets
+from PyQt5 import QtGui
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 import source_rc
 
 #####################################################
 ## Main Window Object
 #####################################################
-class Ui_MainWindow(object):
+class Ui_OtherWindow(object):
     def setupUi(self, MainWindow):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -192,10 +192,10 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);")
         self.sentop = QComboBox(self.home)
-        self.sentop.addItem("")
-        self.sentop.addItem("")
-        self.sentop.addItem("")
-        self.sentop.addItem("")
+        self.sentop.addItem("Sent")
+        self.sentop.addItem("Drafts")
+        self.sentop.addItem("Autocreate")
+        self.sentop.addItem("New Packet")
         self.sentop.setObjectName(u"sentop")
         self.sentop.setGeometry(QRect(610, 610, 241, 91))
         self.sentop.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
@@ -220,6 +220,8 @@ class Ui_MainWindow(object):
         self.sentop.raise_()
         self.recieve_pack.raise_()
         self.sentl.raise_()
+
+        self.sentop.activated.connect(self.chosen)
 
 ## Page 2 - Network Packets Page ##
         self.packets = QWidget()
@@ -262,6 +264,10 @@ class Ui_MainWindow(object):
 "background: rgb(0, 194, 203);\n"
 "")
         self.stackedWidget.addWidget(self.packets)
+        self.pressed = ''
+        self.ntp_bt.clicked.connect(lambda: self.ethpage('ntp'))
+        self.ssdp_bt.clicked.connect(lambda: self.ethpage('ssdp'))
+        self.dns_bt.clicked.connect(lambda: self.ethpage('dns'))
 
 ## Page 3 - ETHERNET PACKET labels, inputs and buttons ##
         self.ETH = QWidget()
@@ -320,6 +326,8 @@ class Ui_MainWindow(object):
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.stackedWidget.addWidget(self.ETH)
+        
+        self.nxt_eth.clicked.connect(self.ippage)
 
 ## Page 4 -  IP PACKET labels, inputs and buttons ##
         self.IP = QWidget()
@@ -479,6 +487,8 @@ class Ui_MainWindow(object):
 "background: transparent;")
         self.stackedWidget.addWidget(self.IP)
 
+        self.nxt_ip.clicked.connect(self.udppage)
+
 
 ## Page 5 -  UDP PACKET labels, inputs and buttons ##
         self.UDP = QWidget()
@@ -559,11 +569,332 @@ class Ui_MainWindow(object):
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
         self.stackedWidget.addWidget(self.UDP)
+
+        self.nxt_udp.clicked.connect(self.nxtpage)
+
+## Page 6 -  NTP PACKET labels, inputs and buttons ##
+
+        self.NTP = QWidget()
+        self.NTP.setObjectName(u"NTP")
+        self.NTP.setStyleSheet(u"background-image: url(:/bg1/ntp.png);")
+        self.send_ntp = QPushButton(self.NTP)
+        self.send_ntp.setObjectName(u"send_ntp")
+        self.send_ntp.setGeometry(QRect(1560, 680, 241, 91))
+        self.send_ntp.setAutoFillBackground(False)
+        self.send_ntp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.draft_ntp = QPushButton(self.NTP)
+        self.draft_ntp.setObjectName(u"draft_ntp")
+        self.draft_ntp.setGeometry(QRect(1560, 550, 241, 91))
+        self.draft_ntp.setAutoFillBackground(False)
+        self.draft_ntp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.mode_field = QLineEdit(self.NTP)
+        self.mode_field.setObjectName(u"mode_field")
+        self.mode_field.setGeometry(QRect(970, 290, 141, 61))
+        self.mode_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.dispersion_field = QLineEdit(self.NTP)
+        self.dispersion_field.setObjectName(u"dispersion_field")
+        self.dispersion_field.setGeometry(QRect(1130, 410, 141, 61))
+        self.dispersion_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.id_field = QLineEdit(self.NTP)
+        self.id_field.setObjectName(u"id_field")
+        self.id_field.setGeometry(QRect(650, 530, 621, 61))
+        self.id_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.delay_field = QLineEdit(self.NTP)
+        self.delay_field.setObjectName(u"delay_field")
+        self.delay_field.setGeometry(QRect(970, 410, 141, 61))
+        self.delay_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.poll_field = QLineEdit(self.NTP)
+        self.poll_field.setObjectName(u"poll_field")
+        self.poll_field.setGeometry(QRect(650, 410, 141, 61))
+        self.poll_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.sent_field = QLineEdit(self.NTP)
+        self.sent_field.setObjectName(u"sent_field")
+        self.sent_field.setGeometry(QRect(1130, 770, 141, 61))
+        self.sent_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.stratum_field = QLineEdit(self.NTP)
+        self.stratum_field.setObjectName(u"stratum_field")
+        self.stratum_field.setGeometry(QRect(1130, 290, 141, 61))
+        self.stratum_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.version_field = QLineEdit(self.NTP)
+        self.version_field.setObjectName(u"version_field")
+        self.version_field.setGeometry(QRect(810, 290, 141, 61))
+        self.version_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.precision_field = QLineEdit(self.NTP)
+        self.precision_field.setObjectName(u"precision_field")
+        self.precision_field.setGeometry(QRect(810, 410, 141, 61))
+        self.precision_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.leap_field = QLineEdit(self.NTP)
+        self.leap_field.setObjectName(u"leap_field")
+        self.leap_field.setGeometry(QRect(650, 290, 141, 61))
+        self.leap_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.referenceid_field = QLineEdit(self.NTP)
+        self.referenceid_field.setObjectName(u"referenceid_field")
+        self.referenceid_field.setGeometry(QRect(650, 650, 621, 61))
+        self.referenceid_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.recieve_field = QLineEdit(self.NTP)
+        self.recieve_field.setObjectName(u"recieve_field")
+        self.recieve_field.setGeometry(QRect(970, 770, 141, 61))
+        self.recieve_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.origin_field = QLineEdit(self.NTP)
+        self.origin_field.setObjectName(u"origin_field")
+        self.origin_field.setGeometry(QRect(810, 770, 141, 61))
+        self.origin_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.reference_field = QLineEdit(self.NTP)
+        self.reference_field.setObjectName(u"reference_field")
+        self.reference_field.setGeometry(QRect(650, 770, 141, 61))
+        self.reference_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.srcad_23 = QLabel(self.NTP)
+        self.srcad_23.setObjectName(u"srcad_23")
+        self.srcad_23.setGeometry(QRect(810, 470, 141, 41))
+        self.srcad_23.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_24 = QLabel(self.NTP)
+        self.srcad_24.setObjectName(u"srcad_24")
+        self.srcad_24.setGeometry(QRect(1130, 470, 141, 41))
+        self.srcad_24.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_25 = QLabel(self.NTP)
+        self.srcad_25.setObjectName(u"srcad_25")
+        self.srcad_25.setGeometry(QRect(970, 470, 141, 41))
+        self.srcad_25.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_26 = QLabel(self.NTP)
+        self.srcad_26.setObjectName(u"srcad_26")
+        self.srcad_26.setGeometry(QRect(650, 470, 141, 41))
+        self.srcad_26.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_27 = QLabel(self.NTP)
+        self.srcad_27.setObjectName(u"srcad_27")
+        self.srcad_27.setGeometry(QRect(650, 590, 621, 41))
+        self.srcad_27.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_28 = QLabel(self.NTP)
+        self.srcad_28.setObjectName(u"srcad_28")
+        self.srcad_28.setGeometry(QRect(970, 830, 141, 41))
+        self.srcad_28.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_29 = QLabel(self.NTP)
+        self.srcad_29.setObjectName(u"srcad_29")
+        self.srcad_29.setGeometry(QRect(650, 830, 141, 41))
+        self.srcad_29.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_30 = QLabel(self.NTP)
+        self.srcad_30.setObjectName(u"srcad_30")
+        self.srcad_30.setGeometry(QRect(810, 830, 141, 41))
+        self.srcad_30.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_31 = QLabel(self.NTP)
+        self.srcad_31.setObjectName(u"srcad_31")
+        self.srcad_31.setGeometry(QRect(1130, 830, 141, 41))
+        self.srcad_31.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_32 = QLabel(self.NTP)
+        self.srcad_32.setObjectName(u"srcad_32")
+        self.srcad_32.setGeometry(QRect(650, 710, 621, 41))
+        self.srcad_32.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_33 = QLabel(self.NTP)
+        self.srcad_33.setObjectName(u"srcad_33")
+        self.srcad_33.setGeometry(QRect(970, 350, 141, 41))
+        self.srcad_33.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_34 = QLabel(self.NTP)
+        self.srcad_34.setObjectName(u"srcad_34")
+        self.srcad_34.setGeometry(QRect(1130, 350, 141, 41))
+        self.srcad_34.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_35 = QLabel(self.NTP)
+        self.srcad_35.setObjectName(u"srcad_35")
+        self.srcad_35.setGeometry(QRect(810, 350, 141, 41))
+        self.srcad_35.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_36 = QLabel(self.NTP)
+        self.srcad_36.setObjectName(u"srcad_36")
+        self.srcad_36.setGeometry(QRect(650, 350, 141, 41))
+        self.srcad_36.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.info_6 = QLabel(self.NTP)
+        self.info_6.setObjectName(u"info_6")
+        self.info_6.setGeometry(QRect(200, 910, 351, 16))
+        self.info_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 10pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.stackedWidget.addWidget(self.NTP)
+
+## Page 6 -  DNS PACKET labels, inputs and buttons ##
+
+        self.DNS = QWidget()
+        self.DNS.setObjectName(u"DNS")
+        self.DNS.setStyleSheet(u"background-image: url(:/bg1/dns.png);")
+        self.draft_dns = QPushButton(self.DNS)
+        self.draft_dns.setObjectName(u"draft_dns")
+        self.draft_dns.setGeometry(QRect(1560, 550, 241, 91))
+        self.draft_dns.setAutoFillBackground(False)
+        self.draft_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.send_dns = QPushButton(self.DNS)
+        self.send_dns.setObjectName(u"send_dns")
+        self.send_dns.setGeometry(QRect(1560, 680, 241, 91))
+        self.send_dns.setAutoFillBackground(False)
+        self.send_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.srcad_39 = QLabel(self.DNS)
+        self.srcad_39.setObjectName(u"srcad_39")
+        self.srcad_39.setGeometry(QRect(790, 650, 141, 41))
+        self.srcad_39.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.srcad_37 = QLabel(self.DNS)
+        self.srcad_37.setObjectName(u"srcad_37")
+        self.srcad_37.setGeometry(QRect(1010, 650, 141, 41))
+        self.srcad_37.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qname_field = QLineEdit(self.DNS)
+        self.qname_field.setObjectName(u"qname_field")
+        self.qname_field.setGeometry(QRect(460, 370, 1021, 61))
+        self.qname_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.srcad_38 = QLabel(self.DNS)
+        self.srcad_38.setObjectName(u"srcad_38")
+        self.srcad_38.setGeometry(QRect(460, 430, 1021, 41))
+        self.srcad_38.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qtype_field = QLineEdit(self.DNS)
+        self.qtype_field.setObjectName(u"qtype_field")
+        self.qtype_field.setGeometry(QRect(790, 590, 141, 61))
+        self.qtype_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.qclass_field = QLineEdit(self.DNS)
+        self.qclass_field.setObjectName(u"qclass_field")
+        self.qclass_field.setGeometry(QRect(1010, 590, 141, 61))
+        self.qclass_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.info_7 = QLabel(self.DNS)
+        self.info_7.setObjectName(u"info_7")
+        self.info_7.setGeometry(QRect(200, 910, 351, 16))
+        self.info_7.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 10pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.stackedWidget.addWidget(self.DNS)
+
+## Page 6 -  SSDP PACKET labels, inputs and buttons ##
+
+        self.SSDP = QWidget()
+        self.SSDP.setObjectName(u"SSDP")
+        self.SSDP.setStyleSheet(u"background-image: url(:/bg1/ssdp.png);")
+        self.draft_dns_2 = QPushButton(self.SSDP)
+        self.draft_dns_2.setObjectName(u"draft_dns_2")
+        self.draft_dns_2.setGeometry(QRect(1560, 550, 241, 91))
+        self.draft_dns_2.setAutoFillBackground(False)
+        self.draft_dns_2.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.send_dns_2 = QPushButton(self.SSDP)
+        self.send_dns_2.setObjectName(u"send_dns_2")
+        self.send_dns_2.setGeometry(QRect(1560, 680, 241, 91))
+        self.send_dns_2.setAutoFillBackground(False)
+        self.send_dns_2.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.srcad_40 = QLabel(self.SSDP)
+        self.srcad_40.setObjectName(u"srcad_40")
+        self.srcad_40.setGeometry(QRect(770, 700, 141, 41))
+        self.srcad_40.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qtype_field_2 = QLineEdit(self.SSDP)
+        self.qtype_field_2.setObjectName(u"qtype_field_2")
+        self.qtype_field_2.setGeometry(QRect(1020, 490, 371, 61))
+        self.qtype_field_2.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.srcad_41 = QLabel(self.SSDP)
+        self.srcad_41.setObjectName(u"srcad_41")
+        self.srcad_41.setGeometry(QRect(1020, 550, 141, 41))
+        self.srcad_41.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qclass_field_2 = QLineEdit(self.SSDP)
+        self.qclass_field_2.setObjectName(u"qclass_field_2")
+        self.qclass_field_2.setGeometry(QRect(770, 640, 371, 61))
+        self.qclass_field_2.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.srcad_42 = QLabel(self.SSDP)
+        self.srcad_42.setObjectName(u"srcad_42")
+        self.srcad_42.setGeometry(QRect(1020, 420, 141, 41))
+        self.srcad_42.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qtype_field_3 = QLineEdit(self.SSDP)
+        self.qtype_field_3.setObjectName(u"qtype_field_3")
+        self.qtype_field_3.setGeometry(QRect(550, 490, 371, 61))
+        self.qtype_field_3.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.srcad_43 = QLabel(self.SSDP)
+        self.srcad_43.setObjectName(u"srcad_43")
+        self.srcad_43.setGeometry(QRect(550, 550, 141, 41))
+        self.srcad_43.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qclass_field_3 = QLineEdit(self.SSDP)
+        self.qclass_field_3.setObjectName(u"qclass_field_3")
+        self.qclass_field_3.setGeometry(QRect(1020, 360, 371, 61))
+        self.qclass_field_3.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.srcad_44 = QLabel(self.SSDP)
+        self.srcad_44.setObjectName(u"srcad_44")
+        self.srcad_44.setGeometry(QRect(550, 420, 141, 41))
+        self.srcad_44.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.qclass_field_4 = QLineEdit(self.SSDP)
+        self.qclass_field_4.setObjectName(u"qclass_field_4")
+        self.qclass_field_4.setGeometry(QRect(550, 360, 371, 61))
+        self.qclass_field_4.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.info_8 = QLabel(self.SSDP)
+        self.info_8.setObjectName(u"info_8")
+        self.info_8.setGeometry(QRect(200, 910, 351, 16))
+        self.info_8.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 10pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.stackedWidget.addWidget(self.SSDP)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(4)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -636,5 +967,90 @@ class Ui_MainWindow(object):
         self.dst_txt.setText(QCoreApplication.translate("MainWindow", u"Destination Port", None))
         self.info3.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
         self.def_udp.setText(QCoreApplication.translate("MainWindow", u"Default", None))
+        self.send_ntp.setText(QCoreApplication.translate("MainWindow", u"Send Packet", None))
+        self.draft_ntp.setText(QCoreApplication.translate("MainWindow", u"Save As Draft", None))
+        self.mode_field.setText("")
+        self.dispersion_field.setText("")
+        self.id_field.setText("")
+        self.delay_field.setText("")
+        self.poll_field.setText("")
+        self.sent_field.setText("")
+        self.stratum_field.setText("")
+        self.version_field.setText("")
+        self.precision_field.setText("")
+        self.leap_field.setText("")
+        self.referenceid_field.setText("")
+        self.recieve_field.setText("")
+        self.origin_field.setText("")
+        self.reference_field.setText("")
+        self.srcad_23.setText(QCoreApplication.translate("MainWindow", u"Precision", None))
+        self.srcad_24.setText(QCoreApplication.translate("MainWindow", u"Dispersion", None))
+        self.srcad_25.setText(QCoreApplication.translate("MainWindow", u"Delay", None))
+        self.srcad_26.setText(QCoreApplication.translate("MainWindow", u"Poll", None))
+        self.srcad_27.setText(QCoreApplication.translate("MainWindow", u"ID", None))
+        self.srcad_28.setText(QCoreApplication.translate("MainWindow", u"Recieve", None))
+        self.srcad_29.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
+        self.srcad_30.setText(QCoreApplication.translate("MainWindow", u"Origin", None))
+        self.srcad_31.setText(QCoreApplication.translate("MainWindow", u"Sent", None))
+        self.srcad_32.setText(QCoreApplication.translate("MainWindow", u"Reference ID", None))
+        self.srcad_33.setText(QCoreApplication.translate("MainWindow", u"Mode", None))
+        self.srcad_34.setText(QCoreApplication.translate("MainWindow", u"Stratum", None))
+        self.srcad_35.setText(QCoreApplication.translate("MainWindow", u"Version", None))
+        self.srcad_36.setText(QCoreApplication.translate("MainWindow", u"Leap", None))
+        self.info_6.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
+        self.draft_dns.setText(QCoreApplication.translate("MainWindow", u"Save As Draft", None))
+        self.send_dns.setText(QCoreApplication.translate("MainWindow", u"Send Packet", None))
+        self.srcad_39.setText(QCoreApplication.translate("MainWindow", u"Qtype", None))
+        self.srcad_37.setText(QCoreApplication.translate("MainWindow", u"Qclass", None))
+        self.qname_field.setText("")
+        self.srcad_38.setText(QCoreApplication.translate("MainWindow", u"Qname", None))
+        self.qtype_field.setText("")
+        self.qclass_field.setText("")
+        self.info_7.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
+        self.draft_dns_2.setText(QCoreApplication.translate("MainWindow", u"Save As Draft", None))
+        self.send_dns_2.setText(QCoreApplication.translate("MainWindow", u"Send Packet", None))
+        self.srcad_40.setText(QCoreApplication.translate("MainWindow", u"ST", None))
+        self.qtype_field_2.setText("")
+        self.srcad_41.setText(QCoreApplication.translate("MainWindow", u"MX", None))
+        self.qclass_field_2.setText("")
+        self.srcad_42.setText(QCoreApplication.translate("MainWindow", u"Port", None))
+        self.qtype_field_3.setText("")
+        self.srcad_43.setText(QCoreApplication.translate("MainWindow", u"MAN", None))
+        self.qclass_field_3.setText("")
+        self.srcad_44.setText(QCoreApplication.translate("MainWindow", u"Host", None))
+        self.qclass_field_4.setText("")
+        self.info_8.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
     # retranslateUi
 
+    def ethpage(self, packet):
+
+        self.pressed = packet
+        self.stackedWidget.setCurrentIndex(2)
+
+    def ippage(self):
+
+        self.stackedWidget.setCurrentIndex(3)
+
+    def udppage(self):
+
+        self.stackedWidget.setCurrentIndex(4)
+
+    def nxtpage(self):
+
+        if self.pressed == 'ntp':
+
+                self.stackedWidget.setCurrentIndex(5)
+        elif self.pressed == 'dns':
+
+                self.stackedWidget.setCurrentIndex(6)
+        elif self.pressed == 'ssdp':
+
+                self.stackedWidget.setCurrentIndex(7)
+
+    def chosen(self):
+
+        text = self.sentop.currentText()
+
+        if text == 'New Packet':
+
+                self.stackedWidget.setCurrentIndex(1)
