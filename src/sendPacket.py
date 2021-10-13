@@ -70,7 +70,7 @@ def sendPacketDNS(packet,listValues):
                                             )
                               )
 
-    scapy.send(packet)
+    scapy.sendp(packet)
 
     packet.show()
 
@@ -102,7 +102,9 @@ def sendPacketNTP(packet,listValues):
                                 
                                 )
 
-    scapy.send(packet)
+    scapy.sendp(packet)
+
+
 
     return 1
 
@@ -116,11 +118,28 @@ OUTPUT: Int result (1 = sent , 0 = error)
 """
 def sendPacketSSDP(packet,listValues):
 
-    #packet = packet/
+
+    payload = "M-SEARCH * HTTP/1.1\r\n" \
+        "HOST:" + listValues[0] + ":" + listValues[1] + "\r\n" \
+        "ST:"+ listValues[2] + "\r\n" \
+        "MAN:" + "\""+ listValues[3] +"\" \r\n" \
+        "MX:" + str(listValues[4]) +"\r\n\r\n"                
+
+    packet = packet/payload
+
+    scapy.sendp(packet)
+
+    packet.show()
 
     return 0
 
 
  #Temproray sample input, Doesnt give the desired output yet   
 DNSlist =["b'www.example.com'",1,1]
-sendPacket(1,"f4:d1:08:0f:84:12","c4:e9:0a:54:be:01","IPv4",4,None,0x0,None,1,"",0,64,4,0x2a2c,"192.168.0.130","1.2.3.4",53627,27025,0x0d93,DNSlist)
+#sendPacket(1,"f4:d1:08:0f:84:12","c4:e9:0a:54:be:01","IPv4",4,None,0x0,None,1,"",0,64,"udp",None,"192.168.0.130","1.2.3.4","domain","domain",None,DNSlist)
+
+SSDPList = ["239.255.255.250.1900","1900","ssdp:all","ssdp:discover",2]
+
+sendPacket(3,"f4:d1:08:0f:84:12","c4:e9:0a:54:be:01","IPv4",4,None,0x0,None,1,"",0,64,"udp",None,"1.2.3.4","1.2.3.4","ssdp","ssdp",None,SSDPList)
+
+
