@@ -16,6 +16,7 @@ OUTPUT: Int result (1 = sent , 0 = error)
 """
 def sendPacket(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
 
+    out = 0
 
     packet = (scapy.Ether(
                         src=ethSrc,
@@ -45,14 +46,15 @@ def sendPacket(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFla
                     )
 
     if(type == 1):
-        print("hi")
-        sendPacketDNS(packet,listValues)
+        out = sendPacketDNS(packet,listValues)
 
     elif(type == 2):
-        sendPacketNTP(packet,listValues)
+        out = sendPacketNTP(packet,listValues)
 
     elif(type == 3):
-        sendPacketSSDP(packet,listValues)
+        out = sendPacketSSDP(packet,listValues)
+
+    return out
 
 """
 FUNCTION NAME: sendPacketDNS
@@ -71,8 +73,6 @@ def sendPacketDNS(packet,listValues):
                               )
 
     scapy.sendp(packet)
-
-    packet.show()
 
     return 1
 
@@ -94,7 +94,7 @@ def sendPacketNTP(packet,listValues):
                                 delay=listValues[6],
                                 dispersion=listValues[7],
                                 id=listValues[8],
-                                ref_id=listValues[9],
+                                #ref_id=listValues[9],
                                 ref=listValues[10],
                                 orig=listValues[11],
                                 recv=listValues[12],
@@ -103,7 +103,6 @@ def sendPacketNTP(packet,listValues):
                                 )
 
     scapy.sendp(packet)
-
 
 
     return 1
@@ -129,17 +128,7 @@ def sendPacketSSDP(packet,listValues):
 
     scapy.sendp(packet)
 
-    packet.show()
+    return 1
 
-    return 0
-
-
- #Temproray sample input, Doesnt give the desired output yet   
-DNSlist =["b'www.example.com'",1,1]
-#sendPacket(1,"f4:d1:08:0f:84:12","c4:e9:0a:54:be:01","IPv4",4,None,0x0,None,1,"",0,64,"udp",None,"192.168.0.130","1.2.3.4","domain","domain",None,DNSlist)
-
-SSDPList = ["239.255.255.250.1900","1900","ssdp:all","ssdp:discover",2]
-
-sendPacket(3,"f4:d1:08:0f:84:12","c4:e9:0a:54:be:01","IPv4",4,None,0x0,None,1,"",0,64,"udp",None,"1.2.3.4","1.2.3.4","ssdp","ssdp",None,SSDPList)
 
 
