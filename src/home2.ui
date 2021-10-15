@@ -74,7 +74,7 @@ color: rgb(255, 255, 255);
       <string>HOME</string>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/homeic.png</normaloff>:/icons/homeic.png</iconset>
      </property>
      <property name="iconSize">
@@ -108,7 +108,7 @@ color: rgb(255, 255, 255);
       <string>SENT</string>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/sendic.png</normaloff>:/icons/sendic.png</iconset>
      </property>
      <property name="iconSize">
@@ -141,7 +141,7 @@ color: rgb(255, 255, 255);</string>
       <string>RECIEVED</string>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/rec.png</normaloff>:/icons/rec.png</iconset>
      </property>
      <property name="iconSize">
@@ -174,7 +174,7 @@ color: rgb(255, 255, 255);</string>
       <string>HELP</string>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
      </property>
      <property name="iconSize">
@@ -207,7 +207,7 @@ color: rgb(255, 255, 255);</string>
       <string>DRAFTS</string>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/editic.png</normaloff>:/icons/editic.png</iconset>
      </property>
      <property name="iconSize">
@@ -266,7 +266,7 @@ color: rgb(255, 255, 255);</string>
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
      </property>
      <property name="iconSize">
@@ -293,7 +293,7 @@ color: rgb(255, 255, 255);</string>
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/notific.png</normaloff>:/icons/notific.png</iconset>
      </property>
      <property name="iconSize">
@@ -320,7 +320,7 @@ color: rgb(255, 255, 255);</string>
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
      </property>
      <property name="iconSize">
@@ -347,7 +347,7 @@ color: rgb(255, 255, 255);</string>
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="haha/source.qrc">
+      <iconset resource="resources/source.qrc">
        <normaloff>:/icons/account.png</normaloff>:/icons/account.png</iconset>
      </property>
      <property name="iconSize">
@@ -371,7 +371,7 @@ color: rgb(255, 255, 255);</string>
      <string notr="true">background-image: url(:/bg1/17.png);</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="home">
      <property name="styleSheet">
@@ -2391,7 +2391,7 @@ background: transparent;</string>
   </widget>
  </widget>
  <resources>
-  <include location="haha/source.qrc"/>
+  <include location="resources/source.qrc"/>
  </resources>
  <connections/>
 </ui>

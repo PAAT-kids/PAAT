@@ -174,8 +174,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget = QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(60, 60, 1851, 1021))
-        self.stackedWidget.setStyleSheet(u"background-image: url(:/bg1/17.png);")
-
+        
 ## Page 1 - Home page ##
 
         self.home = QWidget()
@@ -291,6 +290,9 @@ class Ui_OtherWindow(object):
         self.def_eth.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
+
+        self.def_eth.clicked.connect(self.default_eth)
+
         self.nxt_eth = QPushButton(self.ETH)
         self.nxt_eth.setObjectName(u"nxt_eth")
         self.nxt_eth.setGeometry(QRect(1410, 760, 241, 91))
@@ -313,18 +315,21 @@ class Ui_OtherWindow(object):
         self.srcad.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.srcad.setToolTip("<b style='background:white; color:black;'>Source Address</b>")
         self.dstad = QLabel(self.ETH)
         self.dstad.setObjectName(u"dstad")
         self.dstad.setGeometry(QRect(980, 450, 211, 21))
         self.dstad.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.dstad.setToolTip("<b style='background:white; color:black;'>Destination Address</b>")
         self.ty = QLabel(self.ETH)
         self.ty.setObjectName(u"ty")
         self.ty.setGeometry(QRect(660, 660, 161, 21))
         self.ty.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.ty.setToolTip("<b style='background:white; color:black;'>Type</b>")
         self.stackedWidget.addWidget(self.ETH)
         
         self.nxt_eth.clicked.connect(self.ippage)
@@ -343,6 +348,7 @@ class Ui_OtherWindow(object):
         self.versn.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.versn.setToolTip("<b style='background:white; color:black;'>Version</b>")
         self.IHL_box = QLineEdit(self.IP)
         self.IHL_box.setObjectName(u"IHL_box")
         self.IHL_box.setGeometry(QRect(380, 260, 91, 61))
@@ -353,12 +359,14 @@ class Ui_OtherWindow(object):
         self.ihl.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.ihl.setToolTip("<b style='background:white; color:black;'>IHL</b>")
         self.tos = QLabel(self.IP)
         self.tos.setObjectName(u"tos")
         self.tos.setGeometry(QRect(480, 320, 91, 41))
         self.tos.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.tos.setToolTip("<b style='background:white; color:black;'>TOS</b>")
         self.tos_box = QLineEdit(self.IP)
         self.tos_box.setObjectName(u"tos_box")
         self.tos_box.setGeometry(QRect(480, 260, 161, 61))
@@ -369,6 +377,7 @@ class Ui_OtherWindow(object):
         self.length.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.length.setToolTip("<b style='background:white; color:black;'>Total Length</b>")
         self.len_box = QLineEdit(self.IP)
         self.len_box.setObjectName(u"len_box")
         self.len_box.setGeometry(QRect(660, 260, 381, 61))
@@ -383,12 +392,14 @@ class Ui_OtherWindow(object):
         self.idfn.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.idfn.setToolTip("<b style='background:white; color:black;'>Identification</b>")
         self.flgs = QLabel(self.IP)
         self.flgs.setObjectName(u"flgs")
         self.flgs.setGeometry(QRect(650, 440, 91, 41))
         self.flgs.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.flgs.setToolTip("<b style='background:white; color:black;'>Flags</b>")
         self.flags_box = QLineEdit(self.IP)
         self.flags_box.setObjectName(u"flags_box")
         self.flags_box.setGeometry(QRect(650, 380, 111, 61))
@@ -399,6 +410,7 @@ class Ui_OtherWindow(object):
         self.fragoff.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.fragoff.setToolTip("<b style='background:white; color:black;'>Fragment Offset</b>")
         self.frag_box = QLineEdit(self.IP)
         self.frag_box.setObjectName(u"frag_box")
         self.frag_box.setGeometry(QRect(790, 380, 251, 61))
@@ -409,6 +421,7 @@ class Ui_OtherWindow(object):
         self.ttl.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.ttl.setToolTip("<b style='background:white; color:black;'>TTL</b>")
         self.ttl_box = QLineEdit(self.IP)
         self.ttl_box.setObjectName(u"ttl_box")
         self.ttl_box.setGeometry(QRect(240, 510, 181, 61))
@@ -419,6 +432,7 @@ class Ui_OtherWindow(object):
         self.protcl.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.protcl.setToolTip("<b style='background:white; color:black;'>Protocol</b>")
         self.prtcl_box = QLineEdit(self.IP)
         self.prtcl_box.setObjectName(u"prtcl_box")
         self.prtcl_box.setGeometry(QRect(440, 510, 191, 61))
@@ -429,6 +443,7 @@ class Ui_OtherWindow(object):
         self.hdrchksm.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.hdrchksm.setToolTip("<b style='background:white; color:black;'>Header Checksum</b>")
         self.chksum_box = QLineEdit(self.IP)
         self.chksum_box.setObjectName(u"chksum_box")
         self.chksum_box.setGeometry(QRect(650, 510, 391, 61))
@@ -439,6 +454,7 @@ class Ui_OtherWindow(object):
         self.opts.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.opts.setToolTip("<b style='background:white; color:black;'>Options</b>")
         self.textEdit = QTextEdit(self.IP)
         self.textEdit.setObjectName(u"textEdit")
         self.textEdit.setGeometry(QRect(240, 640, 811, 61))
@@ -453,12 +469,14 @@ class Ui_OtherWindow(object):
         self.srcad_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 15pt \"Franklin Gothic Medium Cond\";\n"
 "background: transparent;")
+        self.srcad_txt.setToolTip("<b style='background:white; color:black;'>Source Address</b>")
         self.dstad_txt = QLabel(self.IP)
         self.dstad_txt.setObjectName(u"dstad_txt")
         self.dstad_txt.setGeometry(QRect(1290, 500, 191, 41))
         self.dstad_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 15pt \"Franklin Gothic Medium Cond\";\n"
 "background: transparent;")
+        self.dstad_txt.setToolTip("<b style='background:white; color:black;'>Destination Address</b>")
         self.dstad1 = QLineEdit(self.IP)
         self.dstad1.setObjectName(u"dstad1")
         self.dstad1.setGeometry(QRect(1220, 540, 351, 61))
@@ -479,6 +497,9 @@ class Ui_OtherWindow(object):
         self.def_ip.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
+
+        self.def_ip.clicked.connect(self.default_ip)
+
         self.info_2 = QLabel(self.IP)
         self.info_2.setObjectName(u"info_2")
         self.info_2.setGeometry(QRect(250, 870, 351, 16))
@@ -510,6 +531,7 @@ class Ui_OtherWindow(object):
         self.srcad_txtt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.srcad_txtt.setToolTip("<b style='background:white; color:black;'>Source Port</b>")
         self.ovr_chksm = QCheckBox(self.UDP)
         self.ovr_chksm.setObjectName(u"ovr_chksm")
         self.ovr_chksm.setGeometry(QRect(770, 350, 321, 31))
@@ -534,6 +556,7 @@ class Ui_OtherWindow(object):
         self.chksm_text.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.chksm_text.setToolTip("<b style='background:white; color:black;'>Checksum</b>")
         self.chksum_box_2 = QLineEdit(self.UDP)
         self.chksum_box_2.setObjectName(u"chksum_box_2")
         self.chksum_box_2.setGeometry(QRect(1190, 330, 141, 61))
@@ -550,12 +573,14 @@ class Ui_OtherWindow(object):
         self.leng_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.leng_txt.setToolTip("<b style='background:white; color:black;'>Length</b>")
         self.dst_txt = QLabel(self.UDP)
         self.dst_txt.setObjectName(u"dst_txt")
         self.dst_txt.setGeometry(QRect(420, 530, 181, 41))
         self.dst_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.dst_txt.setToolTip("<b style='background:white; color:black;'>Destination Port</b>")
         self.info3 = QLabel(self.UDP)
         self.info3.setObjectName(u"info3")
         self.info3.setGeometry(QRect(220, 820, 351, 16))
@@ -568,6 +593,9 @@ class Ui_OtherWindow(object):
         self.def_udp.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
+
+        self.def_udp.clicked.connect(self.default_udp)
+
         self.stackedWidget.addWidget(self.UDP)
 
         self.nxt_udp.clicked.connect(self.nxtpage)
@@ -597,6 +625,16 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+
+        self.def_ntp = QPushButton(self.NTP)
+        self.def_ntp.setObjectName(u"def_ntp")
+        self.def_ntp.setGeometry(QRect(200, 860, 151, 41))
+        self.def_ntp.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
+"background: rgb(79, 192, 232);\n"
+"color: rgb(255, 255, 255);")
+
+        self.def_ntp.clicked.connect(self.default_ntp)
+
         self.mode_field = QLineEdit(self.NTP)
         self.mode_field.setObjectName(u"mode_field")
         self.mode_field.setGeometry(QRect(970, 290, 141, 61))
@@ -653,90 +691,104 @@ class Ui_OtherWindow(object):
         self.reference_field.setObjectName(u"reference_field")
         self.reference_field.setGeometry(QRect(650, 770, 141, 61))
         self.reference_field.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.srcad_23 = QLabel(self.NTP)
-        self.srcad_23.setObjectName(u"srcad_23")
-        self.srcad_23.setGeometry(QRect(810, 470, 141, 41))
-        self.srcad_23.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.precision_label = QLabel(self.NTP)
+        self.precision_label.setObjectName(u"precision_label")
+        self.precision_label.setGeometry(QRect(810, 470, 141, 41))
+        self.precision_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_24 = QLabel(self.NTP)
-        self.srcad_24.setObjectName(u"srcad_24")
-        self.srcad_24.setGeometry(QRect(1130, 470, 141, 41))
-        self.srcad_24.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.precision_label.setToolTip("<b style='background:white; color:black;'>Precision</b>")
+        self.dispersion_label = QLabel(self.NTP)
+        self.dispersion_label.setObjectName(u"dispersion_label")
+        self.dispersion_label.setGeometry(QRect(1130, 470, 141, 41))
+        self.dispersion_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_25 = QLabel(self.NTP)
-        self.srcad_25.setObjectName(u"srcad_25")
-        self.srcad_25.setGeometry(QRect(970, 470, 141, 41))
-        self.srcad_25.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.dispersion_label.setToolTip("<b style='background:white; color:black;'>Dispersion</b>")
+        self.delay_label = QLabel(self.NTP)
+        self.delay_label.setObjectName(u"delay_label")
+        self.delay_label.setGeometry(QRect(970, 470, 141, 41))
+        self.delay_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_26 = QLabel(self.NTP)
-        self.srcad_26.setObjectName(u"srcad_26")
-        self.srcad_26.setGeometry(QRect(650, 470, 141, 41))
-        self.srcad_26.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.delay_label.setToolTip("<b style='background:white; color:black;'>Delay</b>")
+        self.poll_label = QLabel(self.NTP)
+        self.poll_label.setObjectName(u"poll_label")
+        self.poll_label.setGeometry(QRect(650, 470, 141, 41))
+        self.poll_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_27 = QLabel(self.NTP)
-        self.srcad_27.setObjectName(u"srcad_27")
-        self.srcad_27.setGeometry(QRect(650, 590, 621, 41))
-        self.srcad_27.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.poll_label.setToolTip("<b style='background:white; color:black;'>Poll</b>")
+        self.id_label = QLabel(self.NTP)
+        self.id_label.setObjectName(u"id_label")
+        self.id_label.setGeometry(QRect(650, 590, 621, 41))
+        self.id_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_28 = QLabel(self.NTP)
-        self.srcad_28.setObjectName(u"srcad_28")
-        self.srcad_28.setGeometry(QRect(970, 830, 141, 41))
-        self.srcad_28.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.id_label.setToolTip("<b style='background:white; color:black;'>ID</b>")
+        self.recieve_label = QLabel(self.NTP)
+        self.recieve_label.setObjectName(u"recieve_label")
+        self.recieve_label.setGeometry(QRect(970, 830, 141, 41))
+        self.recieve_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_29 = QLabel(self.NTP)
-        self.srcad_29.setObjectName(u"srcad_29")
-        self.srcad_29.setGeometry(QRect(650, 830, 141, 41))
-        self.srcad_29.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.recieve_label.setToolTip("<b style='background:white; color:black;'>Recieve</b>")
+        self.reference_label = QLabel(self.NTP)
+        self.reference_label.setObjectName(u"reference_label")
+        self.reference_label.setGeometry(QRect(650, 830, 141, 41))
+        self.reference_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_30 = QLabel(self.NTP)
-        self.srcad_30.setObjectName(u"srcad_30")
-        self.srcad_30.setGeometry(QRect(810, 830, 141, 41))
-        self.srcad_30.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.reference_label.setToolTip("<b style='background:white; color:black;'>Reference</b>")
+        self.origin_label = QLabel(self.NTP)
+        self.origin_label.setObjectName(u"origin_label")
+        self.origin_label.setGeometry(QRect(810, 830, 141, 41))
+        self.origin_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_31 = QLabel(self.NTP)
-        self.srcad_31.setObjectName(u"srcad_31")
-        self.srcad_31.setGeometry(QRect(1130, 830, 141, 41))
-        self.srcad_31.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.origin_label.setToolTip("<b style='background:white; color:black;'>Origin</b>")
+        self.sent_label = QLabel(self.NTP)
+        self.sent_label.setObjectName(u"sent_label")
+        self.sent_label.setGeometry(QRect(1130, 830, 141, 41))
+        self.sent_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_32 = QLabel(self.NTP)
-        self.srcad_32.setObjectName(u"srcad_32")
-        self.srcad_32.setGeometry(QRect(650, 710, 621, 41))
-        self.srcad_32.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.sent_label.setToolTip("<b style='background:white; color:black;'>Sent</b>")
+        self.referenceid_label = QLabel(self.NTP)
+        self.referenceid_label.setObjectName(u"referenceid_label")
+        self.referenceid_label.setGeometry(QRect(650, 710, 621, 41))
+        self.referenceid_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_33 = QLabel(self.NTP)
-        self.srcad_33.setObjectName(u"srcad_33")
-        self.srcad_33.setGeometry(QRect(970, 350, 141, 41))
-        self.srcad_33.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.referenceid_label.setToolTip("<b style='background:white; color:black;'>Reference ID</b>")
+        self.mode_label = QLabel(self.NTP)
+        self.mode_label.setObjectName(u"mode_label")
+        self.mode_label.setGeometry(QRect(970, 350, 141, 41))
+        self.mode_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_34 = QLabel(self.NTP)
-        self.srcad_34.setObjectName(u"srcad_34")
-        self.srcad_34.setGeometry(QRect(1130, 350, 141, 41))
-        self.srcad_34.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.mode_label.setToolTip("<b style='background:white; color:black;'>Mode</b>")
+        self.stratum_label = QLabel(self.NTP)
+        self.stratum_label.setObjectName(u"stratum_label")
+        self.stratum_label.setGeometry(QRect(1130, 350, 141, 41))
+        self.stratum_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_35 = QLabel(self.NTP)
-        self.srcad_35.setObjectName(u"srcad_35")
-        self.srcad_35.setGeometry(QRect(810, 350, 141, 41))
-        self.srcad_35.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.stratum_label.setToolTip("<b style='background:white; color:black;'>Stratum</b>")
+        self.version_label = QLabel(self.NTP)
+        self.version_label.setObjectName(u"version_label")
+        self.version_label.setGeometry(QRect(810, 350, 141, 41))
+        self.version_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_36 = QLabel(self.NTP)
-        self.srcad_36.setObjectName(u"srcad_36")
-        self.srcad_36.setGeometry(QRect(650, 350, 141, 41))
-        self.srcad_36.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.version_label.setToolTip("<b style='background:white; color:black;'>Version</b>")
+        self.leap_label = QLabel(self.NTP)
+        self.leap_label.setObjectName(u"leap_label")
+        self.leap_label.setGeometry(QRect(650, 350, 141, 41))
+        self.leap_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.leap_label.setToolTip("<b style='background:white; color:black;'>Leap</b>")
         self.info_6 = QLabel(self.NTP)
         self.info_6.setObjectName(u"info_6")
         self.info_6.setGeometry(QRect(200, 910, 351, 16))
@@ -770,28 +822,41 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        self.srcad_39 = QLabel(self.DNS)
-        self.srcad_39.setObjectName(u"srcad_39")
-        self.srcad_39.setGeometry(QRect(790, 650, 141, 41))
-        self.srcad_39.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+
+        self.def_dns = QPushButton(self.DNS)
+        self.def_dns.setObjectName(u"def_dns")
+        self.def_dns.setGeometry(QRect(200, 860, 151, 41))
+        self.def_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
+"background: rgb(79, 192, 232);\n"
+"color: rgb(255, 255, 255);")
+
+        self.def_dns.clicked.connect(self.default_dns)
+
+        self.qtype_label = QLabel(self.DNS)
+        self.qtype_label.setObjectName(u"qtype_label")
+        self.qtype_label.setGeometry(QRect(790, 650, 141, 41))
+        self.qtype_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_37 = QLabel(self.DNS)
-        self.srcad_37.setObjectName(u"srcad_37")
-        self.srcad_37.setGeometry(QRect(1010, 650, 141, 41))
-        self.srcad_37.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.qtype_label.setToolTip("<b style='background:white; color:black;'>Qtype</b>")
+        self.qclass_label = QLabel(self.DNS)
+        self.qclass_label.setObjectName(u"qclass_label")
+        self.qclass_label.setGeometry(QRect(1010, 650, 141, 41))
+        self.qclass_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.qclass_label.setToolTip("<b style='background:white; color:black;'>Qclass</b>")
         self.qname_field = QLineEdit(self.DNS)
         self.qname_field.setObjectName(u"qname_field")
         self.qname_field.setGeometry(QRect(460, 370, 1021, 61))
         self.qname_field.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.srcad_38 = QLabel(self.DNS)
-        self.srcad_38.setObjectName(u"srcad_38")
-        self.srcad_38.setGeometry(QRect(460, 430, 1021, 41))
-        self.srcad_38.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.qname_label = QLabel(self.DNS)
+        self.qname_label.setObjectName(u"qname_label")
+        self.qname_label.setGeometry(QRect(460, 430, 1021, 41))
+        self.qname_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.qname_label.setToolTip("<b style='background:white; color:black;'>Qname</b>")
         self.qtype_field = QLineEdit(self.DNS)
         self.qtype_field.setObjectName(u"qtype_field")
         self.qtype_field.setGeometry(QRect(790, 590, 141, 61))
@@ -833,56 +898,71 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        self.srcad_40 = QLabel(self.SSDP)
-        self.srcad_40.setObjectName(u"srcad_40")
-        self.srcad_40.setGeometry(QRect(770, 700, 141, 41))
-        self.srcad_40.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+
+        self.def_ssdp = QPushButton(self.SSDP)
+        self.def_ssdp.setObjectName(u"def_ssdp")
+        self.def_ssdp.setGeometry(QRect(200, 860, 151, 41))
+        self.def_ssdp.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
+"background: rgb(79, 192, 232);\n"
+"color: rgb(255, 255, 255);")
+
+        self.def_ssdp.clicked.connect(self.default_ssdp)
+
+        self.st_label = QLabel(self.SSDP)
+        self.st_label.setObjectName(u"st_label")
+        self.st_label.setGeometry(QRect(770, 700, 141, 41))
+        self.st_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qtype_field_2 = QLineEdit(self.SSDP)
-        self.qtype_field_2.setObjectName(u"qtype_field_2")
-        self.qtype_field_2.setGeometry(QRect(1020, 490, 371, 61))
-        self.qtype_field_2.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.srcad_41 = QLabel(self.SSDP)
-        self.srcad_41.setObjectName(u"srcad_41")
-        self.srcad_41.setGeometry(QRect(1020, 550, 141, 41))
-        self.srcad_41.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.st_label.setToolTip("<b style='background:white; color:black;'>ST</b>")
+        self.mx_field = QLineEdit(self.SSDP)
+        self.mx_field.setObjectName(u"mx_field")
+        self.mx_field.setGeometry(QRect(1020, 490, 371, 61))
+        self.mx_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.mx_label = QLabel(self.SSDP)
+        self.mx_label.setObjectName(u"mx_label")
+        self.mx_label.setGeometry(QRect(1020, 550, 141, 41))
+        self.mx_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qclass_field_2 = QLineEdit(self.SSDP)
-        self.qclass_field_2.setObjectName(u"qclass_field_2")
-        self.qclass_field_2.setGeometry(QRect(770, 640, 371, 61))
-        self.qclass_field_2.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.srcad_42 = QLabel(self.SSDP)
-        self.srcad_42.setObjectName(u"srcad_42")
-        self.srcad_42.setGeometry(QRect(1020, 420, 141, 41))
-        self.srcad_42.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.mx_label.setToolTip("<b style='background:white; color:black;'>MX</b>")
+        self.st_field = QLineEdit(self.SSDP)
+        self.st_field.setObjectName(u"st_field")
+        self.st_field.setGeometry(QRect(770, 640, 371, 61))
+        self.st_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.port_label = QLabel(self.SSDP)
+        self.port_label.setObjectName(u"port_label")
+        self.port_label.setGeometry(QRect(1020, 420, 141, 41))
+        self.port_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qtype_field_3 = QLineEdit(self.SSDP)
-        self.qtype_field_3.setObjectName(u"qtype_field_3")
-        self.qtype_field_3.setGeometry(QRect(550, 490, 371, 61))
-        self.qtype_field_3.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.srcad_43 = QLabel(self.SSDP)
-        self.srcad_43.setObjectName(u"srcad_43")
-        self.srcad_43.setGeometry(QRect(550, 550, 141, 41))
-        self.srcad_43.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.port_label.setToolTip("<b style='background:white; color:black;'>Port</b>")
+        self.man_field = QLineEdit(self.SSDP)
+        self.man_field.setObjectName(u"man_field")
+        self.man_field.setGeometry(QRect(550, 490, 371, 61))
+        self.man_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.man_label = QLabel(self.SSDP)
+        self.man_label.setObjectName(u"man_label")
+        self.man_label.setGeometry(QRect(550, 550, 141, 41))
+        self.man_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qclass_field_3 = QLineEdit(self.SSDP)
-        self.qclass_field_3.setObjectName(u"qclass_field_3")
-        self.qclass_field_3.setGeometry(QRect(1020, 360, 371, 61))
-        self.qclass_field_3.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.srcad_44 = QLabel(self.SSDP)
-        self.srcad_44.setObjectName(u"srcad_44")
-        self.srcad_44.setGeometry(QRect(550, 420, 141, 41))
-        self.srcad_44.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+        self.man_label.setToolTip("<b style='background:white; color:black;'>Man</b>")
+        self.port_field = QLineEdit(self.SSDP)
+        self.port_field.setObjectName(u"port_field")
+        self.port_field.setGeometry(QRect(1020, 360, 371, 61))
+        self.port_field.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.host_label = QLabel(self.SSDP)
+        self.host_label.setObjectName(u"host_label")
+        self.host_label.setGeometry(QRect(550, 420, 141, 41))
+        self.host_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qclass_field_4 = QLineEdit(self.SSDP)
-        self.qclass_field_4.setObjectName(u"qclass_field_4")
-        self.qclass_field_4.setGeometry(QRect(550, 360, 371, 61))
-        self.qclass_field_4.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.host_label.setToolTip("<b style='background:white; color:black;'>Host</b>")
+        self.host_field = QLineEdit(self.SSDP)
+        self.host_field.setObjectName(u"host_field")
+        self.host_field.setGeometry(QRect(550, 360, 371, 61))
+        self.host_field.setStyleSheet(u"background: rgb(183, 197, 208);")
         self.info_8 = QLabel(self.SSDP)
         self.info_8.setObjectName(u"info_8")
         self.info_8.setGeometry(QRect(200, 910, 351, 16))
@@ -926,6 +1006,9 @@ class Ui_OtherWindow(object):
 #if QT_CONFIG(accessibility)
         self.sentop.setAccessibleName("")
 #endif // QT_CONFIG(accessibility)
+        self.def_ntp.setText(QCoreApplication.translate("MainWindow", u"Default", None))
+        self.def_dns.setText(QCoreApplication.translate("MainWindow", u"Default", None))
+        self.def_ssdp.setText(QCoreApplication.translate("MainWindow", u"Default", None))
         self.sentop.setCurrentText(QCoreApplication.translate("MainWindow", u"Sent", None))
         self.recieve_pack.setText(QCoreApplication.translate("MainWindow", u"Recieve", None))
         self.dns_bt.setText(QCoreApplication.translate("MainWindow", u"DNS", None))
@@ -983,42 +1066,42 @@ class Ui_OtherWindow(object):
         self.recieve_field.setText("")
         self.origin_field.setText("")
         self.reference_field.setText("")
-        self.srcad_23.setText(QCoreApplication.translate("MainWindow", u"Precision", None))
-        self.srcad_24.setText(QCoreApplication.translate("MainWindow", u"Dispersion", None))
-        self.srcad_25.setText(QCoreApplication.translate("MainWindow", u"Delay", None))
-        self.srcad_26.setText(QCoreApplication.translate("MainWindow", u"Poll", None))
-        self.srcad_27.setText(QCoreApplication.translate("MainWindow", u"ID", None))
-        self.srcad_28.setText(QCoreApplication.translate("MainWindow", u"Recieve", None))
-        self.srcad_29.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
-        self.srcad_30.setText(QCoreApplication.translate("MainWindow", u"Origin", None))
-        self.srcad_31.setText(QCoreApplication.translate("MainWindow", u"Sent", None))
-        self.srcad_32.setText(QCoreApplication.translate("MainWindow", u"Reference ID", None))
-        self.srcad_33.setText(QCoreApplication.translate("MainWindow", u"Mode", None))
-        self.srcad_34.setText(QCoreApplication.translate("MainWindow", u"Stratum", None))
-        self.srcad_35.setText(QCoreApplication.translate("MainWindow", u"Version", None))
-        self.srcad_36.setText(QCoreApplication.translate("MainWindow", u"Leap", None))
+        self.precision_label.setText(QCoreApplication.translate("MainWindow", u"Precision", None))
+        self.dispersion_label.setText(QCoreApplication.translate("MainWindow", u"Dispersion", None))
+        self.delay_label.setText(QCoreApplication.translate("MainWindow", u"Delay", None))
+        self.poll_label.setText(QCoreApplication.translate("MainWindow", u"Poll", None))
+        self.id_label.setText(QCoreApplication.translate("MainWindow", u"ID", None))
+        self.recieve_label.setText(QCoreApplication.translate("MainWindow", u"Recieve", None))
+        self.reference_label.setText(QCoreApplication.translate("MainWindow", u"Reference", None))
+        self.origin_label.setText(QCoreApplication.translate("MainWindow", u"Origin", None))
+        self.sent_label.setText(QCoreApplication.translate("MainWindow", u"Sent", None))
+        self.referenceid_label.setText(QCoreApplication.translate("MainWindow", u"Reference ID", None))
+        self.mode_label.setText(QCoreApplication.translate("MainWindow", u"Mode", None))
+        self.stratum_label.setText(QCoreApplication.translate("MainWindow", u"Stratum", None))
+        self.version_label.setText(QCoreApplication.translate("MainWindow", u"Version", None))
+        self.leap_label.setText(QCoreApplication.translate("MainWindow", u"Leap", None))
         self.info_6.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
         self.draft_dns.setText(QCoreApplication.translate("MainWindow", u"Save As Draft", None))
         self.send_dns.setText(QCoreApplication.translate("MainWindow", u"Send Packet", None))
-        self.srcad_39.setText(QCoreApplication.translate("MainWindow", u"Qtype", None))
-        self.srcad_37.setText(QCoreApplication.translate("MainWindow", u"Qclass", None))
+        self.qtype_label.setText(QCoreApplication.translate("MainWindow", u"Qtype", None))
+        self.qclass_label.setText(QCoreApplication.translate("MainWindow", u"Qclass", None))
         self.qname_field.setText("")
-        self.srcad_38.setText(QCoreApplication.translate("MainWindow", u"Qname", None))
+        self.qname_label.setText(QCoreApplication.translate("MainWindow", u"Qname", None))
         self.qtype_field.setText("")
         self.qclass_field.setText("")
         self.info_7.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
         self.draft_dns_2.setText(QCoreApplication.translate("MainWindow", u"Save As Draft", None))
         self.send_dns_2.setText(QCoreApplication.translate("MainWindow", u"Send Packet", None))
-        self.srcad_40.setText(QCoreApplication.translate("MainWindow", u"ST", None))
-        self.qtype_field_2.setText("")
-        self.srcad_41.setText(QCoreApplication.translate("MainWindow", u"MX", None))
-        self.qclass_field_2.setText("")
-        self.srcad_42.setText(QCoreApplication.translate("MainWindow", u"Port", None))
-        self.qtype_field_3.setText("")
-        self.srcad_43.setText(QCoreApplication.translate("MainWindow", u"MAN", None))
-        self.qclass_field_3.setText("")
-        self.srcad_44.setText(QCoreApplication.translate("MainWindow", u"Host", None))
-        self.qclass_field_4.setText("")
+        self.st_label.setText(QCoreApplication.translate("MainWindow", u"ST", None))
+        self.mx_field.setText("")
+        self.mx_label.setText(QCoreApplication.translate("MainWindow", u"MX", None))
+        self.st_field.setText("")
+        self.port_label.setText(QCoreApplication.translate("MainWindow", u"Port", None))
+        self.man_field.setText("")
+        self.man_label.setText(QCoreApplication.translate("MainWindow", u"MAN", None))
+        self.port_field.setText("")
+        self.host_label.setText(QCoreApplication.translate("MainWindow", u"Host", None))
+        self.host_field.setText("")
         self.info_8.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
     # retranslateUi
 
@@ -1054,3 +1137,60 @@ class Ui_OtherWindow(object):
         if text == 'New Packet':
 
                 self.stackedWidget.setCurrentIndex(1)
+
+    def default_eth(self):
+        
+        self.type.setText("Hello")
+
+    def default_ip(self):
+        
+        self.textEdit.setText("Hello")
+        self.chksum_box.setText("Hello")
+        self.prtcl_box.setText("Hello")
+        self.ttl_box.setText("Hello")
+        self.frag_box.setText("Hello")
+        self.flags_box.setText("Hello")
+        self.id_box.setText("Hello")
+        self.len_box.setText("Hello")
+        self.tos_box.setText("Hello")
+        self.IHL_box.setText("Hello")
+        self.vrsn_box.setText("Hello")
+
+    def default_udp(self):
+        
+        self.source_box.setText("Hello")
+        self.chksum_box_2.setText("Hello")
+        self.leng_box.setText("Hello")
+        self.dest_box.setText("Hello")
+        self.ovr_chksm.setChecked(True)
+        self.ovr_lenval.setChecked(True)
+
+    def default_ntp(self):
+        
+        self.leap_field.setText("Hello")
+        self.version_field.setText("Hello")
+        self.mode_field.setText("Hello")
+        self.stratum_field.setText("Hello")
+        self.poll_field.setText("Hello")
+        self.precision_field.setText("Hello")
+        self.delay_field.setText("Hello")
+        self.dispersion_field.setText("Hello")
+        self.id_field.setText("Hello")
+        self.referenceid_field.setText("Hello")
+        self.reference_field.setText("Hello")
+        self.origin_field.setText("Hello")
+        self.recieve_field.setText("Hello")
+        self.sent_field.setText("Hello")
+
+    def default_dns(self):
+        
+        self.qname_field.setText("Hello")
+        self.qclass_field.setText("Hello")
+        self.qtype_field.setText("Hello")
+
+    def default_ssdp(self):
+        
+        self.mx_field.setText("Hello")
+        self.man_field.setText("Hello")
+        self.st_field.setText("Hello")
+        self.host_field.setText("Hello")

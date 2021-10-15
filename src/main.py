@@ -10,8 +10,8 @@
 ################################################################################
 import sys
 import os
-from signup import signup
-from login import connections
+#from signup import signup
+#from login import connections
 from PyQt5.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
     QRect, QSize, QUrl, Qt)
 from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
@@ -33,14 +33,13 @@ from home2 import *
 class MainWindow(QMainWindow):
 	def __init__(self, parent=None):
 		QMainWindow.__init__(self)
-		self.ui = Ui_OtherWindow()
+		self.ui = Ui_MainWindow()
 		self.ui.setupUi(self)
 
 		#######################################################################
 		# SHOW WINDOW
 		#######################################################################
 		self.show()
-		
 
 ########################################################################
 ## EXECUTE APP
@@ -55,12 +54,12 @@ if __name__ == "__main__":
 
 
 	#when login button is clicked
-	window.ui.login.clicked.connect(lambda: connections().connect_database(window.ui.username_lg.text(), 
-									      window.ui.password_lg.text()))
+	#window.ui.login.clicked.connect(lambda: connections().connect_database(window.ui.username_lg.text(), 
+	#								      window.ui.password_lg.text()))
 	#when signup button is clicked
-	window.ui.signup.clicked.connect(lambda: signup(window.ui.email_su.text(), 
-							window.ui.username_su.text(),
-							window.ui.password_su.text()))
+	#window.ui.signup.clicked.connect(lambda: signup(window.ui.email_su.text(), 
+	#						window.ui.username_su.text(),
+	#						window.ui.password_su.text()))
 	sys.exit(app.exec_())
 ########################################################################
 ## END===>
