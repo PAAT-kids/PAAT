@@ -200,21 +200,22 @@ class Ui_OtherWindow(object):
         icon7.addFile(u":/icons/settings.png", QSize(), QIcon.Normal, QIcon.Off)
         self.settings_icon.setIcon(icon7)
         self.settings_icon.setIconSize(QSize(45, 55))
+        self.settings_icon.clicked.connect(self.gosettings)
 
         self.horizontalLayout_2.addWidget(self.settings_icon)
 
-## ACCOUNT ICON ##
-        self.account_icon = QPushButton(self.top_menu)
-        self.account_icon.setObjectName(u"account_icon")
-        self.account_icon.setGeometry(QRect(730, 10, 91, 51))
-        self.account_icon.setStyleSheet(u"background: transparent;\n"
+## CONTACT ICON ##
+        self.contact_icon = QPushButton(self.top_menu)
+        self.contact_icon.setObjectName(u"contact_icon")
+        self.contact_icon.setGeometry(QRect(730, 10, 91, 51))
+        self.contact_icon.setStyleSheet(u"background: transparent;\n"
 "color: rgb(255, 255, 255);")
         icon8 = QIcon()
-        icon8.addFile(u":/icons/account.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.account_icon.setIcon(icon8)
-        self.account_icon.setIconSize(QSize(45, 45))
+        icon8.addFile(u":/icons/contacts.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.contact_icon.setIcon(icon8)
+        self.contact_icon.setIconSize(QSize(45, 45))
 
-        self.horizontalLayout_2.addWidget(self.account_icon)
+        self.horizontalLayout_2.addWidget(self.contact_icon)
 
 
 #####################################################
@@ -1021,6 +1022,114 @@ class Ui_OtherWindow(object):
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.stackedWidget.addWidget(self.SSDP)
+
+## Page 8 - Settings ##
+
+        self.Account = QWidget()
+        self.Account.setObjectName(u"Account")
+        self.Account.setStyleSheet(u"background: url(:/bg1/settingss.png);")
+        self.darkm = QPushButton(self.Account)
+        self.darkm.setObjectName(u"darkm")
+        self.darkm.setGeometry(QRect(930, 720, 111, 101))
+        self.darkm.setAutoFillBackground(False)
+        self.darkm.setStyleSheet(u"background: transparent;\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/dark.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.darkm.setIcon(icon9)
+        self.darkm.setIconSize(QSize(86, 76))
+        self.darkm.setCheckable(True)
+        self.darkm.setChecked(True)
+        self.name = QLabel(self.Account)
+        self.name.setObjectName(u"name")
+        self.name.setGeometry(QRect(750, 320, 131, 51))
+        self.name.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 33pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;")
+        self.accpic = QLabel(self.Account)
+        self.accpic.setObjectName(u"accpic")
+        self.accpic.setGeometry(QRect(420, 260, 251, 241))
+        self.accpic.setStyleSheet(u"background: url(:/icons/account.png);\n"
+"background-repeat: none;")
+        self.usernamee = QLabel(self.Account)
+        self.usernamee.setObjectName(u"usernamee")
+        self.usernamee.setGeometry(QRect(750, 400, 161, 31))
+        self.usernamee.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 15pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.paswd = QLabel(self.Account)
+        self.paswd.setObjectName(u"paswd")
+        self.paswd.setGeometry(QRect(520, 640, 111, 21))
+        self.paswd.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font:  14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.settings1 = QLabel(self.Account)
+        self.settings1.setObjectName(u"settings1")
+        self.settings1.setGeometry(QRect(520, 750, 151, 31))
+        self.settings1.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.email1 = QLabel(self.Account)
+        self.email1.setObjectName(u"email1")
+        self.email1.setGeometry(QRect(520, 590, 71, 21))
+        self.email1.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font:  14pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.lightm = QPushButton(self.Account)
+        self.lightm.setObjectName(u"lightm")
+        self.lightm.setGeometry(QRect(760, 720, 111, 101))
+        self.lightm.setAutoFillBackground(False)
+        self.lightm.setStyleSheet(u"background: transparent;\n"
+"")
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/light.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.lightm.setIcon(icon10)
+        self.lightm.setIconSize(QSize(86, 76))
+        self.lightm.setCheckable(True)
+        self.lightm.setChecked(True)
+        self.save = QPushButton(self.Account)
+        self.save.setObjectName(u"save")
+        self.save.setGeometry(QRect(710, 850, 271, 81))
+        self.save.setAutoFillBackground(False)
+        self.save.setStyleSheet(u"font: 18pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.cancel = QPushButton(self.Account)
+        self.cancel.setObjectName(u"cancel")
+        self.cancel.setGeometry(QRect(1010, 880, 101, 28))
+        self.cancel.setStyleSheet(u"background: transparent;\n"
+"font: 12pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"")
+        self.em_txt = QLineEdit(self.Account)
+        self.em_txt.setObjectName(u"em_txt")
+        self.em_txt.setGeometry(QRect(680, 580, 411, 31))
+        self.em_txt.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.psd_txt = QLineEdit(self.Account)
+        self.psd_txt.setObjectName(u"psd_txt")
+        self.psd_txt.setGeometry(QRect(680, 640, 411, 31))
+        self.psd_txt.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.stackedWidget.addWidget(self.Account)
+        self.psd_txt.raise_()
+        self.em_txt.raise_()
+        self.darkm.raise_()
+        self.name.raise_()
+        self.accpic.raise_()
+        self.usernamee.raise_()
+        self.paswd.raise_()
+        self.settings1.raise_()
+        self.email1.raise_()
+        self.lightm.raise_()
+        self.save.raise_()
+        self.cancel.raise_()
+
+
+
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.side_menu.raise_()
@@ -1044,7 +1153,7 @@ class Ui_OtherWindow(object):
         self.menu_icon.setText("")
         self.notif_icon.setText("")
         self.settings_icon.setText("")
-        self.account_icon.setText("")
+        self.contact_icon.setText("")
         self.sentl.setText(QCoreApplication.translate("MainWindow", u"     Send", None))
         self.sentop.setItemText(0, QCoreApplication.translate("MainWindow", u"Sent", None))
         self.sentop.setItemText(1, QCoreApplication.translate("MainWindow", u"Drafts", None))
@@ -1157,11 +1266,28 @@ class Ui_OtherWindow(object):
         self.host_label.setText(QCoreApplication.translate("MainWindow", u"Host", None))
         self.host_field.setText("")
         self.info_8.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
+        self.darkm.setText("")
+        self.name.setText(QCoreApplication.translate("MainWindow", u"Name", None))
+        self.accpic.setText("")
+        self.usernamee.setText(QCoreApplication.translate("MainWindow", u"@username", None))
+        self.paswd.setText(QCoreApplication.translate("MainWindow", u"Password", None))
+        self.settings1.setText(QCoreApplication.translate("MainWindow", u"View Settings", None))
+        self.email1.setText(QCoreApplication.translate("MainWindow", u"Email", None))
+        self.lightm.setText("")
+        self.save.setText(QCoreApplication.translate("MainWindow", u"Save Changes", None))
+        self.cancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
+        self.em_txt.setText("")
+        self.psd_txt.setText("")
     # retranslateUi
 
     def home(self):
 
         self.stackedWidget.setCurrentIndex(0)
+
+    def gosettings(self):
+
+        self.stackedWidget.setCurrentIndex(8)   
+
 
     def ethpage(self, packet):
 
@@ -1255,7 +1381,7 @@ class Ui_OtherWindow(object):
 
     def slideleft(self):
         width = self.side_menu.width()
-        
+
         if width == 63:
                 width = 200
 
