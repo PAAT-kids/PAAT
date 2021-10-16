@@ -1140,28 +1140,28 @@ class Ui_OtherWindow(object):
 
     def default_eth(self):
         
-        self.type.setText("Hello")
+        self.type.setText("0x800")
 
     def default_ip(self):
         
-        self.textEdit.setText("Hello")
-        self.chksum_box.setText("Hello")
-        self.prtcl_box.setText("Hello")
-        self.ttl_box.setText("Hello")
-        self.frag_box.setText("Hello")
-        self.flags_box.setText("Hello")
-        self.id_box.setText("Hello")
-        self.len_box.setText("Hello")
-        self.tos_box.setText("Hello")
-        self.IHL_box.setText("Hello")
-        self.vrsn_box.setText("Hello")
+        self.textEdit.setText("  ")
+        self.chksum_box.setText("0x3b10")
+        self.prtcl_box.setText("UDP")
+        self.ttl_box.setText("64")
+        self.frag_box.setText("0L")
+        self.flags_box.setText("DF")
+        self.id_box.setText("28350")
+        self.len_box.setText("61")
+        self.tos_box.setText("0x0")
+        self.IHL_box.setText("5L")
+        self.vrsn_box.setText("4L")
 
     def default_udp(self):
         
-        self.source_box.setText("Hello")
-        self.chksum_box_2.setText("Hello")
-        self.leng_box.setText("Hello")
-        self.dest_box.setText("Hello")
+        self.source_box.setText("isakmp")
+        self.chksum_box_2.setText("0x5794")
+        self.leng_box.setText("41")
+        self.dest_box.setText("isakmp")
         self.ovr_chksm.setChecked(True)
         self.ovr_lenval.setChecked(True)
 
