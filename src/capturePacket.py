@@ -1,11 +1,11 @@
 from scapy.all import *
 
-###################################################
-#Author: Samrah Tahir				 			                #
-#LAST MODIFIED: 16 Oct 2021			  			          #
-#PURPOSE: To capture the packets and calculate 	  #
-#amplificaiton 				           	 		            #
-###################################################
+'''
+#Author: Samrah Tahir				 			              
+#LAST MODIFIED: 16 Oct 2021			  			          
+#PURPOSE: To capture the packets and calculate 	  
+#amplificaiton 				           	 		            
+'''
 DNSQuery = {"src": '', "dst": '', "sport": ''} #temporary data structures
 NTPQuery = {"src": '', "dst": '', "mode": 0}
 NTPQueryList = []
