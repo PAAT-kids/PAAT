@@ -4,7 +4,7 @@ from mysql.connector import MySQLConnection, Error
 from scapy.utils import checksum
 from python_mysql_dbconfig import read_db_config
 
-primarykey = 0
+primarykey = 1
 Size = 20
 senderAd = ""
 recAdd = ""
