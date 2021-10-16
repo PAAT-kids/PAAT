@@ -11,6 +11,7 @@
 from typing import Text
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
+from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -39,17 +40,22 @@ class Ui_OtherWindow(object):
 #####################################################
         self.side_menu = QFrame(self.centralwidget)
         self.side_menu.setObjectName(u"side_menu")
-        self.side_menu.setGeometry(QRect(0, 0, 60, 1081))
-        self.side_menu.setMinimumSize(QSize(0, 0))
+        self.side_menu.setGeometry(QRect(0, 0, 61, 1081))
+        self.side_menu.setMinimumSize(QSize(63, 0))
         self.side_menu.setMaximumSize(QSize(200, 16777215))
         self.side_menu.setStyleSheet(u"background: rgb(1, 58, 83)")
         self.side_menu.setFrameShape(QFrame.StyledPanel)
         self.side_menu.setFrameShadow(QFrame.Raised)
 
+        self.horizontalLayout_3 = QHBoxLayout(self.side_menu)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.formLayout = QFormLayout()
+        self.formLayout.setObjectName(u"formLayout")
+
 ## HOME ICON ##
         self.home_icon = QPushButton(self.side_menu)
         self.home_icon.setObjectName(u"home_icon")
-        self.home_icon.setGeometry(QRect(-10, 80, 111, 81))
+        self.home_icon.setGeometry(QRect(-10, 80, 121, 81))
         self.home_icon.setMinimumSize(QSize(100, 0))
         self.home_icon.setStyleSheet(u"background:transparent;\n"
 "color: rgb(255, 255, 255);\n"
@@ -58,11 +64,15 @@ class Ui_OtherWindow(object):
         icon.addFile(u":/icons/homeic.png", QSize(), QIcon.Normal, QIcon.Off)
         self.home_icon.setIcon(icon)
         self.home_icon.setIconSize(QSize(55, 55))
+        self.home_icon.clicked.connect(self.home)
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.home_icon)
+
 
 ## SENT ICON ##
         self.sent_icon = QPushButton(self.side_menu)
         self.sent_icon.setObjectName(u"sent_icon")
-        self.sent_icon.setGeometry(QRect(0, 220, 100, 81))
+        self.sent_icon.setGeometry(QRect(-10, 220, 121, 81))
         self.sent_icon.setMinimumSize(QSize(100, 0))
         self.sent_icon.setStyleSheet(u"background:transparent;\n"
 "color: rgb(255, 255, 255);\n"
@@ -71,6 +81,9 @@ class Ui_OtherWindow(object):
         icon1.addFile(u":/icons/sendic.png", QSize(), QIcon.Normal, QIcon.Off)
         self.sent_icon.setIcon(icon1)
         self.sent_icon.setIconSize(QSize(55, 55))
+        
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.sent_icon)
+
 
 ## RECIEVED ICON ##        
         self.recieve_icon = QPushButton(self.side_menu)
@@ -84,10 +97,13 @@ class Ui_OtherWindow(object):
         self.recieve_icon.setIcon(icon2)
         self.recieve_icon.setIconSize(QSize(55, 55))
 
+        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.recieve_icon)
+
+
 ## INFO ICON ##
         self.info_icon = QPushButton(self.side_menu)
         self.info_icon.setObjectName(u"info_icon")
-        self.info_icon.setGeometry(QRect(0, 760, 100, 81))
+        self.info_icon.setGeometry(QRect(-10, 760, 121, 81))
         self.info_icon.setMinimumSize(QSize(100, 0))
         self.info_icon.setStyleSheet(u"background:transparent;\n"
 "color: rgb(255, 255, 255);")
@@ -96,10 +112,13 @@ class Ui_OtherWindow(object):
         self.info_icon.setIcon(icon3)
         self.info_icon.setIconSize(QSize(55, 55))
 
+        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.info_icon)
+
+
 ## DRAFTS ICON ##
         self.drafts_icon = QPushButton(self.side_menu)
         self.drafts_icon.setObjectName(u"drafts_icon")
-        self.drafts_icon.setGeometry(QRect(0, 510, 111, 81))
+        self.drafts_icon.setGeometry(QRect(0, 510, 121, 81))
         self.drafts_icon.setMinimumSize(QSize(100, 0))
         self.drafts_icon.setStyleSheet(u"background:transparent;\n"
 "color: rgb(255, 255, 255);")
@@ -107,6 +126,14 @@ class Ui_OtherWindow(object):
         icon4.addFile(u":/icons/editic.png", QSize(), QIcon.Normal, QIcon.Off)
         self.drafts_icon.setIcon(icon4)
         self.drafts_icon.setIconSize(QSize(55, 55))
+
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.drafts_icon)
+
+        self.home_icon.raise_()
+        self.recieve_icon.raise_()
+        self.info_icon.raise_()
+        self.drafts_icon.raise_()
+        self.sent_icon.raise_()
 
 #####################################################
 ## Top menu Object (top menu icons and buttons)
@@ -120,10 +147,23 @@ class Ui_OtherWindow(object):
         self.top_menu.setFrameShape(QFrame.StyledPanel)
         self.top_menu.setFrameShadow(QFrame.Raised)
 
+        self.horizontalLayout_2 = QHBoxLayout(self.top_menu)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+
 ## MENU ICON ##
-        self.menu_icon = QPushButton(self.top_menu)
+        self.side_menu_toggle = QFrame(self.top_menu)
+        self.side_menu_toggle.setObjectName(u"side_menu_toggle")
+        self.side_menu_toggle.setGeometry(QRect(0, 0, 100, 61))
+        self.side_menu_toggle.setMinimumSize(QSize(63, 0))
+        self.side_menu_toggle.setMaximumSize(QSize(100, 16777215))
+        self.side_menu_toggle.setStyleSheet(u"background: transparent;")
+        self.side_menu_toggle.setFrameShape(QFrame.StyledPanel)
+        self.side_menu_toggle.setFrameShadow(QFrame.Raised)
+        self.side_menu_toggle.raise_()
+
+        self.menu_icon = QPushButton(self.side_menu_toggle)
         self.menu_icon.setObjectName(u"menu_icon")
-        self.menu_icon.setGeometry(QRect(50, -10, 100, 82))
+        self.menu_icon.setGeometry(QRect(1, 5, 50, 50))
         self.menu_icon.setMinimumSize(QSize(50, 0))
         self.menu_icon.setMaximumSize(QSize(100, 16777215))
         self.menu_icon.setStyleSheet(u"background: transparent;\n"
@@ -132,6 +172,10 @@ class Ui_OtherWindow(object):
         icon5.addFile(u":/icons/menu.png", QSize(), QIcon.Normal, QIcon.Off)
         self.menu_icon.setIcon(icon5)
         self.menu_icon.setIconSize(QSize(55, 55))
+
+        self.menu_icon.clicked.connect(lambda: self.slideleft())
+
+        self.horizontalLayout_2.addWidget(self.menu_icon)
 
 ## NOTIF ICON ##
         self.notif_icon = QPushButton(self.top_menu)
@@ -144,6 +188,8 @@ class Ui_OtherWindow(object):
         self.notif_icon.setIcon(icon6)
         self.notif_icon.setIconSize(QSize(45, 45))
 
+        self.horizontalLayout_2.addWidget(self.notif_icon)
+
 ## SETTINGS ICON ##
         self.settings_icon = QPushButton(self.top_menu)
         self.settings_icon.setObjectName(u"settings_icon")
@@ -154,6 +200,8 @@ class Ui_OtherWindow(object):
         icon7.addFile(u":/icons/settings.png", QSize(), QIcon.Normal, QIcon.Off)
         self.settings_icon.setIcon(icon7)
         self.settings_icon.setIconSize(QSize(45, 55))
+
+        self.horizontalLayout_2.addWidget(self.settings_icon)
 
 ## ACCOUNT ICON ##
         self.account_icon = QPushButton(self.top_menu)
@@ -166,6 +214,8 @@ class Ui_OtherWindow(object):
         self.account_icon.setIcon(icon8)
         self.account_icon.setIconSize(QSize(45, 45))
 
+        self.horizontalLayout_2.addWidget(self.account_icon)
+
 
 #####################################################
 ## Stacked Widget Object (contains all pages and their contents)
@@ -174,6 +224,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget = QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(60, 60, 1851, 1021))
+        self.stackedWidget.setStyleSheet(u"background-image: url(:/bg1/17.png);")
         
 ## Page 1 - Home page ##
 
@@ -873,7 +924,7 @@ class Ui_OtherWindow(object):
 "background: transparent;")
         self.stackedWidget.addWidget(self.DNS)
 
-## Page 6 -  SSDP PACKET labels, inputs and buttons ##
+## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
         self.SSDP = QWidget()
         self.SSDP.setObjectName(u"SSDP")
@@ -971,6 +1022,9 @@ class Ui_OtherWindow(object):
 "background: transparent;")
         self.stackedWidget.addWidget(self.SSDP)
         MainWindow.setCentralWidget(self.centralwidget)
+
+        self.side_menu.raise_()
+        self.top_menu.raise_()
 
         self.retranslateUi(MainWindow)
 
@@ -1105,6 +1159,10 @@ class Ui_OtherWindow(object):
         self.info_8.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
     # retranslateUi
 
+    def home(self):
+
+        self.stackedWidget.setCurrentIndex(0)
+
     def ethpage(self, packet):
 
         self.pressed = packet
@@ -1194,3 +1252,19 @@ class Ui_OtherWindow(object):
         self.man_field.setText("Hello")
         self.st_field.setText("Hello")
         self.host_field.setText("Hello")
+
+    def slideleft(self):
+        width = self.side_menu.width()
+        
+        if width == 63:
+                width = 200
+
+        elif width == 200:
+                width = 63
+
+        self.animation = QPropertyAnimation(self.side_menu, b"minimumWidth")
+        self.animation.setDuration(250)
+        self.animation.setStartValue(width)
+        self.animation.setEndValue(width)
+        self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+        self.animation.start()

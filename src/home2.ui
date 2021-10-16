@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1909</width>
+    <width>1853</width>
     <height>1031</height>
    </rect>
   </property>
@@ -25,8 +25,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>60</width>
-      <height>1081</height>
+      <width>159</width>
+      <height>1031</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -50,173 +50,156 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="home_icon">
-     <property name="geometry">
-      <rect>
-       <x>-10</x>
-       <y>80</y>
-       <width>111</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="0" column="0" colspan="2">
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="home_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);
 </string>
-     </property>
-     <property name="text">
-      <string>HOME</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/homeic.png</normaloff>:/icons/homeic.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="sent_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>220</y>
-       <width>100</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>HOME</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+           <normaloff>:/icons/homeic.png</normaloff>:/icons/homeic.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="sent_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);
 </string>
-     </property>
-     <property name="text">
-      <string>SENT</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/sendic.png</normaloff>:/icons/sendic.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="recieve_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>360</y>
-       <width>121</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>SENT</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+           <normaloff>:/icons/sendic.png</normaloff>:/icons/sendic.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="recieve_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>RECIEVED</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/rec.png</normaloff>:/icons/rec.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="info_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>760</y>
-       <width>100</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>RECIEVED</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+           <normaloff>:/icons/rec.png</normaloff>:/icons/rec.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="drafts_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>HELP</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="drafts_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>510</y>
-       <width>111</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>DRAFTS</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+           <normaloff>:/icons/editic.png</normaloff>:/icons/editic.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="info_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>DRAFTS</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/editic.png</normaloff>:/icons/editic.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
+         </property>
+         <property name="text">
+          <string>HELP</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+           <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+    <zorder>home_icon</zorder>
+    <zorder>recieve_icon</zorder>
+    <zorder>info_icon</zorder>
+    <zorder>drafts_icon</zorder>
+    <zorder>verticalLayoutWidget</zorder>
+    <zorder>sent_icon</zorder>
+    <zorder></zorder>
    </widget>
    <widget class="QFrame" name="top_menu">
     <property name="geometry">
@@ -237,141 +220,119 @@ background-color: rgb(1, 67, 86);</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="menu_icon">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>-10</y>
-       <width>100</width>
-       <height>82</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>100</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="menu_icon">
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="notif_icon">
-     <property name="geometry">
-      <rect>
-       <x>910</x>
-       <y>10</y>
-       <width>91</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+         <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>55</width>
+         <height>55</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="account_icon">
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/notific.png</normaloff>:/icons/notific.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>45</width>
-       <height>45</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="settings_icon">
-     <property name="geometry">
-      <rect>
-       <x>1090</x>
-       <y>10</y>
-       <width>91</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+         <normaloff>:/icons/account.png</normaloff>:/icons/account.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="notif_icon">
+       <property name="styleSheet">
+        <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>45</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="account_icon">
-     <property name="geometry">
-      <rect>
-       <x>730</x>
-       <y>10</y>
-       <width>91</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+         <normaloff>:/icons/notific.png</normaloff>:/icons/notific.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="settings_icon">
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/account.png</normaloff>:/icons/account.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>45</width>
-       <height>45</height>
-      </size>
-     </property>
-    </widget>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../RANDOM/pyqt5/haha/source.qrc">
+         <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>55</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>70</x>
       <y>60</y>
-      <width>1851</width>
-      <height>1021</height>
+      <width>1921</width>
+      <height>971</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-image: url(:/bg1/17.png);</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="home">
      <property name="styleSheet">
@@ -2391,7 +2352,7 @@ background: transparent;</string>
   </widget>
  </widget>
  <resources>
-  <include location="resources/source.qrc"/>
+  <include location="../../RANDOM/pyqt5/haha/source.qrc"/>
  </resources>
  <connections/>
 </ui>
