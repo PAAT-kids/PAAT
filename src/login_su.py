@@ -15,6 +15,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 import source_rc
+import home2
 
 #####################################################
 ## Main Window Object
@@ -65,6 +66,7 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        self.login.clicked.connect(self.openwindow)
         
 
 #########################################################
@@ -175,3 +177,14 @@ class Ui_MainWindow(object):
                 self.centralwidget.setStyleSheet(u"background-image: url(:/bg/darkbg.png)")
         elif checked:
                 self.centralwidget.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
+
+    def openwindow(self):
+
+        self.ui = home2.Ui_OtherWindow
+        self.ui.setupUi(QMainWindow)
+
+        #######################################################################
+        # SHOW WINDOW
+        #######################################################################
+        self.show()
+       
