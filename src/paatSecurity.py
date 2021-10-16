@@ -16,6 +16,7 @@ FUNCTION NAME: passHash
 PURPOSE: Hashes the imported string value
 INPUT: String password
 OUTPUT: Bit String hashPassword
+AUTHOR: Majid Jafar
 """
 def passHash (password):
     passwordBits = password.encode("utf-8")
@@ -42,6 +43,7 @@ FUNCTION NAME: comparePass
 PURPOSE: Compares the given input to the hashvalue from the database
 INPUT: String password , Bit String dbPassword
 OUTPUT: Boolean
+AUTHOR: Majid Jafar
 """
 def comparePass (password,dbPassword):
     passwordBits = password.encode("utf-8")
@@ -57,6 +59,7 @@ FUNCTION NAME: validateUsername
 PURPOSE: Checks the given username for validity
 INPUT: String userName
 OUTPUT: int (1: Length Error , 2: Symbols Error, 3: Not unique)
+AUTHOR: Majid Jafar
 """
 def validateUsername (username):
     #Checking username length (4-15)
@@ -103,3 +106,73 @@ def validatePassword(passW):
 		return False
 	
 	return True
+
+"""
+INPUT VALIDATION FOR SENDING PACKET
+
+"""
+
+"""
+FUNCTION NAME: validateEthIP
+PURPOSE: Checks the given Mac address for the correct format
+INPUT: String ethIP
+OUTPUT: Boolean ( True: is valid, False: not valid)
+AUTHOR: Majid Jafar
+"""
+def validateEthIP(ethIP):
+    regex = ("^([0-9A-Fa-f]{2}[:-])" +
+             "{5}([0-9A-Fa-f]{2})|" +
+             "([0-9a-fA-F]{4}\\." +
+             "[0-9a-fA-F]{4}\\." +
+             "[0-9a-fA-F]{4})$")
+
+    compRegex = re.compile(regex)
+
+    if(ethIP == None):
+        return False
+    
+    if(re.search(compRegex,ethIP)):
+        return True
+    else:
+        return False
+
+"""
+FUNCTION NAME: validateStringOnly
+PURPOSE: Checks the given variables datatype and if it contains symbols
+INPUT: unknown inputVar
+OUTPUT: Boolean ( True: is valid, False: not valid)
+AUTHOR: Majid Jafar
+"""
+def validateStringOnly(inputVar):
+
+    if(isinstance(inputVar, str)):
+        if(inputVar.isalnum()):
+            return True
+        else:
+            return False
+    else:
+        return False
+
+"""
+FUNCTION NAME: validateIntOnly
+PURPOSE: Checks the given variables datatype and if it contains symbols
+INPUT: unknown inputVar
+OUTPUT: Boolean ( True: is valid, False: not valid)
+AUTHOR: Majid Jafar
+"""
+def validateIntOnly(inputVar):
+
+    if(isinstance(inputVar, int)):
+        if((inputVar < 9223372036854775807) & (inputVar > -9223372036854775806)):
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+print(type(0x024))
+print(validateIntOnly("HI"))
+print(validateIntOnly("34"))
+print(validateIntOnly(34))
+print(validateIntOnly(9223372036854775807))

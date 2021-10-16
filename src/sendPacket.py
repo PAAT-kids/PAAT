@@ -130,5 +130,8 @@ def sendPacketSSDP(packet,listValues):
 
     return 1
 
+DNSlist =["b'www.example.com'",1,1]
 
+q = (scapy.IP(dst='8.8.8.8') / scapy.UDP(dport=53) / scapy.DNS(rd=1, qd=scapy.DNSQR(qname='www.thepacketgeek.com')))
 
+answer = scapy.sr1(q, verbose=0)
