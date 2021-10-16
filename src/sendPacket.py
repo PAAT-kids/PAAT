@@ -1,9 +1,9 @@
 """
-FILENAME: sendPacket
+FILENAME: sendPacket.py
 AUTHOR: Majid Jafar
 PURPOSE: Conatains methods to craft and send a complete packet
 DATE CREATED: 01/10/2021
-LAST EDITED DATE: 13/10/2021
+LAST EDITED DATE: 16/10/2021
 """
 
 import scapy.all as scapy
@@ -129,6 +129,3 @@ def sendPacketSSDP(packet,listValues):
     scapy.sendp(packet)
 
     return 1
-
-
-
