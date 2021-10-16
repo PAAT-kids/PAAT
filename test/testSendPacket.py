@@ -36,5 +36,3 @@ print("Actual Output: ")
 SSDPList = ["239.255.255.250.1900","1900","ssdp:all","ssdp:discover",2]
 #print(sendPacket(3,"f4:d1:08:0f:84:12","c4:e9:0a:54:be:01","IPv4",4,None,0x0,None,1,"",0,64,"udp",None,"1.2.3.4","1.2.3.4","ssdp","ssdp",None,SSDPList))
 
-
-scapy.send()

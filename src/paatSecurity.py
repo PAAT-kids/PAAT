@@ -113,13 +113,13 @@ INPUT VALIDATION FOR SENDING PACKET
 """
 
 """
-FUNCTION NAME: validateEthIP
+FUNCTION NAME: validateEthAddr
 PURPOSE: Checks the given Mac address for the correct format
 INPUT: String ethIP
 OUTPUT: Boolean ( True: is valid, False: not valid)
 AUTHOR: Majid Jafar
 """
-def validateEthIP(ethIP):
+def validateEthAddr(ethAddr):
     regex = ("^([0-9A-Fa-f]{2}[:-])" +
              "{5}([0-9A-Fa-f]{2})|" +
              "([0-9a-fA-F]{4}\\." +
@@ -128,10 +128,61 @@ def validateEthIP(ethIP):
 
     compRegex = re.compile(regex)
 
-    if(ethIP == None):
+    if(ethAddr == None):
         return False
     
-    if(re.search(compRegex,ethIP)):
+    if(re.search(compRegex,ethAddr)):
+        return True
+    else:
+        return False
+
+
+"""
+FUNCTION NAME: validateEthIP
+PURPOSE: Checks the given Mac address for the correct format
+INPUT: String ethIP
+OUTPUT: Boolean ( True: is valid, False: not valid)
+AUTHOR: Majid Jafar
+"""
+def validateIPAddr(IPAddr):
+
+    regex = r"""
+    ^
+    (?:
+        # Dotted variants:
+        (?:
+        # Decimal 1-255 (no leading 0's)
+        [3-9]\d?|2(?:5[0-5]|[0-4]?\d)?|1\d{0,2}
+        |
+        0x0*[0-9a-f]{1,2}  # Hexadecimal 0x0 - 0xFF (possible leading 0's)
+        |
+        0+[1-3]?[0-7]{0,2} # Octal 0 - 0377 (possible leading 0's)
+        )
+        (?:                  # Repeat 0-3 times, separated by a dot
+        \.
+        (?:
+            [3-9]\d?|2(?:5[0-5]|[0-4]?\d)?|1\d{0,2}
+        |
+            0x0*[0-9a-f]{1,2}
+        |
+            0+[1-3]?[0-7]{0,2}
+        )
+        ){0,3}
+    |
+        0x0*[0-9a-f]{1,8}    # Hexadecimal notation, 0x0 - 0xffffffff
+    |
+        0+[0-3]?[0-7]{0,10}  # Octal notation, 0 - 037777777777
+    |
+        # Decimal notation, 1-4294967295:
+        429496729[0-5]|42949672[0-8]\d|4294967[01]\d\d|429496[0-6]\d{3}|
+        42949[0-5]\d{4}|4294[0-8]\d{5}|429[0-3]\d{6}|42[0-8]\d{7}|
+        4[01]\d{8}|[1-3]\d{0,9}|[4-9]\d{0,8}
+    )
+    $
+"""
+    compRegex = re.compile(regex, re.VERBOSE | re.IGNORECASE)
+
+    if(compRegex.match(IPAddr)):
         return True
     else:
         return False
@@ -144,6 +195,9 @@ OUTPUT: Boolean ( True: is valid, False: not valid)
 AUTHOR: Majid Jafar
 """
 def validateStringOnly(inputVar):
+
+    if(inputVar == None):
+        return False
 
     if(isinstance(inputVar, str)):
         if(inputVar.isalnum()):
@@ -161,6 +215,9 @@ OUTPUT: Boolean ( True: is valid, False: not valid)
 AUTHOR: Majid Jafar
 """
 def validateIntOnly(inputVar):
+    
+    if(inputVar == None):
+        return False
 
     if(isinstance(inputVar, int)):
         if((inputVar < 9223372036854775807) & (inputVar > -9223372036854775806)):
@@ -171,8 +228,6 @@ def validateIntOnly(inputVar):
         return False
 
 
-print(type(0x024))
-print(validateIntOnly("HI"))
-print(validateIntOnly("34"))
-print(validateIntOnly(34))
-print(validateIntOnly(9223372036854775807))
+print(validateIPAddr("Hi"))
+print(validateIPAddr("192.168.0.130"))
+print(validateIPAddr("192.168.159.146"))
