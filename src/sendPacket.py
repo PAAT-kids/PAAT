@@ -1,9 +1,9 @@
 """
-FILENAME: sendPacket
+FILENAME: sendPacket.py
 AUTHOR: Majid Jafar
 PURPOSE: Conatains methods to craft and send a complete packet
 DATE CREATED: 01/10/2021
-LAST EDITED DATE: 13/10/2021
+LAST EDITED DATE: 16/10/2021
 """
 
 import scapy.all as scapy
@@ -129,9 +129,3 @@ def sendPacketSSDP(packet,listValues):
     scapy.sendp(packet)
 
     return 1
-
-DNSlist =["b'www.example.com'",1,1]
-
-q = (scapy.IP(dst='8.8.8.8') / scapy.UDP(dport=53) / scapy.DNS(rd=1, qd=scapy.DNSQR(qname='www.thepacketgeek.com')))
-
-answer = scapy.sr1(q, verbose=0)

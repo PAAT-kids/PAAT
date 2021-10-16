@@ -138,7 +138,7 @@ def validateEthAddr(ethAddr):
 
 
 """
-FUNCTION NAME: validateEthIP
+FUNCTION NAME: validateIPAddr
 PURPOSE: Checks the given Mac address for the correct format
 INPUT: String ethIP
 OUTPUT: Boolean ( True: is valid, False: not valid)
@@ -226,8 +226,3 @@ def validateIntOnly(inputVar):
             return False
     else:
         return False
-
-
-print(validateIPAddr("Hi"))
-print(validateIPAddr("192.168.0.130"))
-print(validateIPAddr("192.168.159.146"))
