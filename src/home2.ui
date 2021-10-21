@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1909</width>
+    <width>1912</width>
     <height>1031</height>
    </rect>
   </property>
@@ -25,8 +25,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>60</width>
-      <height>1081</height>
+      <width>181</width>
+      <height>1031</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -50,173 +50,150 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="home_icon">
-     <property name="geometry">
-      <rect>
-       <x>-10</x>
-       <y>80</y>
-       <width>111</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="0" column="0">
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="home_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);
 </string>
-     </property>
-     <property name="text">
-      <string>HOME</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/homeic.png</normaloff>:/icons/homeic.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="sent_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>220</y>
-       <width>100</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>HOME</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources/source.qrc">
+           <normaloff>:/icons/homeic.png</normaloff>:/icons/homeic.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="sent_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);
 </string>
-     </property>
-     <property name="text">
-      <string>SENT</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/sendic.png</normaloff>:/icons/sendic.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="recieve_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>360</y>
-       <width>121</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>SENT</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources/source.qrc">
+           <normaloff>:/icons/sendic.png</normaloff>:/icons/sendic.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="recieve_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>RECIEVED</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/rec.png</normaloff>:/icons/rec.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="info_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>760</y>
-       <width>100</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>RECIEVED</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources/source.qrc">
+           <normaloff>:/icons/rec.png</normaloff>:/icons/rec.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="drafts_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>HELP</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="drafts_icon">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>510</y>
-       <width>111</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+         </property>
+         <property name="text">
+          <string>DRAFTS</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources/source.qrc">
+           <normaloff>:/icons/editic.png</normaloff>:/icons/editic.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="info_icon">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string>DRAFTS</string>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/editic.png</normaloff>:/icons/editic.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
+         </property>
+         <property name="text">
+          <string>HELP</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources/source.qrc">
+           <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>55</width>
+           <height>55</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+    <zorder></zorder>
    </widget>
    <widget class="QFrame" name="top_menu">
     <property name="geometry">
@@ -237,141 +214,119 @@ background-color: rgb(1, 67, 86);</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="menu_icon">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>-10</y>
-       <width>100</width>
-       <height>82</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>100</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="menu_icon">
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>55</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="notif_icon">
-     <property name="geometry">
-      <rect>
-       <x>910</x>
-       <y>10</y>
-       <width>91</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:transparent;
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources/source.qrc">
+         <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>55</width>
+         <height>55</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="account_icon">
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/notific.png</normaloff>:/icons/notific.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>45</width>
-       <height>45</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="settings_icon">
-     <property name="geometry">
-      <rect>
-       <x>1090</x>
-       <y>10</y>
-       <width>91</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources/source.qrc">
+         <normaloff>:/icons/contacts.png</normaloff>:/icons/contacts.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="notif_icon">
+       <property name="styleSheet">
+        <string notr="true">background:transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>45</width>
-       <height>55</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="account_icon">
-     <property name="geometry">
-      <rect>
-       <x>730</x>
-       <y>10</y>
-       <width>91</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources/source.qrc">
+         <normaloff>:/icons/notific.png</normaloff>:/icons/notific.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="settings_icon">
+       <property name="styleSheet">
+        <string notr="true">background: transparent;
 color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources/source.qrc">
-       <normaloff>:/icons/account.png</normaloff>:/icons/account.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>45</width>
-       <height>45</height>
-      </size>
-     </property>
-    </widget>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources/source.qrc">
+         <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>55</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>140</x>
       <y>60</y>
-      <width>1851</width>
-      <height>1021</height>
+      <width>1771</width>
+      <height>971</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/bg1/17.png);</string>
+     <string notr="true">background-image: url(:/bg1/haha.png);</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="home">
      <property name="styleSheet">
@@ -2387,11 +2342,287 @@ background: transparent;</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="Account">
+     <property name="styleSheet">
+      <string notr="true">background: url(:/bg1/settingss.png);</string>
+     </property>
+     <widget class="QPushButton" name="darkm">
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>720</y>
+        <width>111</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources/source.qrc">
+        <normaloff>:/icons/dark.png</normaloff>:/icons/dark.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>86</width>
+        <height>76</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="name">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>320</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 33pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="accpic">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>260</y>
+        <width>251</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: url(:/icons/account.png);
+background-repeat: none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="usernamee">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>400</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 15pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>@username</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="paswd">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>640</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font:  14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Password</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="settings1">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>750</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>View Settings</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="email1">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>590</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font:  14pt &quot;Franklin Gothic Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Email</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="lightm">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>720</y>
+        <width>111</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources/source.qrc">
+        <normaloff>:/icons/light.png</normaloff>:/icons/light.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>86</width>
+        <height>76</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>850</y>
+        <width>271</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Save Changes</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cancel">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>880</y>
+        <width>101</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;
+font: 12pt &quot;Franklin Gothic Raw&quot;;
+text-decoration: underline;
+color: rgb(255, 255, 255);
+</string>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="em_txt">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>580</y>
+        <width>411</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="psd_txt">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>640</y>
+        <width>411</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 197, 208);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>psd_txt</zorder>
+     <zorder>em_txt</zorder>
+     <zorder>darkm</zorder>
+     <zorder>name</zorder>
+     <zorder>accpic</zorder>
+     <zorder>usernamee</zorder>
+     <zorder>paswd</zorder>
+     <zorder>settings1</zorder>
+     <zorder>email1</zorder>
+     <zorder>lightm</zorder>
+     <zorder>save</zorder>
+     <zorder>cancel</zorder>
+    </widget>
    </widget>
+   <zorder>stackedWidget</zorder>
+   <zorder>side_menu</zorder>
+   <zorder>top_menu</zorder>
   </widget>
  </widget>
  <resources>
   <include location="resources/source.qrc"/>
+  <include location="../../RANDOM/pyqt5/haha/source.qrc"/>
  </resources>
  <connections/>
 </ui>
