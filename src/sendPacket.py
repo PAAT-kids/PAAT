@@ -44,17 +44,60 @@ def sendPacket(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFla
                         chksum=udpChksum
                         )
                     )
+    
+    initPacket = (scapy.Ether(
+                        src=ethSrc,
+                        dst=ethDst,
+                        type=ethType
+                        )
+                /scapy.IP(
+                        version=ipVersion,
+                        ihl=ipIhl,
+                        tos=ipTos,
+                        len=ipLen,
+                        id=ipId,
+                        flags=ipFlags,
+                        frag=ipFrag,
+                        ttl=ipTtl,
+                        proto=ipProto,
+                        chksum=ipChksum,
+                        src=ipSrc,
+                        dst=ipDst,
+                        #options=ipOptions
+                        )
+                /scapy.UDP(
+                        sport=6500,
+                        dport=6500,
+                        chksum=udpChksum
+                        )
+                    )
 
     if(type == 1):
+        sendInitPacket(initPacket,"DNS")
         out = sendPacketDNS(packet,listValues)
 
     elif(type == 2):
+        sendInitPacket(initPacket,"SSDP")
         out = sendPacketNTP(packet,listValues)
 
     elif(type == 3):
+        sendInitPacket(initPacket,"NTP")
         out = sendPacketSSDP(packet,listValues)
 
     return out
+
+
+
+"""
+FUNCTION NAME: sendInitPacket
+PURPOSE: Sends a packet to the destination informing the packet type
+INPUT: A packet with pre loaded information and a string determining the type of data
+OUTPUT: None
+"""
+def sendInitPacket(packet,type):
+    packet = packet/scapy.Raw(load=type)
+
+    scapy.sendp(packet)
 
 """
 FUNCTION NAME: sendPacketDNS
