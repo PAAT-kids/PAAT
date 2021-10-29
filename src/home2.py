@@ -81,6 +81,7 @@ class Ui_OtherWindow(object):
         icon1.addFile(u":/icons/sendic.png", QSize(), QIcon.Normal, QIcon.Off)
         self.sent_icon.setIcon(icon1)
         self.sent_icon.setIconSize(QSize(55, 55))
+        self.sent_icon.clicked.connect(self.gosent)
         
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.sent_icon)
 
@@ -96,7 +97,8 @@ class Ui_OtherWindow(object):
         icon2.addFile(u":/icons/rec.png", QSize(), QIcon.Normal, QIcon.Off)
         self.recieve_icon.setIcon(icon2)
         self.recieve_icon.setIconSize(QSize(55, 55))
-
+        self.recieve_icon.clicked.connect(self.gorecvd)
+        
         self.formLayout.setWidget(2, QFormLayout.LabelRole, self.recieve_icon)
 
 
@@ -126,6 +128,7 @@ class Ui_OtherWindow(object):
         icon4.addFile(u":/icons/editic.png", QSize(), QIcon.Normal, QIcon.Off)
         self.drafts_icon.setIcon(icon4)
         self.drafts_icon.setIconSize(QSize(55, 55))
+        self.drafts_icon.clicked.connect(self.godraft)
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.drafts_icon)
 
@@ -214,6 +217,7 @@ class Ui_OtherWindow(object):
         icon8.addFile(u":/icons/contacts.png", QSize(), QIcon.Normal, QIcon.Off)
         self.contact_icon.setIcon(icon8)
         self.contact_icon.setIconSize(QSize(45, 45))
+        self.contact_icon.clicked.connect(self.goconts)
 
         self.horizontalLayout_2.addWidget(self.contact_icon)
 
@@ -225,7 +229,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget = QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(60, 60, 1851, 1021))
-        self.stackedWidget.setStyleSheet(u"background-image: url(:/bg1/17.png);")
+        
         
 ## Page 1 - Home page ##
 
@@ -367,21 +371,21 @@ class Ui_OtherWindow(object):
         self.srcad.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad.setToolTip("<b style='background:white; color:black;'>Source Address</b>")
+        self.srcad.setToolTip("<b style='background:white; font:9pt; color:black;'>The MAC address of the source machine. [6 Bytes]</b>")
         self.dstad = QLabel(self.ETH)
         self.dstad.setObjectName(u"dstad")
         self.dstad.setGeometry(QRect(980, 450, 211, 21))
         self.dstad.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.dstad.setToolTip("<b style='background:white; color:black;'>Destination Address</b>")
+        self.dstad.setToolTip("<b style='background:white; font:9pt; color:black;'>The MAC address of the destination machine. [6 Bytes]</b>")
         self.ty = QLabel(self.ETH)
         self.ty.setObjectName(u"ty")
         self.ty.setGeometry(QRect(660, 660, 161, 21))
         self.ty.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.ty.setToolTip("<b style='background:white; color:black;'>Type</b>")
+        self.ty.setToolTip("<b style='background:white; font:9pt; color:black;'>Indicates the encapsulated protocol in frame payload and determines how it is processed when recieved by the data link layer. [2 Octet]</b>")
         self.stackedWidget.addWidget(self.ETH)
         
         self.nxt_eth.clicked.connect(self.ippage)
@@ -400,7 +404,7 @@ class Ui_OtherWindow(object):
         self.versn.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.versn.setToolTip("<b style='background:white; color:black;'>Version</b>")
+        self.versn.setToolTip("<b style='background:white; font: 9pt; color:black;'>It is a version indicator, in IPv4 it is set to 0100 which is 4 in binary. [4 Bits]</b>")
         self.IHL_box = QLineEdit(self.IP)
         self.IHL_box.setObjectName(u"IHL_box")
         self.IHL_box.setGeometry(QRect(380, 260, 91, 61))
@@ -411,14 +415,14 @@ class Ui_OtherWindow(object):
         self.ihl.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.ihl.setToolTip("<b style='background:white; color:black;'>IHL</b>")
+        self.ihl.setToolTip("<b style='background:white; font:9pt; color:black;'>Shows how many 32-bit words are present in the header. [4 Bits]</b>")
         self.tos = QLabel(self.IP)
         self.tos.setObjectName(u"tos")
         self.tos.setGeometry(QRect(480, 320, 91, 41))
         self.tos.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.tos.setToolTip("<b style='background:white; color:black;'>TOS</b>")
+        self.tos.setToolTip("<b style='background:white; font: 9pt; color:black;'>Provides features like quality of service for data streaming and handling datagrams.</b>")
         self.tos_box = QLineEdit(self.IP)
         self.tos_box.setObjectName(u"tos_box")
         self.tos_box.setGeometry(QRect(480, 260, 161, 61))
@@ -429,7 +433,7 @@ class Ui_OtherWindow(object):
         self.length.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.length.setToolTip("<b style='background:white; color:black;'>Total Length</b>")
+        self.length.setToolTip("<b style='background:white; font: 9pt; color:black;'>It is measured in bytes and can be used to calculate the payload dimension with IHL. [20-65535 Bits] </b>")
         self.len_box = QLineEdit(self.IP)
         self.len_box.setObjectName(u"len_box")
         self.len_box.setGeometry(QRect(660, 260, 381, 61))
@@ -444,14 +448,14 @@ class Ui_OtherWindow(object):
         self.idfn.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.idfn.setToolTip("<b style='background:white; color:black;'>Identification</b>")
+        self.idfn.setToolTip("<b style='background:white; font: 9pt; color:black;'> It is packet used to identify fragments of an IP datagram.</b>")
         self.flgs = QLabel(self.IP)
         self.flgs.setObjectName(u"flgs")
         self.flgs.setGeometry(QRect(650, 440, 91, 41))
         self.flgs.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.flgs.setToolTip("<b style='background:white; color:black;'>Flags</b>")
+        self.flgs.setToolTip("<b style='background:white; font: 9pt; color:black;'>Helps you to control and identify fragments, 0 = reserved/0 - 1 = do not fragment - 2 = more fragment. [3 Bits]</b>")
         self.flags_box = QLineEdit(self.IP)
         self.flags_box.setObjectName(u"flags_box")
         self.flags_box.setGeometry(QRect(650, 380, 111, 61))
@@ -462,7 +466,7 @@ class Ui_OtherWindow(object):
         self.fragoff.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.fragoff.setToolTip("<b style='background:white; color:black;'>Fragment Offset</b>")
+        self.fragoff.setToolTip("<b style='background:white; font: 9pt; color:black;'>Represents the number of Data Bytes ahead of the particular fragment in the specific Datagram. [8-65528 Bytes]</b>")
         self.frag_box = QLineEdit(self.IP)
         self.frag_box.setObjectName(u"frag_box")
         self.frag_box.setGeometry(QRect(790, 380, 251, 61))
@@ -473,7 +477,7 @@ class Ui_OtherWindow(object):
         self.ttl.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.ttl.setToolTip("<b style='background:white; color:black;'>TTL</b>")
+        self.ttl.setToolTip("<b style='background:white; font: 9pt; color:black;'>Indicates the maximum time the Datagram will be live in the internet system. [8 Bits]</b>")
         self.ttl_box = QLineEdit(self.IP)
         self.ttl_box.setObjectName(u"ttl_box")
         self.ttl_box.setGeometry(QRect(240, 510, 181, 61))
@@ -484,7 +488,7 @@ class Ui_OtherWindow(object):
         self.protcl.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.protcl.setToolTip("<b style='background:white; color:black;'>Protocol</b>")
+        self.protcl.setToolTip("<b style='background:white; font: 9pt; color:black;'>Reserved to denote that internet protocol is used in the latter portion of the Datagram. </b>")
         self.prtcl_box = QLineEdit(self.IP)
         self.prtcl_box.setObjectName(u"prtcl_box")
         self.prtcl_box.setGeometry(QRect(440, 510, 191, 61))
@@ -495,7 +499,7 @@ class Ui_OtherWindow(object):
         self.hdrchksm.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.hdrchksm.setToolTip("<b style='background:white; color:black;'>Header Checksum</b>")
+        self.hdrchksm.setToolTip("<b style='background:white; font: 9pt; color:black;'>Used to check the header for any errors. [16 Bits]</b>")
         self.chksum_box = QLineEdit(self.IP)
         self.chksum_box.setObjectName(u"chksum_box")
         self.chksum_box.setGeometry(QRect(650, 510, 391, 61))
@@ -506,7 +510,7 @@ class Ui_OtherWindow(object):
         self.opts.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.opts.setToolTip("<b style='background:white; color:black;'>Options</b>")
+        self.opts.setToolTip("<b style='background:white; font: 9pt; color:black;'>An optional field used when the value of IHL is set to greater than 5, it contains values and settings related with security, record route and time stamp.</b>")
         self.textEdit = QTextEdit(self.IP)
         self.textEdit.setObjectName(u"textEdit")
         self.textEdit.setGeometry(QRect(240, 640, 811, 61))
@@ -521,14 +525,14 @@ class Ui_OtherWindow(object):
         self.srcad_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 15pt \"Franklin Gothic Medium Cond\";\n"
 "background: transparent;")
-        self.srcad_txt.setToolTip("<b style='background:white; color:black;'>Source Address</b>")
+        self.srcad_txt.setToolTip("<b style='background:white; font: 9pt; color:black;'>The MAC address of the source machine. [6 Bytes]</b>")
         self.dstad_txt = QLabel(self.IP)
         self.dstad_txt.setObjectName(u"dstad_txt")
         self.dstad_txt.setGeometry(QRect(1290, 500, 191, 41))
         self.dstad_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: italic 15pt \"Franklin Gothic Medium Cond\";\n"
 "background: transparent;")
-        self.dstad_txt.setToolTip("<b style='background:white; color:black;'>Destination Address</b>")
+        self.dstad_txt.setToolTip("<b style='background:white; font: 9pt; color:black;'>The MAC address of the destination machine. [6 Bytes]</b>")
         self.dstad1 = QLineEdit(self.IP)
         self.dstad1.setObjectName(u"dstad1")
         self.dstad1.setGeometry(QRect(1220, 540, 351, 61))
@@ -1114,6 +1118,8 @@ class Ui_OtherWindow(object):
         self.psd_txt.setGeometry(QRect(680, 640, 411, 31))
         self.psd_txt.setStyleSheet(u"background: rgb(183, 197, 208);")
         self.stackedWidget.addWidget(self.Account)
+
+
         self.psd_txt.raise_()
         self.em_txt.raise_()
         self.darkm.raise_()
@@ -1130,8 +1136,194 @@ class Ui_OtherWindow(object):
 
 
 
-        MainWindow.setCentralWidget(self.centralwidget)
+## Page 9 - Drafts Page ##
 
+        self.drafts_pg = QWidget()
+        self.drafts_pg.setObjectName(u"drafts_pg")
+        self.drafts_pg.setStyleSheet(u"background-image: url(:/bg1/drafts.png);")
+        self.tableDrafts = QTableWidget(self.drafts_pg)
+        if (self.tableDrafts.columnCount() < 6):
+            self.tableDrafts.setColumnCount(6)
+        self.tableDrafts.setObjectName(u"tableDrafts")
+        self.tableDrafts.setGeometry(QRect(260, 320, 1351, 561))
+        self.tableDrafts.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
+        self.tableDrafts.setAlternatingRowColors(True)
+        self.tableDrafts.setSortingEnabled(True)
+        self.tableDrafts.setColumnCount(6)
+        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send", "Edit"])
+        self.tableDrafts.horizontalHeader().setDefaultSectionSize(220)
+        self.tableDrafts.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableDrafts.verticalHeader().setCascadingSectionResizes(True)
+        self.stackedWidget.addWidget(self.drafts_pg)
+
+## Page 10 - Sent Page ##
+
+        self.sent_pg = QWidget()
+        self.sent_pg.setObjectName(u"sent_pg")
+        self.sent_pg.setStyleSheet(u"background-image: url(:/bg1/sent.png);")
+        self.tableSent = QTableWidget(self.sent_pg)
+        if (self.tableSent.columnCount() < 7):
+            self.tableSent.setColumnCount(7)
+        self.tableSent.setObjectName(u"tableSent")
+        self.tableSent.setGeometry(QRect(260, 320, 1351, 561))
+        self.tableSent.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
+        self.tableSent.setAlternatingRowColors(True)
+        self.tableSent.setSortingEnabled(True)
+        self.tableSent.setColumnCount(7) 
+        self.tableSent.setHorizontalHeaderLabels(["Name", "Date Created", "Date Sent", "Initial Size", "Reciever Address", "Send Again", "Edit"])
+        self.tableSent.horizontalHeader().setDefaultSectionSize(220)
+        self.tableSent.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableSent.verticalHeader().setCascadingSectionResizes(True)
+        self.stackedWidget.addWidget(self.sent_pg)
+
+## Page 11 - Recieved Page ##
+
+        self.recvd_pg = QWidget()
+        self.recvd_pg.setObjectName(u"recvd_pg")
+        self.recvd_pg.setStyleSheet(u"background-image: url(:/bg1/recvd.png);")
+        self.tableRecvd = QTableWidget(self.recvd_pg)
+        if (self.tableRecvd.columnCount() < 5):
+            self.tableRecvd.setColumnCount(5)
+        self.tableRecvd.setObjectName(u"tableRecvd")
+        self.tableRecvd.setGeometry(QRect(190, 270, 1051, 561))
+        self.tableRecvd.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
+        self.tableRecvd.setAlternatingRowColors(True)
+        self.tableRecvd.setSortingEnabled(True) 
+        self.tableRecvd.setColumnCount(5)
+        self.tableRecvd.setHorizontalHeaderLabels(["Reciever's Address", "Date Recieved", "Initial Size", "Recieved Size", "Amplification Factor"])
+        self.tableRecvd.horizontalHeader().setDefaultSectionSize(220)
+        self.tableRecvd.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableRecvd.verticalHeader().setCascadingSectionResizes(True)
+
+        self.rcvAd_txt = QLabel(self.recvd_pg)
+        self.rcvAd_txt.setObjectName(u"rcvAd_txt")
+        self.rcvAd_txt.setGeometry(QRect(1420, 460, 151, 21))
+        self.rcvAd_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font:  14pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;")
+        self.rcvAd = QLineEdit(self.recvd_pg)
+        self.rcvAd.setObjectName(u"rcvAd")
+        self.rcvAd.setGeometry(QRect(1320, 400, 361, 51))
+        self.rcvAd.setStyleSheet(u"background: rgb(183, 206, 212);")
+        self.rcvBox = QLCDNumber(self.recvd_pg)
+        self.rcvBox.setObjectName(u"rcvBox")
+        self.rcvBox.setGeometry(QRect(1550, 560, 131, 61))
+        self.rcvBox.setStyleSheet(u"background:rgb(255, 255, 255);\n"
+"")
+        self.intBox = QLCDNumber(self.recvd_pg)
+        self.intBox.setObjectName(u"intBox")
+        self.intBox.setGeometry(QRect(1280, 560, 131, 61))
+        self.intBox.setStyleSheet(u"background:rgb(255, 255, 255);\n"
+"")
+        self.ampBox = QLCDNumber(self.recvd_pg)
+        self.ampBox.setObjectName(u"ampBox")
+        self.ampBox.setGeometry(QRect(1420, 700, 131, 61))
+        self.ampBox.setStyleSheet(u"background:rgb(255, 255, 255);\n"
+"")
+        self.ampBox.setFrameShape(QFrame.NoFrame)
+        self.intSz = QLabel(self.recvd_pg)
+        self.intSz.setObjectName(u"intSz")
+        self.intSz.setGeometry(QRect(1300, 640, 91, 21))
+        self.intSz.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 13pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;")
+        self.rcvSz = QLabel(self.recvd_pg)
+        self.rcvSz.setObjectName(u"rcvSz")
+        self.rcvSz.setGeometry(QRect(1560, 640, 121, 21))
+        self.rcvSz.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 13pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;")
+        self.ampFac = QLabel(self.recvd_pg)
+        self.ampFac.setObjectName(u"ampFac")
+        self.ampFac.setGeometry(QRect(1410, 780, 171, 21))
+        self.ampFac.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 13pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;")
+        self.stackedWidget.addWidget(self.recvd_pg) 
+     
+
+## Page 12 - Contacts Page ##
+
+        self.contacts = QWidget()
+        self.contacts.setObjectName(u"contacts")
+        self.contacts.setStyleSheet(u"background-image: url(:/bg1/contactss.png);")
+        self.tableCont = QTableWidget(self.contacts)
+        if (self.tableCont.columnCount() < 2):
+            self.tableCont.setColumnCount(2)
+        self.tableCont.setObjectName(u"tableCont")
+        self.tableCont.setGeometry(QRect(480, 290, 461, 511))
+        self.tableCont.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
+        self.tableCont.setAlternatingRowColors(True)
+        self.tableCont.setSortingEnabled(True)
+        self.tableCont.setColumnCount(2) 
+        self.tableCont.setHorizontalHeaderLabels(["Name", "Address"])
+        self.tableCont.horizontalHeader().setDefaultSectionSize(220)
+        self.tableCont.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableCont.verticalHeader().setCascadingSectionResizes(True)
+
+        self.search_bar = QLineEdit(self.contacts)
+        self.search_bar.setObjectName(u"search_bar")
+        self.search_bar.setGeometry(QRect(1130, 410, 361, 51))
+        self.search_bar.setStyleSheet(u"background: rgb(183, 206, 212);")
+        self.srch_txt = QLabel(self.contacts)
+        self.srch_txt.setObjectName(u"srch_txt")
+        self.srch_txt.setGeometry(QRect(1240, 350, 161, 21))
+        self.srch_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font:  17pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;")
+        self.search_bt = QPushButton(self.contacts)
+        self.search_bt.setObjectName(u"search_bt")
+        self.search_bt.setGeometry(QRect(1510, 410, 81, 51))
+        self.search_bt.setStyleSheet(u"background: transparent;")
+        icon11 = QIcon()
+        icon11.addFile(u":/icons/search_icon.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.search_bt.setIcon(icon11)
+        self.search_bt.setIconSize(QSize(55, 55))
+        self.edit_bt = QPushButton(self.contacts)
+        self.edit_bt.setObjectName(u"edit_bt")
+        self.edit_bt.setGeometry(QRect(1100, 610, 151, 81))
+        self.edit_bt.setAutoFillBackground(False)
+        self.edit_bt.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.delete_bt = QPushButton(self.contacts)
+        self.delete_bt.setObjectName(u"delete_bt")
+        self.delete_bt.setGeometry(QRect(1380, 610, 151, 81))
+        self.delete_bt.setAutoFillBackground(False)
+        self.delete_bt.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.save_bt = QPushButton(self.contacts)
+        self.save_bt.setObjectName(u"save_bt")
+        self.save_bt.setGeometry(QRect(1240, 720, 151, 81))
+        self.save_bt.setAutoFillBackground(False)
+        self.save_bt.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.cancel_bt = QPushButton(self.contacts)
+        self.cancel_bt.setObjectName(u"cancel_bt")
+        self.cancel_bt.setGeometry(QRect(1270, 830, 93, 28))
+        self.cancel_bt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font:  15pt \"Franklin Gothic Medium Cond\";\n"
+"background: transparent;\n"
+"text-decoration: underline;")
+        self.stackedWidget.addWidget(self.contacts)   
+
+
+
+
+
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.stackedWidget.raise_()
         self.side_menu.raise_()
         self.top_menu.raise_()
 
@@ -1278,11 +1470,37 @@ class Ui_OtherWindow(object):
         self.cancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
         self.em_txt.setText("")
         self.psd_txt.setText("")
+        self.rcvAd_txt.setText(QCoreApplication.translate("MainWindow", u"Reciever Address", None))
+        self.intSz.setText(QCoreApplication.translate("MainWindow", u"Initial Size", None))
+        self.rcvSz.setText(QCoreApplication.translate("MainWindow", u"Recieved Size", None))
+        self.ampFac.setText(QCoreApplication.translate("MainWindow", u"Amplification Factor", None))
+        self.srch_txt.setText(QCoreApplication.translate("MainWindow", u"Search Contact", None))
+        self.search_bt.setText("")
+        self.edit_bt.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
+        self.delete_bt.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.save_bt.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.cancel_bt.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
     # retranslateUi
 
     def home(self):
 
         self.stackedWidget.setCurrentIndex(0)
+
+    def godraft(self):
+
+        self.stackedWidget.setCurrentIndex(9)
+
+    def gosent(self):
+
+        self.stackedWidget.setCurrentIndex(10)
+
+    def gorecvd(self):
+
+        self.stackedWidget.setCurrentIndex(11)
+
+    def goconts(self):
+
+        self.stackedWidget.setCurrentIndex(12)    
 
     def gosettings(self):
 

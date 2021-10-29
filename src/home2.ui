@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1912</width>
-    <height>1031</height>
+    <height>1038</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -323,10 +323,10 @@ color: rgb(255, 255, 255);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/bg1/haha.png);</string>
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>8</number>
+     <number>11</number>
     </property>
     <widget class="QWidget" name="home">
      <property name="styleSheet">
@@ -2614,6 +2614,533 @@ color: rgb(255, 255, 255);
      <zorder>save</zorder>
      <zorder>cancel</zorder>
     </widget>
+    <widget class="QWidget" name="drafts_pg">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/drafts.png);</string>
+     </property>
+     <widget class="QTableWidget" name="tableDrafts">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>320</y>
+        <width>1301</width>
+        <height>641</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(221, 221, 221);
+font: 8pt &quot;Franklin Gothic Demi&quot;;
+color: rgb(1, 58, 83);</string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>4</number>
+      </property>
+      <property name="columnCount">
+       <number>9</number>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>220</number>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>address </string>
+       </property>
+      </column>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="sent_pg">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/sent.png);</string>
+     </property>
+     <widget class="QTableWidget" name="tableSent">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>320</y>
+        <width>1301</width>
+        <height>641</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(221, 221, 221);
+font: 8pt &quot;Franklin Gothic Demi&quot;;
+color: rgb(1, 58, 83);</string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>4</number>
+      </property>
+      <property name="columnCount">
+       <number>9</number>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>220</number>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>address </string>
+       </property>
+      </column>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="recvd_pg">
+     <property name="styleSheet">
+      <string notr="true">
+background-image: url(:/bg1/recvd.png);</string>
+     </property>
+     <widget class="QTableWidget" name="tableRecv">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>320</y>
+        <width>1021</width>
+        <height>641</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(221, 221, 221);
+font: 8pt &quot;Franklin Gothic Demi&quot;;
+color: rgb(1, 58, 83);</string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>4</number>
+      </property>
+      <property name="columnCount">
+       <number>9</number>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>220</number>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>address </string>
+       </property>
+      </column>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+     <widget class="QLabel" name="rcvAd_txt">
+      <property name="geometry">
+       <rect>
+        <x>1420</x>
+        <y>460</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font:  14pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Reciever Address</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="rcvAd">
+      <property name="geometry">
+       <rect>
+        <x>1320</x>
+        <y>400</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 206, 212);</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="rcvBox">
+      <property name="geometry">
+       <rect>
+        <x>1550</x>
+        <y>560</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:rgb(255, 255, 255);
+</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="intBox">
+      <property name="geometry">
+       <rect>
+        <x>1280</x>
+        <y>560</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:rgb(255, 255, 255);
+</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="ampBox">
+      <property name="geometry">
+       <rect>
+        <x>1420</x>
+        <y>700</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:rgb(255, 255, 255);
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="intSz">
+      <property name="geometry">
+       <rect>
+        <x>1300</x>
+        <y>640</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 13pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Initial Size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="rcvSz">
+      <property name="geometry">
+       <rect>
+        <x>1560</x>
+        <y>640</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 13pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Recieved Size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ampFac">
+      <property name="geometry">
+       <rect>
+        <x>1410</x>
+        <y>780</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 13pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Amplification Factor</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="contacts">
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/bg1/contactss.png);</string>
+     </property>
+     <widget class="QTableWidget" name="tableConts">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>290</y>
+        <width>461</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(221, 221, 221);
+font: 8pt &quot;Franklin Gothic Demi&quot;;
+color: rgb(1, 58, 83);</string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>4</number>
+      </property>
+      <property name="columnCount">
+       <number>9</number>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>220</number>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>address </string>
+       </property>
+      </column>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+     <widget class="QLineEdit" name="search_bar">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>410</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: rgb(183, 206, 212);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="srch_txt">
+      <property name="geometry">
+       <rect>
+        <x>1240</x>
+        <y>350</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font:  17pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>Search Contact</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="search_bt">
+      <property name="geometry">
+       <rect>
+        <x>1510</x>
+        <y>410</y>
+        <width>81</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources/source.qrc">
+        <normaloff>:/icons/search_icon.png</normaloff>:/icons/search_icon.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>55</width>
+        <height>55</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="edit_bt">
+      <property name="geometry">
+       <rect>
+        <x>1100</x>
+        <y>610</y>
+        <width>151</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Edit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="delete_bt">
+      <property name="geometry">
+       <rect>
+        <x>1380</x>
+        <y>610</y>
+        <width>151</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Delete</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_bt">
+      <property name="geometry">
+       <rect>
+        <x>1240</x>
+        <y>720</y>
+        <width>151</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt &quot;Franklin Gothic Raw&quot;;
+color: rgb(255, 255, 255);
+border-radius: 40px;
+padding: 10px 10px;
+background: rgb(0, 194, 203);
+</string>
+      </property>
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cancel_bt">
+      <property name="geometry">
+       <rect>
+        <x>1270</x>
+        <y>830</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font:  15pt &quot;Franklin Gothic Medium Cond&quot;;
+background: transparent;
+text-decoration: underline;</string>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <zorder>stackedWidget</zorder>
    <zorder>side_menu</zorder>
@@ -2622,7 +3149,6 @@ color: rgb(255, 255, 255);
  </widget>
  <resources>
   <include location="resources/source.qrc"/>
-  <include location="../../RANDOM/pyqt5/haha/source.qrc"/>
  </resources>
  <connections/>
 </ui>
