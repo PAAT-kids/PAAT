@@ -13,7 +13,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
+import login as ahmed
 import source_rc
 import home2
 import main
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        self.login.clicked.connect(lambda: self.openwindow(MainWindow))
+        #self.login.clicked.connect(self.loginCheck)
         
 
 #########################################################
@@ -98,6 +98,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+
+
 
 #####################################################
 ## Top Icon Buttons: Settings icon + help window
@@ -178,6 +180,13 @@ class Ui_MainWindow(object):
                 self.centralwidget.setStyleSheet(u"background-image: url(:/bg/darkbg.png)")
         elif checked:
                 self.centralwidget.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
+
+    def loginCheck(self, MainWindow):
+        password = self.password_lg.text()
+        username = self.username_lg.text()
+        if ahmed.root.connect_database(username, password) == True:
+                self.openwindow(MainWindow)
+
 
     def openwindow(self, MainWindow):
     
