@@ -7,7 +7,7 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
+import drafting
 from typing import Text
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
@@ -20,6 +20,7 @@ from sendPacket import sendPacketClass
 
 
 
+
 import source_rc
 
 sPacket = sendPacketClass()
@@ -28,10 +29,10 @@ sPacketType = 0
 ## Main Window Object
 #####################################################
 class Ui_OtherWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, darkmodes):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1906, 1077)
+        MainWindow.resize(1920, 1077)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet(u"")
 
@@ -58,6 +59,8 @@ class Ui_OtherWindow(object):
         self.formLayout = QFormLayout()
         self.formLayout.setObjectName(u"formLayout")
 
+        self.darkmode = darkmodes;
+
 ## HOME ICON ##
         self.home_icon = QPushButton(self.side_menu)
         self.home_icon.setObjectName(u"home_icon")
@@ -70,7 +73,7 @@ class Ui_OtherWindow(object):
         icon.addFile(u":/icons/homeic.png", QSize(), QIcon.Normal, QIcon.Off)
         self.home_icon.setIcon(icon)
         self.home_icon.setIconSize(QSize(55, 55))
-        self.home_icon.clicked.connect(self.home)
+        self.home_icon.clicked.connect(self.homepg)
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.home_icon)
 
@@ -238,7 +241,6 @@ class Ui_OtherWindow(object):
         
         
 ## Page 1 - Home page ##
-
         self.home = QWidget()
         self.home.setObjectName(u"home")
         self.home.setStyleSheet(u"background-image: url(:/bg1/home.png);")
@@ -283,6 +285,7 @@ class Ui_OtherWindow(object):
         self.sentl.raise_()
 
         self.sentop.activated.connect(self.chosen)
+        self.recieve_pack.clicked.connect(self.recieve_page)
 
 ## Page 2 - Network Packets Page ##
         self.packets = QWidget()
@@ -396,6 +399,7 @@ class Ui_OtherWindow(object):
         
         self.nxt_eth.clicked.connect(self.setEthernet)
         self.nxt_eth.clicked.connect(self.ippage)
+        
 
 ## Page 4 -  IP PACKET labels, inputs and buttons ##
         self.IP = QWidget()
@@ -939,6 +943,7 @@ class Ui_OtherWindow(object):
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.stackedWidget.addWidget(self.DNS)
+        self.draft_dns.clicked.connect(self.saveDraftDNS)
 
 ## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
@@ -955,6 +960,8 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        self.draft_dns_2.clicked.connect(self.saveDraftSSDP)
+
         self.send_dns_2 = QPushButton(self.SSDP)
         self.send_dns_2.setObjectName(u"send_dns_2")
         self.send_dns_2.setGeometry(QRect(1560, 680, 241, 91))
@@ -1129,8 +1136,13 @@ class Ui_OtherWindow(object):
         self.psd_txt.setObjectName(u"psd_txt")
         self.psd_txt.setGeometry(QRect(680, 640, 411, 31))
         self.psd_txt.setStyleSheet(u"background: rgb(183, 197, 208);")
+
         self.stackedWidget.addWidget(self.Account)
 
+        self.darkm.clicked.connect(self.changebg)
+        self.lightm.clicked.connect(self.changedbg)
+
+        self.save.clicked.connect(self.homepg)
 
         self.psd_txt.raise_()
         self.em_txt.raise_()
@@ -1251,6 +1263,7 @@ class Ui_OtherWindow(object):
         self.ampFac.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 13pt \"Franklin Gothic Medium Cond\";\n"
 "background: transparent;")
+
         self.stackedWidget.addWidget(self.recvd_pg) 
      
 
@@ -1330,8 +1343,91 @@ class Ui_OtherWindow(object):
 "text-decoration: underline;")
         self.stackedWidget.addWidget(self.contacts)   
 
+## Page 13 - Autocreate Page ##
 
+        self.autocreate = QWidget()
+        self.autocreate.setObjectName(u"autocreate")
+        self.autocreate.setStyleSheet(u"background: rgb(29, 108, 137);\n"
+"background: url(:/bg1/autocreate.png);")
+        self.dest_ad = QLineEdit(self.autocreate)
+        self.dest_ad.setObjectName(u"dest_ad")
+        self.dest_ad.setGeometry(QRect(400, 490, 361, 51))
+        self.dest_ad.setStyleSheet(u"background: rgb(183, 206, 212);")
+        self.src_adlabel = QLabel(self.autocreate)
+        self.src_adlabel.setObjectName(u"src_adlabel")
+        self.src_adlabel.setGeometry(QRect(400, 390, 161, 21))
+        self.src_adlabel.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: italic 13pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.dest_adlabel = QLabel(self.autocreate)
+        self.dest_adlabel.setObjectName(u"dest_adlabel")
+        self.dest_adlabel.setGeometry(QRect(400, 550, 211, 21))
+        self.dest_adlabel.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: italic 13pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.sorc_ad = QLineEdit(self.autocreate)
+        self.sorc_ad.setObjectName(u"sorc_ad")
+        self.sorc_ad.setGeometry(QRect(400, 330, 361, 51))
+        self.sorc_ad.setStyleSheet(u"background: rgb(183, 197, 208);")
+        self.addcont = QPushButton(self.autocreate)
+        self.addcont.setObjectName(u"addcont")
+        self.addcont.setGeometry(QRect(770, 490, 81, 51))
+        self.addcont.setStyleSheet(u"background: transparent;")
+        self.addcont.setIcon(icon8)
+        self.addcont.setIconSize(QSize(55, 55))
+        self.pkt_type = QComboBox(self.autocreate)
+        self.pkt_type.addItem("")
+        self.pkt_type.addItem("")
+        self.pkt_type.addItem("")
+        self.pkt_type.setObjectName(u"pkt_type")
+        self.pkt_type.setGeometry(QRect(1260, 370, 241, 91))
+        self.pkt_type.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);")
+        self.pkt_type.setEditable(False)
+        self.pkt_type.setMaxVisibleItems(10)
+        self.pkt_type.setFrame(True)
+        self.pt_labrl = QLabel(self.autocreate)
+        self.pt_labrl.setObjectName(u"pt_labrl")
+        self.pt_labrl.setGeometry(QRect(1270, 370, 211, 91))
+        self.pt_labrl.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);")
+        self.packetsel = QLabel(self.autocreate)
+        self.packetsel.setObjectName(u"packetsel")
+        self.packetsel.setGeometry(QRect(1280, 330, 211, 21))
+        self.packetsel.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 16pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.create_bt = QPushButton(self.autocreate)
+        self.create_bt.setObjectName(u"create_bt")
+        self.create_bt.setGeometry(QRect(850, 640, 241, 91))
+        self.create_bt.setAutoFillBackground(False)
+        self.create_bt.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 40px;\n"
+"padding: 10px 10px;\n"
+"background: rgb(0, 194, 203);\n"
+"")
+        self.progressBar = QProgressBar(self.autocreate)
+        self.progressBar.setObjectName(u"progressBar")
+        self.progressBar.setGeometry(QRect(750, 800, 471, 41))
+        self.progressBar.setStyleSheet(u"")
+        self.progressBar.setValue(24)
+        self.progressBar.setOrientation(Qt.Horizontal)
+        self.progressBar.setInvertedAppearance(False)
 
+        self.create_bt.clicked.connect(self.helpUi)
+        self.pkt_type.activated.connect(self.chosen2)
+
+        self.stackedWidget.addWidget(self.autocreate)
+
+        if self.darkmode == True:
+                self.changebg()
 
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -1349,9 +1445,9 @@ class Ui_OtherWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.home_icon.setText(QCoreApplication.translate("MainWindow", u"HOME", None))
+        self.home_icon.setText(QCoreApplication.translate("MainWindow", u" HOME", None))
         self.sent_icon.setText(QCoreApplication.translate("MainWindow", u"SENT", None))
-        self.recieve_icon.setText(QCoreApplication.translate("MainWindow", u"RECIEVED", None))
+        self.recieve_icon.setText(QCoreApplication.translate("MainWindow", u" RECIEVED", None))
         self.info_icon.setText(QCoreApplication.translate("MainWindow", u"HELP", None))
         self.drafts_icon.setText(QCoreApplication.translate("MainWindow", u"DRAFTS", None))
         self.menu_icon.setText("")
@@ -1363,6 +1459,17 @@ class Ui_OtherWindow(object):
         self.sentop.setItemText(1, QCoreApplication.translate("MainWindow", u"Drafts", None))
         self.sentop.setItemText(2, QCoreApplication.translate("MainWindow", u"Autocreate", None))
         self.sentop.setItemText(3, QCoreApplication.translate("MainWindow", u"New Packet", None))
+
+        self.src_adlabel.setText(QCoreApplication.translate("MainWindow", u"Source Address", None))
+        self.dest_adlabel.setText(QCoreApplication.translate("MainWindow", u"Destination Address", None))
+        self.addcont.setText("")
+        self.pkt_type.setItemText(0, QCoreApplication.translate("MainWindow", u"DNS", None))
+        self.pkt_type.setItemText(1, QCoreApplication.translate("MainWindow", u"NTP", None))
+        self.pkt_type.setItemText(2, QCoreApplication.translate("MainWindow", u"SSDP", None))
+        self.pkt_type.setCurrentText(QCoreApplication.translate("MainWindow", u"DNS", None))
+        self.pt_labrl.setText(QCoreApplication.translate("MainWindow", u"Packet Type", None))
+        self.packetsel.setText(QCoreApplication.translate("MainWindow", u"Select a Packet", None))
+        self.create_bt.setText(QCoreApplication.translate("MainWindow", u"Create Packet", None))
 
 #if QT_CONFIG(tooltip)
         self.sentop.setToolTip("")
@@ -1494,7 +1601,7 @@ class Ui_OtherWindow(object):
         self.cancel_bt.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
     # retranslateUi
 
-    def home(self):
+    def homepg(self):
 
         self.stackedWidget.setCurrentIndex(0)
 
@@ -1544,13 +1651,6 @@ class Ui_OtherWindow(object):
                 self.sPacketType = 2
                 self.stackedWidget.setCurrentIndex(7)
 
-    def chosen(self):
-
-        text = self.sentop.currentText()
-
-        if text == 'New Packet':
-
-                self.stackedWidget.setCurrentIndex(1)
 
     def setEthernet(self):
         sPacket.setEthernet(self.source.text(),self.dest.text(),self.type.text())
@@ -1573,8 +1673,41 @@ class Ui_OtherWindow(object):
 
         sPacket.setListValues(self.tempListValues,self.sPacketType)
         
-
+        
     
+    def chosen(self):
+
+        text = self.sentop.currentText()
+
+        if text == 'New Packet':
+
+                self.stackedWidget.setCurrentIndex(1) 
+            
+        if text == 'Sent':
+                self.stackedWidget.setCurrentIndex(10)
+
+        if text == 'Drafts':
+                self.stackedWidget.setCurrentIndex(9)
+
+        if text == 'Autocreate':
+                self.stackedWidget.setCurrentIndex(13)
+
+
+    def chosen2(self):
+    
+        text = self.pkt_type.currentText()
+
+        if text == 'DNS':
+
+                self.pt_labrl.setText(QCoreApplication.translate("MainWindow", u"<p align=\"center\">DNS</p>", None))
+
+        if text == 'SSDP':
+                self.pt_labrl.setText(QCoreApplication.translate("MainWindow", u"<p align=\"center\">SSDP</p>", None))
+
+        if text == 'NTP':
+                self.pt_labrl.setText(QCoreApplication.translate("MainWindow", u"<p align=\"center\">NTP</p>", None))
+
+
     def default_eth(self):
         
         self.type.setText("0x800")
@@ -1633,6 +1766,22 @@ class Ui_OtherWindow(object):
         self.st_field.setText("Hello")
         self.host_field.setText("Hello")
 
+    def saveDraftSSDP(self):
+        drafting.setVariablesEth(self.source.text(),self.dest.text(),self.type.text())
+        drafting.setVariablesIP(self.srcad1.text(),self.dstad1.text(),self.ttl_box.text(),self.vrsn_box.text(),self.IHL_box.text(),self.tos_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.len_box.text())
+        drafting.setVariablesUDP(self.dest_box.text(),self.source_box.text(),self.chksum_box_2.text(),self.leng_box.text())
+        drafting.setVariablesSSDP(self.mx_field.text(),self.st_field.text(),self.man_field.text(),self.port_field.text(),self.host_field.text())
+        drafting.saveDraft("SSDP")
+        
+
+    def saveDraftDNS(self):
+        drafting.setVariablesEth(self.source.text(),self.dest.text(),self.type.text())
+        drafting.setVariablesIP(self.srcad1.text(),self.dstad1.text(),self.ttl_box.text(),self.vrsn_box.text(),self.IHL_box.text(),self.tos_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.len_box.text())
+        drafting.setVariablesUDP(self.dest_box.text(),self.source_box.text(),self.chksum_box_2.text(),self.leng_box.text())
+        drafting.setVariablesDNS(self.qname_field.text(),self.qtype_field.text(),self.qclass_field.text())
+        drafting.saveDraft("DNS")  
+
+
     def slideleft(self):
         width = self.side_menu.width()
 
@@ -1642,9 +1791,60 @@ class Ui_OtherWindow(object):
         elif width == 200:
                 width = 63
 
+        self.side_menu.setFixedWidth(width)
         self.animation = QPropertyAnimation(self.side_menu, b"minimumWidth")
         self.animation.setDuration(250)
         self.animation.setStartValue(width)
         self.animation.setEndValue(width)
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
+
+    def changebg(self):
+        
+        self.home.setStyleSheet(u"background-image: url(:/bg1/dark_welc.png);")
+        self.packets.setStyleSheet(u"background-image: url(:/bg1/new_eth.png);")
+        self.ETH.setStyleSheet(u"background-image: url(:/bg1/dark_eth.png);")
+        self.IP.setStyleSheet(u"background-image: url(:/bg1/dark_ip.png);")
+        self.UDP.setStyleSheet(u"background-image: url(:/bg1/dark_udp.png);")
+        self.NTP.setStyleSheet(u"background-image: url(:/bg1/dark_ntp.png);")
+        self.DNS.setStyleSheet(u"background-image: url(:/bg1/dark_dns.png);")
+        self.SSDP.setStyleSheet(u"background-image: url(:/bg1/dark_ssdp.png);")
+        self.drafts_pg.setStyleSheet(u"background-image: url(:/bg1/dark_drafts.png);")
+        self.sent_pg.setStyleSheet(u"background-image: url(:/bg1/dark_sent.png);")
+        self.recvd_pg.setStyleSheet(u"background-image: url(:/bg1/dark_recv.png);")
+        self.Account.setStyleSheet(u"background: url(:/bg1/dark_settings.png);")
+        self.autocreate.setStyleSheet(u"background: rgb(29, 108, 137);\n"
+"background: url(:/bg1/dark_autc.png);")
+
+    def changedbg(self):
+
+        self.home.setStyleSheet(u"background-image: url(:/bg1/home.png);")
+        self.packets.setStyleSheet(u"background-image: url(:/bg1/newpc.png);")
+        self.ETH.setStyleSheet(u"background-image: url(:/bg1/eth.png);")
+        self.IP.setStyleSheet(u"background-image: url(:/bg1/ip.png);")
+        self.UDP.setStyleSheet(u"background-image: url(:/bg1/udp.png);")
+        self.NTP.setStyleSheet(u"background-image: url(:/bg1/ntp.png);")
+        self.DNS.setStyleSheet(u"background-image: url(:/bg1/dns.png);")
+        self.SSDP.setStyleSheet(u"background-image: url(:/bg1/ssdp.png);")
+        self.drafts_pg.setStyleSheet(u"background-image: url(:/bg1/drafts.png);")
+        self.sent_pg.setStyleSheet(u"background-image: url(:/bg1/sent.png);")
+        self.recvd_pg.setStyleSheet(u"background-image: url(:/bg1/recvd.png);")
+        self.Account.setStyleSheet(u"background: url(:/bg1/settingss.png);")
+        self.contacts.setStyleSheet(u"background-image: url(:/bg1/contactss.png);")
+        self.autocreate.setStyleSheet(u"background: rgb(29, 108, 137);\n"
+"background: url(:/bg1/autocreate.png);")
+
+    def recieve_page(self):
+        
+        self.stackedWidget.setCurrentIndex(11)
+
+    def helpUi(self):
+            
+        self.stackedWidget.setCurrentIndex(0)
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
