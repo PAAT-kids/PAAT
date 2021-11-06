@@ -132,6 +132,8 @@ class Ui_MainWindow(object):
         self.info_icon.setIcon(icon)
         self.info_icon.setIconSize(QSize(76, 66))
         self.info_icon.clicked.connect(self.helpUi)
+
+        self.darkmode = False;
                 
 #####################################################
 ## UI window setup
@@ -175,14 +177,16 @@ class Ui_MainWindow(object):
     def dark(self, checked):
 
         if not checked:
-                self.centralwidget.setStyleSheet(u"background-image: url(:/bg/darkbg.png)")
+                self.centralwidget.setStyleSheet(u"background-image: url(:/bg1/darkbg.png)")
+                self.darkmode = True;
         elif checked:
-                self.centralwidget.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
+                self.centralwidget.setStyleSheet(u"background-image: url(:/bg1/bg9.png)")
+                self.darkmode = False;
 
     def openwindow(self, MainWindow):
     
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
-        self.ui.setupUi(self.window)
+        self.ui.setupUi(self.window,self.darkmode)
         self.window.show()
         MainWindow.close()
