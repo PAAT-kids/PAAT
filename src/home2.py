@@ -7,7 +7,7 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
+import drafting
 from typing import Text
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
@@ -15,6 +15,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+
 
 import source_rc
 
@@ -389,6 +390,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.ETH)
         
         self.nxt_eth.clicked.connect(self.ippage)
+        
 
 ## Page 4 -  IP PACKET labels, inputs and buttons ##
         self.IP = QWidget()
@@ -928,6 +930,7 @@ class Ui_OtherWindow(object):
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.stackedWidget.addWidget(self.DNS)
+        self.draft_dns.clicked.connect(self.saveDraftDNS)
 
 ## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
@@ -944,6 +947,8 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        self.draft_dns_2.clicked.connect(self.saveDraftSSDP)
+
         self.send_dns_2 = QPushButton(self.SSDP)
         self.send_dns_2.setObjectName(u"send_dns_2")
         self.send_dns_2.setGeometry(QRect(1560, 680, 241, 91))
@@ -1596,6 +1601,22 @@ class Ui_OtherWindow(object):
         self.man_field.setText("Hello")
         self.st_field.setText("Hello")
         self.host_field.setText("Hello")
+
+    def saveDraftSSDP(self):
+        drafting.setVariablesEth(self.source.text(),self.dest.text(),self.type.text())
+        drafting.setVariablesIP(self.srcad1.text(),self.dstad1.text(),self.ttl_box.text(),self.vrsn_box.text(),self.IHL_box.text(),self.tos_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.len_box.text())
+        drafting.setVariablesUDP(self.dest_box.text(),self.source_box.text(),self.chksum_box_2.text(),self.leng_box.text())
+        drafting.setVariablesSSDP(self.mx_field.text(),self.st_field.text(),self.man_field.text(),self.port_field.text(),self.host_field.text())
+        drafting.saveDraft("SSDP")
+        
+
+    def saveDraftDNS(self):
+        drafting.setVariablesEth(self.source.text(),self.dest.text(),self.type.text())
+        drafting.setVariablesIP(self.srcad1.text(),self.dstad1.text(),self.ttl_box.text(),self.vrsn_box.text(),self.IHL_box.text(),self.tos_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.len_box.text())
+        drafting.setVariablesUDP(self.dest_box.text(),self.source_box.text(),self.chksum_box_2.text(),self.leng_box.text())
+        drafting.setVariablesDNS(self.qname_field.text(),self.qtype_field.text(),self.qclass_field.text())
+        drafting.saveDraft("DNS")  
+
 
     def slideleft(self):
         width = self.side_menu.width()

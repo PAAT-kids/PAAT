@@ -37,7 +37,6 @@ class connections:
         self.con.close()
 
 
-root = connections()
 
 
 

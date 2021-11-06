@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        #self.login.clicked.connect(self.loginCheck)
+        self.login.clicked.connect(self.loginCheck)
         
 
 #########################################################
@@ -184,14 +184,13 @@ class Ui_MainWindow(object):
     def loginCheck(self, MainWindow):
         password = self.password_lg.text()
         username = self.username_lg.text()
-        if ahmed.root.connect_database(username, password) == True:
+        root = ahmed.connections()
+        if root.connect_database(username, password) == True:
                 self.openwindow(MainWindow)
 
 
     def openwindow(self, MainWindow):
-    
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
         self.ui.setupUi(self.window)
         self.window.show()
-        MainWindow.close()
