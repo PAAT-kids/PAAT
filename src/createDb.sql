@@ -12,6 +12,13 @@ CREATE TABLE Users
 	PRIMARY KEY(Username)
 );
 
+CREATE TABLE Contacts
+(	
+	ContactName CHAR(50) NOT NULL,
+	DestinationAdd CHAR(50) NOT NULL,
+	PRIMARY KEY(ContactName)
+);
+
 CREATE TABLE Sent
 (	
 	ID CHAR(50) NOT NULL,
@@ -102,7 +109,6 @@ CREATE TABLE Received
 CREATE TABLE Drafts
 (	
 	ID CHAR(50) NOT NULL,
-	Sizee INT(50) NULL,
 	Datee DATE NULL,
 	Time TIME(0) NULL,
 	SenderAdd CHAR(50) NULL,
@@ -126,6 +132,7 @@ CREATE TABLE Drafts
 	SourcePort CHAR(50) NULL,
 	DestinationPort CHAR(50) NULL,
 	Checksum VARBINARY(50) NULL,
+	PacketType CHAR(50) NOT NULL,
 	PRIMARY KEY(ID)
 );
 
@@ -196,6 +203,14 @@ CREATE TABLE Creates
 	FOREIGN KEY(Username) REFERENCES Users(Username)
 );
 
+CREATE TABLE Saves
+(	
+	Username CHAR(50) NOT NULL,
+	ContactName CHAR(50) NOT NULL,
+	FOREIGN KEY(Username) REFERENCES Users(Username),
+	FOREIGN KEY(ContactName) REFERENCES Contacts(ContactName)
+);
+
 -- Procedures to add values
 --
 DELIMITER $$
@@ -203,6 +218,13 @@ CREATE PROCEDURE insUser(a CHAR(50), b CHAR(50), c VARCHAR (4096))
 BEGIN
 	IF (a IS NOT NULL) THEN
 		INSERT INTO Users VALUES (a,b,c);
+	END IF;
+END$$
+
+CREATE PROCEDURE insContacts(a CHAR(50), b CHAR(50))
+BEGIN
+	IF (a IS NOT NULL) THEN
+		INSERT INTO Contacts VALUES (a,b);
 	END IF;
 END$$
 
@@ -230,7 +252,7 @@ END$$
 CREATE PROCEDURE insSSDP(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50), e CHAR(50), f INT(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
-		INSERT INTO SSDP VALUES (a,b,c,d);
+		INSERT INTO SSDP VALUES (a,b,c,d,e,f);
 	END IF;
 END$$
 
@@ -241,10 +263,10 @@ BEGIN
 	END IF;
 END$$
 
-CREATE PROCEDURE insDrafts(a CHAR(50), b INT(50), c DATE, d TIME(0), e CHAR(50), f CHAR(50), g CHAR(50), h CHAR(50), i CHAR(50), j INT(50), k CHAR(50), l VARBINARY(50), m CHAR(50), n INT(50), o CHAR(50), p INT(50), q INT(50), r CHAR(50), s VARBINARY(50), t CHAR(50), u CHAR(50), v CHAR(50), w CHAR(50), x CHAR(50), y VARBINARY(50))
+CREATE PROCEDURE insDrafts(a CHAR(50), c DATE, d TIME(0), e CHAR(50), f CHAR(50), g CHAR(50), h CHAR(50), i CHAR(50), j INT(50), k CHAR(50), l VARBINARY(50), m CHAR(50), n INT(50), o CHAR(50), p INT(50), q INT(50), r CHAR(50), s VARBINARY(50), t CHAR(50), u CHAR(50), v CHAR(50), w CHAR(50), x CHAR(50), y VARBINARY(50), z CHAR(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
-		INSERT INTO Drafts VALUES (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y);
+		INSERT INTO Drafts VALUES (a,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z);
 	END IF;
 END$$
 
@@ -265,7 +287,35 @@ END$$
 CREATE PROCEDURE insSSDP2(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50), e CHAR(50), f INT(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
-		INSERT INTO SSDP2 VALUES (a,b,c,d);
+		INSERT INTO SSDP2 VALUES (a,b,c,d,e,f);
+	END IF;
+END$$
+
+CREATE PROCEDURE insSends(a CHAR(50), b CHAR(50))
+BEGIN
+	IF (a IS NOT NULL AND b IS NOT NULL) THEN
+		INSERT INTO Sends VALUES (a,b);
+	END IF;
+END$$
+
+CREATE PROCEDURE insReceives(a CHAR(50), b CHAR(50))
+BEGIN
+	IF (a IS NOT NULL AND b IS NOT NULL) THEN
+		INSERT INTO Receives VALUES (a,b);
+	END IF;
+END$$
+
+CREATE PROCEDURE insCreates(a CHAR(50), b CHAR(50))
+BEGIN
+	IF (a IS NOT NULL AND b IS NOT NULL) THEN
+		INSERT INTO Creates VALUES (a,b);
+	END IF;
+END$$
+
+CREATE PROCEDURE insSaves(a CHAR(50), b CHAR(50))
+BEGIN
+	IF (a IS NOT NULL AND b IS NOT NULL) THEN
+		INSERT INTO Saves VALUES (a,b);
 	END IF;
 END$$
 
