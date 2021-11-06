@@ -1,139 +1,128 @@
-from scapy.all import sniff, Raw, UDP,DNSQR,DNSRR
+from scapy.all import *
+import os
+import json
 
-recvIP = "127.0.0.1" #replace with host comps IP
-srcIP = ""
-dnsIP = "8.8.8.8" #replace with our own dns server
-def checkSelectedOption():
-    rawPacket=''
-    #option = sniff(stop_filter= lambda x: x.haslayer(Raw))
-    
-    while(True):
-       
-        option = sniff(filter = "udp and dst host 1.2.3.4", stop_filter= lambda x: x.haslayer(Raw))
-        print("outside sniff that was in while.")
-        for rawPacket in option[UDP]:
-            if rawPacket.haslayer(Raw) and rawPacket.getlayer(Raw).load == 'DNS':
-                 break #breaking for loop
-	    elif rawPacket.haslayer(Raw) and rawPacket.getlayer(Raw).load == 'NTP':
-		 break
-	    elif rawPacket.haslayer(Raw) and rawPacket.getlayer(Raw).load == 'SSDP':
-		 break
-        if rawPacket.haslayer(Raw) and rawPacket.getlayer(Raw).load == 'DNS':
-            print("found dns")
-            printDNSVal(rawPacket) #printDNSValues
-            break #breaking while loop
-	elif rawPacket.haslayer(Raw) and rawPacket.getlayer(Raw).load == 'NTP':
-            print("found ntp")
-            #printDNSVal(rawPacket) #printDNSValues
-            break #breaking while loop
-	elif rawPacket.haslayer(Raw) and rawPacket.getlayer(Raw).load == 'SSDP':
-            print("found ssdp")
-            printSSDPVal(rawPacket) #printDNSValues
-            break #breaking while loop
-        print("continuing while loop")
-        
-    
-    
-    #print(option[0][Raw].load)
-
-#ssdp packet handle
-#sport for ssdp query is 65165 and dport is ofc 1900
-def printSSDPVal(ssdpPacket):
-	ssdpQPacket = None
-	ssdpAnsPacket = []
-	#various packets may be captured in one sniff
-	ssdpPackets = sniff(filter="udp and port 65165", timeout=5) #sniffs for at most 5 secs
-	
-	for ssdpPacket in ssdpPackets[UDP]:
-		if ssdpPacket.sport == 65165 and ssdpPacket.dport == 1900:
-			ssdpQPacket = ssdpPacket#should be the ssdp Q packet
-		elif ssdpPacket.dport == 65165 and ssdpPacket.sport == 1900:
-			ssdpAnsPacket.append(ssdpPacket)#should be the ssdp Ans packets
-
-		
-	if ssdpQPacket and ssdpAnsPacket:
-		print("Length of SSDP Q Packet is: "+str(dnsQAlengthCal(ssdpQPacket)))
-		print("total length of ssdp Ans packets is: "+str(ssdpAlengthCal(ssdpAnsPacket)))
-		print("Amplification :"+str(dnsAmplificationFactor(dnsQAlengthCal(ssdpQPacket), ssdpAlengthCal(ssdpAnsPacket))))
-
-#calculate length of ssdp responses in total
-def ssdpAlengthCal(ssdpPacket):
-	total = 0
-	for ssdpPkt in ssdpPacket:
-		total = total + dnsQAlengthCal(ssdpPkt)
-	return total
 '''
-NTP notes: can know whether its a query or answer by looking at the sport and dport
+Purpose: Capture packets and calculation amplification if any
+Author: Samrah
+Last Modified Date: 06/11/2021
 '''
-def printNTPVal(ntpPacket):
-	ntpQPacket = None
-	ntpAnsPacket = None
-
-	print("inside printNTPVal")
+packets = []
+def startSniff(num):
+	print('thread created')
 	
 	
-#for printing dns values
-def printDNSVal(dnsPacket):
-    dnsQPacket = None
-    dnsAnsPacket = None
-    print("inside printDNSVal")
-    dnsPackets = sniff(filter = "host "+dnsIP, prn= lambda x: x.haslayer(DNSQR) or x.haslayer(DNSRR))
-    print("dnsqpacket stopped sniffing.")
-    for dnsPacket in dnsPackets[UDP]:
-        if dnsPacket.haslayer(DNSQR) and dnsPacket.getlayer(UDP).dport==53:
-            dnsQPacket = dnsPacket #getting the dns query packet
-        elif dnsPacket.haslayer(DNSRR) and dnsPacket.getlayer(UDP).sport==53:
-            dnsAnsPacket = dnsPacket#getting the dns response record packet
-    #dnsAnsPacket = sniff(filter = "dst host 192.168.231.173", prn= lambda x: x.haslayer(DNSRR), timeout=5,quiet=True)
-    if dnsQPacket and dnsAnsPacket:
+	received = sniff(filter="dst port 6700 or src port 53 or src port 123 or src port 1900", prn=lambda pkt: trafficIdentifier(pkt))
+	
+def trafficIdentifier(pkt):
+	print('inside traffic')
+	print('src port '+str(pkt.getlayer(IP).sport))
+	dictOfPkts = {}
+	if pkt.haslayer(UDP) and pkt.haslayer(Raw) and pkt.getlayer(UDP).dport==6700 and pkt.getlayer(UDP).sport==6700:
+		if "size" in json.loads(pkt.getlayer(Raw).load.decode('utf-8')): 
+			print('inside size determinator')
+			dictOfPkts["size"] = convertToDict(pkt)['size']
+			dictOfPkts["dport"] = convertToDict(pkt)['QID']
+			dictOfPkts['type'] = convertToDict(pkt)['Type']
+			
+			packets.append(dictOfPkts)
+			print(packets)
+	elif pkt.getlayer(IP).sport == 53:
+		print('inside pkt.getlayer(IP).src == 53')
+		handleDNS(pkt)
+	elif pkt.getlayer(IP).sport == 1900:
+		print('inside pkt.getlayer(IP).src == 1900')
+		handleSSDP(pkt)
+	elif pkt.getlayer(IP).sport == 123:
+		print('inside pkt.getlayer(IP).src == 123')
+		handleNTP(pkt)
 
-        #functions for dnsq length calculations
-        print("dnsQ length: "+str(dnsQAlengthCal(dnsQPacket)))
-        #functions for dnsa length calculations
-        print("dnsAns length: "+str(dnsQAlengthCal(dnsAnsPacket)))
-        #function to calculate the amplification
-        dnsAmplificationFactor(dnsQAlengthCal(dnsQPacket),dnsQAlengthCal(dnsAnsPacket))
+def handleNTP(ntpPacket):
+	print('inside handleNTP')
+	print('ntpPacket dport '+str(ntpPacket.getlayer(UDP).dport))
+	#global packets
+	respSize = ntpPacket.getlayer(UDP).len
+	
+	for packet in packets:
+		print('dport in list of packets: '+str(packet["dport"]))
+		if packet["dport"] == ntpPacket.getlayer(UDP).dport and packet['type'] == 'NTP':
+			ampFactor = dnsAmplificationFactor(packet['size'], ntpPacket.getlayer(UDP).len)
 
-        print("dnsQPacket: ")
-        print(repr(dnsQPacket))
-        print("dnsAnsPacket: ")
-        print(repr(dnsAnsPacket))
+def handleSSDP(ssdpPacket):
+	print('inside handleSSDP')
+	print('ssdpdnsPacket dport '+str(ssdpPacket.getlayer(UDP).dport))
+	#global packets
+	respSize = ssdpPacket.getlayer(UDP).len
+	
+	for packet in packets:
+		print('dport in list of packets: '+str(packet["dport"]))
+		if packet["dport"] == ssdpPacket.getlayer(UDP).dport and packet['type'] == 'SSDP':
+			ampFactor = dnsAmplificationFactor(packet['size'], ssdpPacket.getlayer(UDP).len)
 
-#calculate length of dnsq
+
+def handleDNS(dnsPacket):
+	print('inside handleDNS')
+	print('dnsPacket dport '+str(dnsPacket.getlayer(UDP).dport))
+	#global packets
+	respSize = dnsPacket.getlayer(UDP).len
+	print(packets)
+	for packet in packets:
+		print('dport in list of packets: '+str(packet["dport"]))
+		if packet["dport"] == dnsPacket.getlayer(UDP).dport and packet['type'] == 'DNS':
+			ampFactor = dnsAmplificationFactor(packet['size'], dnsPacket.getlayer(UDP).len)
+	#dnsPackets = sniff(filter = "dst port 6700 ", prn= lambda x: x.haslayer(DNSQR) or x.haslayer(DNSRR), timeout=20)
+
 def dnsQAlengthCal(dnsQPkt):
     dnsQPacketLength = dnsQPkt.getlayer(UDP).len
     return dnsQPacketLength
+
 
 #calculate dns amplification
 def dnsAmplificationFactor(qLength, rlength):
     ampFactor = (float((rlength - qLength))/float(qLength))*100
     print("***The Amplification for dns is****"+str(ampFactor)+"%")
+    return ampFactor
+
+
+def convertToDict(pkt):
+	infoDict = json.loads(pkt.getlayer(Raw).load.decode('utf-8'))
+	return infoDict
+'''	
+
+#to insert received values into database
+def insertDB(receiverAddr, dateRec, initSize, respSize, ampFactor):
+    try:
+        cnx = mysql.connector.connect(user='me', password='myUserpassword',host='127.0.0.1',database='PAAT')
+        cursor = cnx.cursor()
+        add_pkt = ("INSERT INTO Received "
+               "(ID, Sizee, ReceiverAdd, FinalSize, Amplification) "
+               "VALUES (%s, %s, %s, %s, %s)")
+        data_pkt = ('12349', initSize, receiverAddr, respSize, ampFactor)
+        cursor.execute(add_pkt, data_pkt)
+        #adding relation between user and received packet
+        add_rel = ("INSERT INTO Receives "
+               "(Username, ID) "
+               "VALUES (%s, %s)")
+        data_rel = ('samrahtahir','12349')
+        cursor.execute(add_rel, data_rel)
+        cnx.commit()
+        print('done inserting')
+
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cnx.close()
 
 
 
 
+'''
+if __name__ == '__main__':
+    startSniff(10)
 
 
-
-
-
-
-
-
-def checkLayer(pkt):
-    if(pkt.haslayer(Raw) and pkt[0][Raw].load == 'DNS'):
-        sniffDNSPackets()
-        #print(pkt[0][Raw].load)
-
-        return 1
-
-
-def sniffDNSPackets():
-    print("1")
-    sniff(filter = "udp and host "+recvIP, prn=extractDNSInfo)
-   
-
-def extractDNSInfo():
-     print("2")
-     print("sniffing packets")
-checkSelectedOption()
