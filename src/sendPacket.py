@@ -8,55 +8,97 @@ LAST EDITED DATE: 16/10/2021
 
 import scapy.all as scapy
 
-class sendPacket:
+class sendPacketClass:
 
     ethSrc = ""
     ethDst =""
     ethType =""
-    ipVersion =""
-    ipIhl =""
-    ipTos = ""
-    ipLen = ""
-    ipId = ""
+    ipVersion = 0
+    ipIhl = None
+    ipTos = 0x0
+    ipLen = None
+    ipId = 1
     ipFlags = ""
-    ipFrag = ""
-    ipTtl =""
+    ipFrag = 0
+    ipTtl = 64
     ipProto = ""
-    ipChksum = ""
+    ipChksum = None
     ipOpt = ""
     ipSrc =""
     ipDst =""
     udpSport ="" 
     udpDport = ""
-    udpChksum = ""
-    listValues = ""
+    udpChksum = None
+    listValues = []
 
 
+
+
+
+    """
+    FUNCTION NAME: setEthernet
+    PURPOSE: setter
+    INPUT: String all the necessary value and a single list variable which conatins information of the specific ethernet packet type
+    OUTPUT: none
+    """
     def setEthernet (self,ethSrc1,ethDst1,ethType1):
         self.ethSrc = ethSrc1
         self.ethDst = ethDst1
         self.ethType = ethType1
-        print(self.ethSrc,self.ethDst,self.ethType)
 
+
+
+    """
+    FUNCTION NAME: setIP
+    PURPOSE: setter
+    INPUT: String all the necessary value and a single list variable which conatins information of the specific IP packet type
+    OUTPUT: none
+    """
     def setIP (self,ipVersion1,ipIhl1,ipTos1,ipLen1,ipId1,ipFlags1,ipFrag1,ipTtl1,ipProto1,ipChksum1,ipOpt1,ipSrc1,ipDst1):
-        ipVersion = ipVersion1
-        ipIhl = ipIhl1
-        ipTos = ipTos1
-        ipLen = ipLen1
-        ipId = ipId1
-        ipFlags = ipFlags1
-        ipFrag = ipFrag1
-        ipTtl = ipTtl1
-        ipProto = ipProto1
-        ipChksum = ipChksum1
-        ipOpt = ipOpt1
-        ipSrc = ipSrc1
-        ipDst = ipDst1
+        self.ipVersion = ipVersion1
+        self.ipIhl = ipIhl1
+        self.ipTos = ipTos1
+        self.ipLen = ipLen1
+        self.ipId = ipId1
+        self.ipFlags = ipFlags1
+        self.ipFrag = ipFrag1
+        self.ipTtl = ipTtl1
+        self.ipProto = ipProto1
+        self.ipChksum = ipChksum1
+        self.ipOpt = ipOpt1
+        self.ipSrc = ipSrc1
+        self.ipDst = ipDst1
 
-        print(ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipOpt,ipSrc,ipDst)
-        print(self.ethSrc,self.ethDst,self.ethType)
 
-    def setUDP()
+    """
+    FUNCTION NAME: setUDP
+    PURPOSE: setter
+    INPUT: String all the necessary value and a single list variable which conatins information of the specific UDP packet type
+    OUTPUT: none
+    """
+    def setUDP(self,udpSport1,udpDport1,udpChksum1):
+        self.udpSport= udpSport1
+        self.udpDport= udpDport1
+        self.udpChksum= udpChksum1
+
+
+  
+    """
+    FUNCTION NAME: setListValues
+    PURPOSE: setter
+    INPUT: String all the necessary value and a single list variable which conatins information of the specific ListVAlues packet type
+    OUTPUT: none
+    """  
+    def setListValues(self,listValues1,type):
+        if(type == 1):
+            self.listValues = [listValues1[0],listValues1[1],listValues1[2]]
+        elif(type == 2):
+            self.listValues = [listValues1[0],listValues1[1],listValues1[2],listValues1[3],listValues1[4]]
+        elif(type == 3):
+            self.listValues = [listValues1[0],listValues1[1],listValues1[2],listValues1[3],listValues1[4],listValues1[5],listValues1[6],listValues1[7],listValues1[8],listValues1[9],listValues1[10],listValues1[11],listValues1[12],listValues1[13]]
+
+        self.sendPacket(type,self.ethSrc,self.ethDst,self.ethType,self.ipVersion,self.ipIhl,self.ipTos,self.ipLen,self.ipId,self.ipFlags,self.ipFrag,self.ipTtl,self.ipProto,self.ipChksum,self.ipSrc,self.ipDst,self.udpSport,self.udpDport,self.udpChksum,self.listValues)
+
     """
     FUNCTION NAME: sendPacket
     PURPOSE: Crafts the first three layers.
@@ -66,6 +108,8 @@ class sendPacket:
     def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
 
         out = 0
+
+        print(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues)
 
         packet = (scapy.Ether(
                             src=ethSrc,
@@ -221,3 +265,6 @@ class sendPacket:
         scapy.sendp(packet)
 
         return 1
+
+    def autoSend(listValue):
+        print("Todo")
