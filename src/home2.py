@@ -15,8 +15,13 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from sendPacket import sendPacket
+
+
 
 import source_rc
+
+sPacket = sendPacket()
 
 #####################################################
 ## Main Window Object
@@ -388,6 +393,7 @@ class Ui_OtherWindow(object):
         self.ty.setToolTip("<b style='background:white; font:9pt; color:black;'>Indicates the encapsulated protocol in frame payload and determines how it is processed when recieved by the data link layer. [2 Octet]</b>")
         self.stackedWidget.addWidget(self.ETH)
         
+        self.nxt_eth.clicked.connect(self.setEthernet)
         self.nxt_eth.clicked.connect(self.ippage)
 
 ## Page 4 -  IP PACKET labels, inputs and buttons ##
@@ -564,6 +570,7 @@ class Ui_OtherWindow(object):
 "background: transparent;")
         self.stackedWidget.addWidget(self.IP)
 
+        self.nxt_ip.clicked.connect(self.setIP)
         self.nxt_ip.clicked.connect(self.udppage)
 
 
@@ -1540,9 +1547,16 @@ class Ui_OtherWindow(object):
 
                 self.stackedWidget.setCurrentIndex(1)
 
+    def setEthernet(self):
+            sPacket.setEthernet(self.source.text(),self.dest.text(),self.type.text())
+
+    def setIP(self):  
+            sPacket.setIP(self.versn.text(), self.ihl.text(),self.tos.text(),self.length.text(),self.idfn.text(),self.flgs.text(),self.fragoff.text(),self.ttl.text(),self.protcl.text(),self.hdrchksm.text(),self.opts.text(),self.srcad1.text(),self.dstad1.text())  
+    
     def default_eth(self):
         
         self.type.setText("0x800")
+
 
     def default_ip(self):
         
