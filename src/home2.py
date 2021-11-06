@@ -15,10 +15,16 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from sendPacket import sendPacketClass
+
+
+
 
 
 import source_rc
 
+sPacket = sendPacketClass()
+sPacketType = 0
 #####################################################
 ## Main Window Object
 #####################################################
@@ -391,6 +397,7 @@ class Ui_OtherWindow(object):
         self.ty.setToolTip("<b style='background:white; font:9pt; color:black;'>Indicates the encapsulated protocol in frame payload and determines how it is processed when recieved by the data link layer. [2 Octet]</b>")
         self.stackedWidget.addWidget(self.ETH)
         
+        self.nxt_eth.clicked.connect(self.setEthernet)
         self.nxt_eth.clicked.connect(self.ippage)
         
 
@@ -568,6 +575,7 @@ class Ui_OtherWindow(object):
 "background: transparent;")
         self.stackedWidget.addWidget(self.IP)
 
+        self.nxt_ip.clicked.connect(self.setIP)
         self.nxt_ip.clicked.connect(self.udppage)
 
 
@@ -657,7 +665,8 @@ class Ui_OtherWindow(object):
         self.def_udp.clicked.connect(self.default_udp)
 
         self.stackedWidget.addWidget(self.UDP)
-
+        
+        self.nxt_udp.clicked.connect(self.setUDP)
         self.nxt_udp.clicked.connect(self.nxtpage)
 
 ## Page 6 -  NTP PACKET labels, inputs and buttons ##
@@ -669,6 +678,7 @@ class Ui_OtherWindow(object):
         self.send_ntp.setObjectName(u"send_ntp")
         self.send_ntp.setGeometry(QRect(1560, 680, 241, 91))
         self.send_ntp.setAutoFillBackground(False)
+        self.send_ntp.clicked.connect(self.setListValues)
         self.send_ntp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 40px;\n"
@@ -876,6 +886,7 @@ class Ui_OtherWindow(object):
         self.send_dns.setObjectName(u"send_dns")
         self.send_dns.setGeometry(QRect(1560, 680, 241, 91))
         self.send_dns.setAutoFillBackground(False)
+        self.send_dns.clicked.connect(self.setListValues)
         self.send_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 40px;\n"
@@ -955,6 +966,7 @@ class Ui_OtherWindow(object):
         self.send_dns_2.setObjectName(u"send_dns_2")
         self.send_dns_2.setGeometry(QRect(1560, 680, 241, 91))
         self.send_dns_2.setAutoFillBackground(False)
+        self.send_dns_2.clicked.connect(self.setListValues)
         self.send_dns_2.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 40px;\n"
@@ -1630,23 +1642,47 @@ class Ui_OtherWindow(object):
     def nxtpage(self):
 
         if self.pressed == 'ntp':
-
+                self.sPacketType = 3
                 self.stackedWidget.setCurrentIndex(5)
         elif self.pressed == 'dns':
-
+                self.sPacketType = 1
                 self.stackedWidget.setCurrentIndex(6)
         elif self.pressed == 'ssdp':
-
+                self.sPacketType = 2
                 self.stackedWidget.setCurrentIndex(7)
 
+
+    def setEthernet(self):
+        sPacket.setEthernet(self.source.text(),self.dest.text(),self.type.text())
+
+    def setIP(self):  
+        sPacket.setIP(self.vrsn_box.text(), self.IHL_box.text(),self.tos_box.text(),self.len_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.ttl_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.srcad1.text(),self.dstad1.text())  
+    
+    def setUDP(self):
+        sPacket.setUDP(self.source_box.text(), self.dest_box.text(), self.chksum_box_2.text() )
+    
+    def setListValues(self):
+
+        if(self.sPacketType == 1):
+                self.tempListValues = [self.qname_field.text() , self.qclass_field.text(), self.qtype_field.text()]
+                
+        elif(self.sPacketType == 2):
+                self.tempListValues = [self.host_field.text(),self.port_field.text(),self.man_field.text(),self.mx_field.text(),self.st_field.text()]
+        elif(self.sPacketType == 3):
+                self.tempListValues = [self.leap_field.text(),self.version_field.text(),self.mode_field.text(),self.stratum_field.text(),self.poll_field.text(),self.precision_field.text(),self.delay_field.text(),self.dispersion_field.text(),self.id_field.text(),self.referenceid_field.text(),self.reference_field.text(), self.origin_field.text(),self.recieve_field.text(),self.sent_field.text()]
+
+        sPacket.setListValues(self.tempListValues,self.sPacketType)
+        
+        
+    
     def chosen(self):
 
         text = self.sentop.currentText()
 
         if text == 'New Packet':
 
-                self.stackedWidget.setCurrentIndex(1)
-
+                self.stackedWidget.setCurrentIndex(1) 
+            
         if text == 'Sent':
                 self.stackedWidget.setCurrentIndex(10)
 
@@ -1675,6 +1711,7 @@ class Ui_OtherWindow(object):
     def default_eth(self):
         
         self.type.setText("0x800")
+
 
     def default_ip(self):
         
