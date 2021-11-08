@@ -20,13 +20,13 @@ def signup(email, username, password):
 			#email validation
 			if check(email):
 				#print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
-				addNewUser(username, hashedPassword.decode('utf-8'), email)
-			#else:
-				#print('email not valid')
-		#else:
-			#print('password not valid')
-	#else:
-		#print('username not valid')
+				addNewUser(username, hashedPassword, email)
+			else:
+				print('email not valid')
+		else:
+			print('password not valid')
+	else:
+		print('username not valid')
 
 
 """
