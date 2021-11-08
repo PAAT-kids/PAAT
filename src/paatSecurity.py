@@ -3,7 +3,7 @@ FILENAME: paatSecurity
 AUTHOR: Majid Jafar, Samrah Tahir, Ahmed larbi
 PURPOSE: Contains all the important security aspect of the program
 DATE CREATED: 22/09/2021
-LAST EDITED DATE: 22/09/2021
+LAST EDITED DATE: 08/11/2021
 """
 import bcrypt
 import re
@@ -48,7 +48,7 @@ AUTHOR: Majid Jafar
 def comparePass (password,dbPassword):
     passwordBits = password.encode("utf-8")
     
-    if bcrypt.checkpw(passwordBits, dbPassword):
+    if bcrypt.checkpw(passwordBits, dbPassword.encode('utf-8')):
         return True
     else:
         return False
