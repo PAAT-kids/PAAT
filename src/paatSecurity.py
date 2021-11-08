@@ -48,7 +48,7 @@ AUTHOR: Majid Jafar
 def comparePass (password,dbPassword):
     passwordBits = password.encode("utf-8")
     
-    if bcrypt.checkpw(passwordBits, dbPassword):
+    if bcrypt.checkpw(passwordBits, dbPassword.encode('utf-8')):
         return True
     else:
         return False

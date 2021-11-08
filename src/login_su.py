@@ -14,6 +14,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import login as ahmed
+from signup import signup
 import source_rc
 import home2
 import main
@@ -98,8 +99,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-
-
+        #on click of the signup button, signup function is executed
+        self.signup.clicked.connect(lambda: signup(self.email_su.text(), self.username_su.text(), self.password_su.text()))
 
 #####################################################
 ## Top Icon Buttons: Settings icon + help window
