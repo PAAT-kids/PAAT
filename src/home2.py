@@ -16,7 +16,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from sendPacket import sendPacketClass
-
+from receiver import startSniffing 
 
 
 
@@ -1837,6 +1837,7 @@ class Ui_OtherWindow(object):
     def recieve_page(self):
         
         self.stackedWidget.setCurrentIndex(11)
+        startSniffing() #start capturing packets
 
     def helpUi(self):
             
