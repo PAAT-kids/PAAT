@@ -56,6 +56,8 @@ def handleNTP(ntpPacket):
 		print('dport in list of packets: '+str(packet["dport"]))
 		if packet["dport"] == ntpPacket.getlayer(UDP).dport and packet['type'] == 'NTP':
 			ampFactor = dnsAmplificationFactor(packet['size'], ntpPacket.getlayer(UDP).len)
+			dateReceived = datetime.today().strftime('%Y-%m-%d')
+			insertDB(ntpPacket.getlayer(IP).src, dateReceived, packet['size'],ntpPacket.getlayer(UDP).len , ampFactor)
 
 def handleSSDP(ssdpPacket):
 	print('inside handleSSDP')
@@ -66,8 +68,9 @@ def handleSSDP(ssdpPacket):
 	for packet in packets:
 		print('dport in list of packets: '+str(packet["dport"]))
 		if packet["dport"] == ssdpPacket.getlayer(UDP).dport and packet['type'] == 'SSDP':
+			dateReceived = datetime.today().strftime('%Y-%m-%d')
 			ampFactor = dnsAmplificationFactor(packet['size'], ssdpPacket.getlayer(UDP).len)
-
+			insertDB(ssdpPacket.getlayer(IP).src, dateReceived, packet['size'],ssdpPacket.getlayer(UDP).len , ampFactor)
 
 def handleDNS(dnsPacket):
 	print('inside handleDNS')
