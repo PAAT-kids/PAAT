@@ -39,17 +39,19 @@ AUTHOR: Samrah Tahir
 
 def addNewUser(userN, passw, email):
 
-	#print(userN)
-	#print(passw)
-	#print(email)
+	# print(userN)
+	# print(passw)
+	# print(email)
+	
 	conn = connectToDatabase()
 	cursor = conn.cursor()
-	add_user = """insert into User(username,password,email) values(%s,%s,%s)"""
-	cursor.execute(add_user, (userN, passw, email))
+	add_user = """insert into Users(Username,Email,UserPassword) values(%s,%s,%s)"""
+	cursor.execute(add_user, (userN, email, passw))
 	conn.commit()
 	#record = cursor.fetchone()
 	#print(record)
-	print('done')
+	print('User added.')
+	
 
 """
 FUNCTION NAME: connectToDatabase
@@ -61,7 +63,7 @@ AUTHOR: Samrah Tahir
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='',database='paat',user='me',password='')
+		connection = mysql.connector.connect(host='192.168.231.173',database='PAAT',user='me',password='myUserpassword')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')
