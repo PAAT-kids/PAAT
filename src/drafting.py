@@ -1,13 +1,11 @@
-from dns.rdatatype import MX
 import scapy.all as scapy
 import sys
 import mysql.connector
 from mysql.connector import Error
 from scapy.utils import checksum
 from datetime import datetime
-from datetime import date
 
-
+lastID = 0
 srcEth = ""
 dstEth = ""
 type = ""
@@ -36,10 +34,37 @@ man = ""
 Qname = ""
 Qtype = 40
 Qclass = 50
+leap = 1
+versionNTP = 2
+modee = ""
+stratum = 3
+poll = 4
+precision = 5
+delay = 0
+dispersion = 0
+IDNTP = ""
+refID = 2
+ref = ""
+Origin = ""
+rev = ""
+sent = ""
 
 
 
 def setVariablesIP(srcip1,dstip1,totallength1,version1,ihl1,tos1,id1,flgs1,frag1,protocol1,headersum1,options1, ttl1):
+    global srcip
+    global dstip
+    global totallength
+    global version
+    global ihl
+    global tos
+    global id
+    global flgs
+    global frag
+    global protocol
+    global headersum
+    global options
+    global ttl
     srcip = srcip1
     dstip = dstip1
     totallength = totallength1
@@ -53,48 +78,84 @@ def setVariablesIP(srcip1,dstip1,totallength1,version1,ihl1,tos1,id1,flgs1,frag1
     headersum = headersum1
     options = options1
     ttl = int(ttl1)
-    print("Here2")
 
 def setVariablesEth(srcEth1, dstEth1, type1):
+    global srcEth
+    global dstEth
+    global type
     srcEth = srcEth1
     dstEth = dstEth1
     type = type1
 
 def setVariablesUDP(dstport1, srcport1, checksum1, length1):
+    global dstport
+    global srcport
+    global cheksum
+    global length
     dstport = dstport1
     srcport = srcport1
-    checksum = checksum1
+    cheksum = checksum1
     length = int(length1)
 
 def setVariablesSSDP(mx1,st1,man1,host1,port1):
+    global mx
+    global st
+    global man
+    global host
+    global port
     mx = mx1
     st = st1
     man = man1
     host = host1
     port = port1
 
-def setVariablesNTP(leap1,versn1,modee1,stra1,poll1,prec1,delay1,disp1,ID2,RefID1,ref1,org1,rec1,sent1):
-    print("Hi")
+def setVariablesNTP(modee1,disp1,IDNTP1,delay1,poll1,sent1,stra1,versn1,prec1,leap1,RefID1,rec1,org1,ref1):
+    global leap
+    global versionNTP
+    global stratum
+    global poll
+    global precision
+    global delay
+    global dispersion
+    global IDNTP
+    global refID
+    global ref
+    global Origin
+    global rev
+    global sent
+    leap = leap1
+    versionNTP = versn1
+    modee = modee1
+    stratum = stra1
+    poll = poll1
+    precision = prec1
+    delay = delay1
+    dispersion = disp1
+    IDNTP = IDNTP1
+    refID = RefID1
+    ref = ref1
+    Origin = org1
+    rev = rec1
+    sent = sent1
 
 def setVariablesDNS(Qname1,Qtype1,Qclass1):
     Qname = Qname1
     Qtype = int(Qtype1)
     Qclass = int(Qclass1)
 
-
 def saveDraft(type1):
     randomID = getID()
     now = datetime.now()
-    today = date.today()
+    date_now = now.strftime("%Y/%M/%D")
     current_time = now.strftime("%H:%M:%S")
-    print("Here")
+    print(date_now)
+    print(randomID, date_now,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length)
     conn = connectToDatabase()
     cursor = conn.cursor()
-    add_draft = "INSERT INTO Drafts(ID,Datee,Time,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum,PacketType,Length) VALUES(%s,%s,%s,%s,%s,%s,%d,%s,%s,%s,%d,%s,%d,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d)"
-    cursor.execute(add_draft, (randomID, today,current_time,srcEth,dstEth,type,version,ihl,tos,totallength,id,flgs,frag,ttl,protocol,headersum,srcip,dstip,options,srcport,dstport,cheksum,type1,length))
+    add_draft = """INSERT INTO Drafts(ID,Datee,Time1,SourceETH,DestinationETH,Type1,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options1,SourcePort,DestinationPort,Checksum1,PacketType,Length) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+    cursor.execute(add_draft, (randomID, date_now,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length))
     conn.commit()
     if type1 == "SSDP":
-        print("Crashing here")
         saveSSDP(randomID)
     elif type1 == "DNS":
         saveDNS(randomID)
@@ -107,31 +168,37 @@ def saveSSDP(randomID):
     conn = connectToDatabase()
     cursor = conn.cursor()
     add_draft = "INSERT INTO SSDP2(ID,Hostt,Port,MAN,MX,ST) VALUES(%s,%s,%s,%s,%s,%s)"
-    cursor.execute(add_draft, (randomID, host,port, man,mx,st))
+    cursor.execute(add_draft, (randomID,host,port, man,mx,st))
     conn.commit()
 
 def saveNTP(randomID):
     conn = connectToDatabase()
     cursor = conn.cursor()
-    add_draft = "INSERT INTO NTP2(ID,Hostt,Port,MAN,MX,ST) VALUES(%s,%s,%s,%s,%s,%s)"
-    cursor.execute(add_draft, (randomID, host,port, man,mx,st))
+    add_draft = "INSERT INTO NTP2(ID,Leap,Version,Modee,Stratum,Poll,Precisionn,Delay,Dispersion,ID2,ReferenceID,Reference,Origin,Receive,Sent) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    cursor.execute(add_draft, (leap,versionNTP,modee, stratum,poll,precision,delay,dispersion,IDNTP,refID,ref,Origin,rev,sent))
     conn.commit()
 
 
 def saveDNS(randomID):
     conn = connectToDatabase()
     cursor = conn.cursor()
-    add_draft = "INSERT INTO DNS2(ID,Qname,Qtype,Qclass) VALUES(%s,%s,%d,%d)"
+    add_draft = "INSERT INTO DNS2(ID,Qname,Qtype,Qclass) VALUES(%s,%s,%s,%s)"
     cursor.execute(add_draft, (randomID, Qname,Qtype,Qclass))
     conn.commit()
 
 
-def getID():
-    for x in range(100):
-        newID = "A"
-        newID = newID + str(x)
+def getDrafts():
+    conn = connectToDatabase()
+    cursor = conn.cursor()
+    Getdraft = "SELECT * FROM Drafts"
+    cursor.execute(Getdraft)
+    results = cursor.fetchall()
+    return results
 
-    return newID
+def getID():
+    global lastID
+    lastID = lastID + 1
+    return lastID
 
 def connectToDatabase():
 	try:
@@ -141,11 +208,3 @@ def connectToDatabase():
 		print('Error while connecting')
 
 	return connection	
-
-
-
-
-
-
-
-

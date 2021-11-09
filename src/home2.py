@@ -138,6 +138,7 @@ class Ui_OtherWindow(object):
         self.drafts_icon.setIcon(icon4)
         self.drafts_icon.setIconSize(QSize(55, 55))
         self.drafts_icon.clicked.connect(self.godraft)
+        self.drafts_icon.clicked.connect(self.getDrafts)
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.drafts_icon)
 
@@ -1779,7 +1780,29 @@ class Ui_OtherWindow(object):
         drafting.setVariablesIP(self.srcad1.text(),self.dstad1.text(),self.ttl_box.text(),self.vrsn_box.text(),self.IHL_box.text(),self.tos_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.len_box.text())
         drafting.setVariablesUDP(self.dest_box.text(),self.source_box.text(),self.chksum_box_2.text(),self.leng_box.text())
         drafting.setVariablesDNS(self.qname_field.text(),self.qtype_field.text(),self.qclass_field.text())
-        drafting.saveDraft("DNS")  
+        drafting.saveDraft("DNS") 
+
+    def saveDraftNTP(self):
+        drafting.setVariablesEth(self.source.text(),self.dest.text(),self.type.text())
+        drafting.setVariablesIP(self.srcad1.text(),self.dstad1.text(),self.ttl_box.text(),self.vrsn_box.text(),self.IHL_box.text(),self.tos_box.text(),self.id_box.text(),self.flags_box.text(),self.frag_box.text(),self.prtcl_box.text(),self.chksum_box.text(),self.opts.text(),self.len_box.text())
+        drafting.setVariablesUDP(self.dest_box.text(),self.source_box.text(),self.chksum_box_2.text(),self.leng_box.text())
+        drafting.setVariablesNTP(self.mode_field.text(),self.dispersion_field.text(),self.id_field.text(),self.delay_field.text(),self.poll_field.text(),self.sent_field.text(),self.stratum_field.text(),self.version_field.text(),self.precision_field.text(),self.leap_field.text(),self.referenceid_field.text(),self.recieve_field.text(),self.origin_field.text(),self.reference_field.text())
+        drafting.saveDraft("NTP")  
+
+
+    def getDrafts(self):
+        drafts = drafting.getDrafts()
+        row = 0
+        i = 0
+        self.tableDrafts.setRowCount(len(drafts))
+        for draft in drafts:
+                drafting1  = drafts[i]
+                self.tableDrafts.setItem(row,0,QtWidgets.QTableWidgetItem(drafting1[0]))
+                self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(drafting1[1]))
+                self.tableDrafts.setItem(row,2,QtWidgets.QTableWidgetItem(drafting1[9]))
+                self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(drafting1[17]))
+                row = row+1
+                i = i +1
 
 
     def slideleft(self):
