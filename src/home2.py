@@ -16,7 +16,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from sendPacket import sendPacketClass
-
+from receiver import startSniffing, displayReceiveLog
 
 
 
@@ -1617,6 +1617,7 @@ class Ui_OtherWindow(object):
     def gorecvd(self):
 
         self.stackedWidget.setCurrentIndex(11)
+        displayReceiveLog(self)
 
     def goconts(self):
 
@@ -1859,7 +1860,8 @@ class Ui_OtherWindow(object):
 
     def recieve_page(self):
         
-        self.stackedWidget.setCurrentIndex(11)
+        #self.stackedWidget.setCurrentIndex(11)
+        startSniffing() #start capturing packets
 
     def helpUi(self):
             
@@ -1871,3 +1873,7 @@ class Ui_OtherWindow(object):
         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
         x = msg.exec_()
+
+    
+
+
