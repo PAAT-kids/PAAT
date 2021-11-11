@@ -275,11 +275,6 @@ class sendPacketClass:
 
         return 1
 
-    def calculateIPLen(pkt):
-         if pkt.haslayer(IP):
-            return len(pkt.getlayer(IP))
-    def calculateUDPLen(pkt):
-        if pkt.haslayer(UDP):
-            return len(pkt.getlayer(UDP))
+    
     def autoSend(listValue):
         print("Todo")
