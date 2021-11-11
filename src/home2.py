@@ -1655,6 +1655,7 @@ class Ui_OtherWindow(object):
 
 
     def setEthernet(self):
+        #print("Ethernet values: "+self.source.text(),self.dest.text(),self.type.text())
         sPacket.setEthernet(self.source.text(),self.dest.text(),self.type.text())
 
     def setIP(self):  
@@ -1666,7 +1667,7 @@ class Ui_OtherWindow(object):
     def setListValues(self):
 
         if(self.sPacketType == 1):
-                self.tempListValues = [self.qname_field.text() , self.qclass_field.text(), self.qtype_field.text()]
+                self.tempListValues = [self.qname_field.text() , self.qtype_field.text(), self.qclass_field.text()]
                 
         elif(self.sPacketType == 2):
                 self.tempListValues = [self.host_field.text(),self.port_field.text(),self.man_field.text(),self.mx_field.text(),self.st_field.text()]
@@ -1712,29 +1713,30 @@ class Ui_OtherWindow(object):
 
     def default_eth(self):
         
-        self.type.setText("0x800")
+        self.type.setText("2048")
 
 
     def default_ip(self):
         
         self.textEdit.setText("  ")
-        self.chksum_box.setText("0x3b10")
-        self.prtcl_box.setText("UDP")
+        self.chksum_box.setText("0")
+        self.prtcl_box.setText("17")
         self.ttl_box.setText("64")
-        self.frag_box.setText("0L")
-        self.flags_box.setText("DF")
-        self.id_box.setText("28350")
-        self.len_box.setText("61")
-        self.tos_box.setText("0x0")
-        self.IHL_box.setText("5L")
-        self.vrsn_box.setText("4L")
+        self.frag_box.setText("0")
+        self.flags_box.setText("0")
+        self.id_box.setText("1")
+        self.len_box.setText("0")
+        self.tos_box.setText("0")
+        self.IHL_box.setText("5")
+        self.vrsn_box.setText("4")
+        self.opts.setText("0")
 
     def default_udp(self):
         
-        self.source_box.setText("isakmp")
-        self.chksum_box_2.setText("0x5794")
-        self.leng_box.setText("41")
-        self.dest_box.setText("isakmp")
+        #self.source_box.setText(" ")
+        self.chksum_box_2.setText("0")
+        self.leng_box.setText("0")
+        #self.dest_box.setText(" ")
         self.ovr_chksm.setChecked(True)
         self.ovr_lenval.setChecked(True)
 

@@ -42,9 +42,10 @@ class sendPacketClass:
     OUTPUT: none
     """
     def setEthernet (self,ethSrc1,ethDst1,ethType1):
+        print("Ethernet values in sendPacket class: "+ ethSrc1, ethDst1, ethType1)
         self.ethSrc = ethSrc1
         self.ethDst = ethDst1
-        self.ethType = ethType1
+        self.ethType = int(ethType1) #use integer values from ui, not hex
 
 
 
@@ -55,17 +56,18 @@ class sendPacketClass:
     OUTPUT: none
     """
     def setIP (self,ipVersion1,ipIhl1,ipTos1,ipLen1,ipId1,ipFlags1,ipFrag1,ipTtl1,ipProto1,ipChksum1,ipOpt1,ipSrc1,ipDst1):
-        self.ipVersion = ipVersion1
-        self.ipIhl = ipIhl1
-        self.ipTos = ipTos1
-        self.ipLen = ipLen1
-        self.ipId = ipId1
-        self.ipFlags = ipFlags1
-        self.ipFrag = ipFrag1
-        self.ipTtl = ipTtl1
-        self.ipProto = ipProto1
+        print("IP values in sendPacket class: "+ipVersion1, ipIhl1, ipTos1, ipLen1, ipId1, ipFlags1, ipFrag1, ipTtl1, ipProto1, ipChksum1, ipOpt1, ipSrc1, ipDst1)
+        self.ipVersion = int(ipVersion1)
+        self.ipIhl = int(ipIhl1)
+        self.ipTos = int(ipTos1)
+        self.ipLen = int(ipLen1) #length is not set until the packet is actually created
+        self.ipId = int(ipId1)
+        self.ipFlags = int(ipFlags1)
+        self.ipFrag = int(ipFrag1)
+        self.ipTtl = int(ipTtl1)
+        self.ipProto = int(ipProto1)
         self.ipChksum = ipChksum1
-        self.ipOpt = ipOpt1
+        self.ipOpt = ipOpt1 #not using options field
         self.ipSrc = ipSrc1
         self.ipDst = ipDst1
 
@@ -77,9 +79,9 @@ class sendPacketClass:
     OUTPUT: none
     """
     def setUDP(self,udpSport1,udpDport1,udpChksum1):
-        self.udpSport= udpSport1
-        self.udpDport= udpDport1
-        self.udpChksum= udpChksum1
+        self.udpSport= int(udpSport1)
+        self.udpDport= int(udpDport1)
+        #self.udpChksum= udpChksum1
 
 
   
@@ -108,8 +110,11 @@ class sendPacketClass:
     def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
 
         out = 0
+        #testPkt = Ether(src=ethSrc,dst=ethDst,type=ethType)/IP(version=ipVersion,ihl=ipIhl,tos=ipTos,id=ipId,frag=ipFrag,ttl=ipTtl,proto=ipProto,dst='8.8.8.8')/UDP(sport=udpSport,dport=udpDport)/DNS(rd=1,qd=DNSQR(qname='www.google.com',qtype='ALL'))
+        #sendp(testPkt)
+        #newPkt =IP(version=4,ihl=5,tos=0,id=1,frag=0,ttl=64,proto=17,dst='8.8.8.8')/UDP(sport=6500,dport=53)/DNS(rd=1,qd=DNSQR(qname='www.google.com',qtype='ALL'))
 
-        print(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues)
+        # print(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues)
 
         packet = (scapy.Ether(
                             src=ethSrc,
@@ -120,13 +125,13 @@ class sendPacketClass:
                             version=ipVersion,
                             ihl=ipIhl,
                             tos=ipTos,
-                            len=ipLen,
+                            #len=ipLen, #length is calculated later in the program, user shouldnt enter it 
                             id=ipId,
                             flags=ipFlags,
                             frag=ipFrag,
                             ttl=ipTtl,
                             proto=ipProto,
-                            chksum=ipChksum,
+                            #chksum=ipChksum,#either have to find a way to calculate chksum or just let scapy do it
                             src=ipSrc,
                             dst=ipDst,
                             #options=ipOptions
@@ -134,47 +139,47 @@ class sendPacketClass:
                     /scapy.UDP(
                             sport=udpSport,
                             dport=udpDport,
-                            chksum=udpChksum
+                            #chksum=udpChksum #either have to find a way to calculate chksum or just let scapy do it
                             )
                         )
         
-        initPacket = (scapy.Ether(
-                            src=ethSrc,
-                            dst=ethDst,
-                            type=ethType
-                            )
-                    /scapy.IP(
-                            version=ipVersion,
-                            ihl=ipIhl,
-                            tos=ipTos,
-                            len=ipLen,
-                            id=ipId,
-                            flags=ipFlags,
-                            frag=ipFrag,
-                            ttl=ipTtl,
-                            proto=ipProto,
-                            chksum=ipChksum,
-                            src=ipSrc,
-                            dst=ipDst,
-                            #options=ipOptions
-                            )
-                    /scapy.UDP(
-                            sport=6500,
-                            dport=6500,
-                            chksum=udpChksum
-                            )
-                        )
+        
+        #                     src=ethSrc,
+        #                     dst=ethDst,
+        #                     type=ethType
+        #                     )
+        #             /scapy.IP(
+        #                     version=ipVersion,
+        #                     ihl=ipIhl,
+        #                     tos=ipTos,
+        #                     len=ipLen,
+        #                     id=ipId,
+        #                     flags=ipFlags,
+        #                     frag=ipFrag,
+        #                     ttl=ipTtl,
+        #                     proto=ipProto,
+        #                     chksum=ipChksum,
+        #                     src=ipSrc,
+        #                     dst=ipDst,
+        #                     #options=ipOptions
+        #                     )
+        #             /scapy.UDP(
+        #                     sport=6500,
+        #                     dport=6500,
+        #                     chksum=udpChksum
+        #                     )
+        #                 )
 
         if(type == 1):
-            self.sendInitPacket(initPacket,"DNS")
+            #self.sendInitPacket(initPacket,"DNS")
             out = self.sendPacketDNS(packet,listValues)
 
-        elif(type == 2):
-            self.sendInitPacket(initPacket,"SSDP")
+        elif(type == 3):
+            #self.sendInitPacket(initPacket,"SSDP")
             out = self.sendPacketNTP(packet,listValues)
 
-        elif(type == 3):
-            self.sendInitPacket(initPacket,"NTP")
+        elif(type == 2):
+            #self.sendInitPacket(initPacket,"NTP")
             out = self.sendPacketSSDP(packet,listValues)
 
         return out
@@ -207,7 +212,9 @@ class sendPacketClass:
                                                 qclass=listValues[2]
                                                 )
                                 )
-
+        packet[scapy.IP].len =  len(packet[scapy.IP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
+        
         scapy.sendp(packet)
 
         return 1
@@ -237,7 +244,8 @@ class sendPacketClass:
                                     sent=listValues[13]
                                     
                                     )
-
+        packet[scapy.IP].len =  len(packet[scapy.IP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP])
         scapy.sendp(packet)
 
 
@@ -256,15 +264,17 @@ class sendPacketClass:
 
         payload = "M-SEARCH * HTTP/1.1\r\n" \
             "HOST:" + listValues[0] + ":" + listValues[1] + "\r\n" \
-            "ST:"+ listValues[2] + "\r\n" \
-            "MAN:" + "\""+ listValues[3] +"\" \r\n" \
-            "MX:" + str(listValues[4]) +"\r\n\r\n"                
+            "ST:"+ listValues[4] + "\r\n" \
+            "MAN:" + "\""+ listValues[2] +"\" \r\n" \
+            "MX:" + listValues[3] +"\r\n\r\n"                
 
         packet = packet/payload
-
+        packet[scapy.IP].len =  len(packet[scapy.IP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP])
         scapy.sendp(packet)
 
         return 1
 
+    
     def autoSend(listValue):
         print("Todo")
