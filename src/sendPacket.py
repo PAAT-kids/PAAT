@@ -244,7 +244,8 @@ class sendPacketClass:
                                     sent=listValues[13]
                                     
                                     )
-
+        packet[scapy.IP].len =  len(packet[scapy.IP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP])
         scapy.sendp(packet)
 
 
@@ -268,7 +269,8 @@ class sendPacketClass:
             "MX:" + listValues[3] +"\r\n\r\n"                
 
         packet = packet/payload
-
+        packet[scapy.IP].len =  len(packet[scapy.IP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP])
         scapy.sendp(packet)
 
         return 1
