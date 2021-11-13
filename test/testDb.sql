@@ -28,14 +28,14 @@ VALUES('A789', '239.255.255.250.1900', '1900', 'ssdp:all', 'ssdp:discover', 2);
 
 
 INSERT INTO Received
-VALUES('A123', 20, 'NTP', '2021-10-10', '08:00:00', '172.16.0.9', '186.15.2.10', 40, 2);
+VALUES('A123', 20, 'NTP', '2021-10-10', '08:00:00', '172.16.0.9', '186.15.2.10', 40, 2,'');
 
 INSERT INTO Drafts
-VALUES('B3ZX', '2021-10-10', '07:45:55', '172.16.0.9', '186.15.2.10', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None', 'ntp');
+VALUES('B3ZX', '2021-10-10', '07:45:55', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None', 'ntp', 60);
 INSERT INTO Drafts
-VALUES('B4ZX', '2021-10-10', '07:45:55', '172.16.0.9', '186.15.2.10', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None', 'dns');
+VALUES('B4ZX', '2021-10-10', '07:45:55', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None', 'dns', 61);
 INSERT INTO Drafts
-VALUES('B5ZX', '2021-10-10', '07:45:55', '172.16.0.9', '186.15.2.10', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None', 'ssdp');
+VALUES('B5ZX', '2021-10-10', '07:45:55', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None', 'ssdp', 62);
 
 INSERT INTO NTP2
 VALUES('B3ZX', 61, 4, 'client', 2, 10, 0, 0, 0, '127.0.0.1', 0, '01:15:25', '02:25:35', '03:35:45', '04:45:55');
@@ -60,3 +60,9 @@ VALUES('Anas', 'B3ZX');
 
 INSERT INTO Saves
 VALUES('Anas', 'Ahmed');
+
+INSERT INTO AutoSend
+VALUES('A123', 20, '2021-10-26', '07:45:55', '172.16.0.9', '186.15.2.10', 'f4:d1:08:0f:84:12', 'c4:e9:0a:54:be:01', 'IPv4', 4, 'None', '0x0', 'None', 1, '', 0, 64, 'udp', 'None', '1.2.3.4', '1.2.3.4', 'None', 'domain', 'domain', 'None');
+
+INSERT INTO AutoReceive
+VALUES('A123', 20, 'NTP', '2021-10-10', '08:00:00', '172.16.0.9', '186.15.2.10', 40, 2);

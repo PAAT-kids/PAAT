@@ -187,11 +187,7 @@ class Ui_MainWindow(object):
                 self.darkmode = False;
 
     def loginCheck(self, MainWindow):
-        password = self.password_lg.text()
-        username = self.username_lg.text()
-        root = ahmed.connections()
-        if root.connect_database(username, password) == True:
-                self.openwindow(MainWindow)
+        self.openwindow(MainWindow)
 
 
     def openwindow(self, MainWindow):
