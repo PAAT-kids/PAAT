@@ -212,9 +212,13 @@ class sendPacketClass:
                                                 qclass=listValues[2]
                                                 )
                                 )
+        srcPort = scapy.RandShort()._fix()
+        packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        
+        sizePkt = self.sizePacket('\"DNS\"',srcPort,packet[scapy.UDP].len)
+        print('\"DNS\"')
+        scapy.send(sizePkt)
         scapy.sendp(packet)
 
         return 1
@@ -244,8 +248,13 @@ class sendPacketClass:
                                     sent=listValues[13]
                                     
                                     )
+        srcPort = scapy.RandShort()._fix()
+        packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
-        packet[scapy.UDP].len = len(packet[scapy.UDP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
+        sizePkt = self.sizePacket('\"NTP\"',srcPort,packet[scapy.UDP].len)
+        print('\"NTP\"')
+        scapy.send(sizePkt)
         scapy.sendp(packet)
 
 
@@ -269,8 +278,13 @@ class sendPacketClass:
             "MX:" + listValues[3] +"\r\n\r\n"                
 
         packet = packet/payload
+        srcPort = scapy.RandShort()._fix()
+        packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
-        packet[scapy.UDP].len = len(packet[scapy.UDP])
+        packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
+        sizePkt = self.sizePacket('\"SSDP\"',srcPort,packet[scapy.UDP].len)
+        print('\"SSDP\"')
+        scapy.send(sizePkt)
         scapy.sendp(packet)
 
         return 1
@@ -278,3 +292,12 @@ class sendPacketClass:
     
     def autoSend(listValue):
         print("Todo")
+
+    def sizePacket(self,Type,QID, size):
+        t = '\"Type\"'
+        q = '\"QID\"'
+        s = '\"size\"'
+        ldDict = f"{{{t}:" +Type+f",{q}:"+str(QID)+f",{s}:"+str(size)+"}"
+        print('QID: '+str(QID))
+        sizePkt = scapy.IP(dst="192.168.231.128")/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
+        return sizePkt
