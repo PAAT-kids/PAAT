@@ -36,9 +36,12 @@ def displayReceiveLog(self):
                  " JOIN Receives on Received.ID = Receives.ID JOIN Users on Users.Username = Receives.username")
 
         cursor.execute(query)
-        print(cursor)
+        self.tableRecvd.setRowCount(0)
+        #self.tableRecvd.sortByColumn(0,Qt.AscendingOrder)
+        self.tableRecvd.setSortingEnabled(False)
+        #print(cursor)
         for (initSize, dateRec,recAddr,respSize, ampFactor) in cursor:
-
+            print(initSize, dateRec,recAddr,respSize, ampFactor)
             rowPosition = self.tableRecvd.rowCount()
             self.tableRecvd.insertRow(rowPosition)
             self.tableRecvd.setItem(rowPosition, 0, QTableWidgetItem(recAddr))
