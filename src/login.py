@@ -14,27 +14,25 @@ class connections:
 
 
     def connect_database(self,username,password):
-        queue = []
 
-        sql_query = "SELECT *FROM users WHERE Username ='%s' AND UserPassword ='%s'" % (username, password)
+        sql_query = "SELECT UserPassword FROM Users WHERE Username ='%s'" % (username) #retrieve password by matching the entered username to the one in DB
+
         mycursor = self.con.cursor()
 
         try:
-            mycursor.execute(sql_query)
-            results = mycursor.fetchall()
-            for row in results:
-                for i in row:
-                    queue.append(i)
-        except:
-            print('error occured')
 
-        if (username and password) in queue:
+             mycursor.execute(sql_query)
+             hashedPassword = mycursor.fetchone() 
+        except:
+             print('error occured')
+        if paatSecurity.comparePass(password,hashedPassword[0]) == True: #compare entered pass wot hashed pass, hashedPassword[0] because ince a tuple is returned, we only need the first value
+            print('match')
+            self.con.close()
             return True
         else:
-            print(username)
-            print(password)
-
-        self.con.close()
+            print('no match')
+            self.con.close()
+            return False
 
 
 

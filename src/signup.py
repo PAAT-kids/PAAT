@@ -63,7 +63,7 @@ AUTHOR: Samrah Tahir
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='192.168.231.173',database='PAAT',user='me',password='myUserpassword')
+		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='ahmed',password='1234')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')
