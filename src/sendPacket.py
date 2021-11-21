@@ -107,6 +107,7 @@ class sendPacketClass:
     INPUT: String all the necessary value and a single list variable which conatins information of the specific UDP packet type
     OUTPUT: Int result (1 = sent , 0 = error)
     """
+    
     def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
 
         out = 0
@@ -213,12 +214,12 @@ class sendPacketClass:
                                                 )
                                 )
         srcPort = scapy.RandShort()._fix()
-        packet[scapy.UDP].sport = srcPort
-        packet[scapy.IP].len =  len(packet[scapy.IP])
-        packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"DNS\"',srcPort,packet[scapy.UDP].len)
-        print('\"DNS\"')
-        scapy.send(sizePkt)
+        #packet[scapy.UDP].sport = srcPort
+        #packet[scapy.IP].len =  len(packet[scapy.IP])
+        #packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
+        #sizePkt = self.sizePacket('\"DNS\"',srcPort,packet[scapy.UDP].len)
+        #print('\"DNS\"')
+        #scapy.send(sizePkt)
         scapy.sendp(packet)
 
         return 1
@@ -301,3 +302,5 @@ class sendPacketClass:
         print('QID: '+str(QID))
         sizePkt = scapy.IP(dst="192.168.231.128")/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
         return sizePkt
+    DNSlist =["b'www.example.com'",1,1]
+    #print(sendPacket(1, "f4:d1:08:0f:84:12","c4:e9:0a:54:be:01",2048,4,5,0,0,1,0,0,64,17,0,"192.168.0.130","8.8.4.4",6060,6060,0,DNSlist))
