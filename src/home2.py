@@ -1820,8 +1820,8 @@ class Ui_OtherWindow(object):
         if draft[22] == "DNS":
                 drafts2 = drafting.getSelectedDraftType(index,"DNS")
                 self.qname_field.setText(drafts2[1])
-                self.qtype_field.setText(drafts2[2])
-                self.qclass_field.setText(drafts2[3])
+                self.qtype_field.setText(str(drafts2[2]))
+                self.qclass_field.setText(str(drafts2[3]))
                 self.sPacketType = 1
                 self.setListValues()
         elif draft[22] == "NTP":
@@ -1829,7 +1829,14 @@ class Ui_OtherWindow(object):
                 self.sPacketType = 2
         else:
                 drafts2 = drafting.getSelectedDraftType(index,"SSDP")
-                self.sPacketType =3 
+                self.host_field.setText(drafts2[1])
+                self.port_field.setText(drafts2[2])
+                self.man_field.setText(drafts2[3])
+                self.mx_field.setText(drafts2[4])
+                self.st_field.setText(str(drafts2[5]))
+                self.sPacketType = 3 
+                self.setListValues()
+
         
 
     def slideleft(self):
