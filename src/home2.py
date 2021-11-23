@@ -1176,7 +1176,7 @@ class Ui_OtherWindow(object):
         self.tableDrafts.setAlternatingRowColors(True)
         self.tableDrafts.setSortingEnabled(True)
         self.tableDrafts.setColumnCount(6)
-        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send", "Edit"])
+        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send"])
         self.tableDrafts.horizontalHeader().setDefaultSectionSize(220)
         self.tableDrafts.horizontalHeader().setProperty("showSortIndicator", True)
         self.tableDrafts.verticalHeader().setCascadingSectionResizes(True)
@@ -1802,11 +1802,8 @@ class Ui_OtherWindow(object):
                 self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(draft[1]))
                 self.tableDrafts.setItem(row,2,QtWidgets.QTableWidgetItem(draft[9]))
                 self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(draft[22]))
-                self.btn_edit = QPushButton('Edit')
                 self.btn_send = QPushButton('Send')
                 self.tableDrafts.setCellWidget(row,4,self.btn_send)
-                self.tableDrafts.setCellWidget(row,5,self.btn_edit)
-                self.btn_edit.clicked.connect(self.getDrafts)
                 self.btn_send.clicked.connect(lambda: self.sendDraft(self.tableDrafts.currentRow()))
                 row = row+1
 
@@ -1826,7 +1823,22 @@ class Ui_OtherWindow(object):
                 self.setListValues()
         elif draft[22] == "NTP":
                 drafts2 = drafting.getSelectedDraftType(index,"NTP")
+                self.leap_field.setText(drafts2[1])
+                self.version_field.setText(drafts2[2])
+                self.mode_field.setText(drafts2[3])
+                self.stratum_field.setText(drafts2[4])
+                self.poll_field.setText(drafts2[5])
+                self.precision_field.setText(drafts2[6])
+                self.delay_field.setText(drafts2[7])
+                self.dispersion_field.setText(drafts2[8])
+                self.id_field.setText(drafts2[9])
+                self.referenceid_field.setText(drafts2[10])
+                self.reference_field.setText(drafts2[11])
+                self.origin_field.setText(drafts2[12])
+                self.recieve_field.settext(drafts2[13])
+                self.sent_field.settext(drafts2[14])
                 self.sPacketType = 2
+                self.setListValues()
         else:
                 drafts2 = drafting.getSelectedDraftType(index,"SSDP")
                 self.host_field.setText(drafts2[1])
