@@ -217,7 +217,7 @@ class sendPacketClass:
         packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"DNS\"',srcPort,packet[scapy.UDP].len)
+        sizePkt = self.sizePacket('\"DNS\"',srcPort,packet[scapy.UDP].len,packet[scapy.IP].src)
         print('\"DNS\"')
         scapy.send(sizePkt)
         scapy.sendp(packet)
@@ -235,27 +235,27 @@ class sendPacketClass:
     def sendPacketNTP(self,packet,listValues):
 
         packet = packet/scapy.NTPHeader(
-                                    leap=listValues[0],
-                                    version=listValues[1],
-                                    mode=listValues[2],
-                                    stratum=listValues[3],
-                                    poll=listValues[4],
-                                    precision=listValues[5],
-                                    delay=listValues[6],
-                                    dispersion=listValues[7],
-                                    id=listValues[8],
+                                    leap=int(listValues[0]),
+                                    version=int(listValues[1]),
+                                    mode=int(listValues[2]),
+                                    #stratum=listValues[3],
+                                    #poll=listValues[4], #polling field is used by server
+                                    #precision=int(listValues[5]),#used by server
+                                    #delay=listValues[6],
+                                    #dispersion=listValues[7],
+                                    #id=listValues[8],
                                     #ref_id=listValues[9],
-                                    ref=listValues[10],
-                                    orig=listValues[11],
-                                    recv=listValues[12],
-                                    sent=listValues[13]
+                                    #ref=listValues[10],
+                                    #orig=listValues[11], #when packet left the client
+                                    #recv=listValues[12], #time req arrived at server
+                                    #sent=listValues[13] #time when reply was sent by server
                                     
                                     )
         srcPort = scapy.RandShort()._fix()
         packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"NTP\"',srcPort,packet[scapy.UDP].len)
+        sizePkt = self.sizePacket('\"NTP\"',srcPort,packet[scapy.UDP].len,packet[scapy.IP].src)
         print('\"NTP\"')
         scapy.send(sizePkt)
         scapy.sendp(packet)
@@ -285,8 +285,9 @@ class sendPacketClass:
         packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"SSDP\"',srcPort,packet[scapy.UDP].len)
+        sizePkt = self.sizePacket('\"SSDP\"',srcPort,packet[scapy.UDP].len,packet[scapy.IP].src)
         print('\"SSDP\"')
+        print(repr(packet))
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
@@ -298,11 +299,11 @@ class sendPacketClass:
     def autoSend(listValue):
         print("Todo")
 
-    def sizePacket(self,Type,QID, size):
+    def sizePacket(self,Type,QID, size, dest):
         t = '\"Type\"'
         q = '\"QID\"'
         s = '\"size\"'
         ldDict = f"{{{t}:" +Type+f",{q}:"+str(QID)+f",{s}:"+str(size)+"}"
         print('QID: '+str(QID))
-        sizePkt = scapy.IP(dst="192.168.231.128")/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
+        sizePkt = scapy.IP(dst=dest)/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
         return sizePkt
