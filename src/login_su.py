@@ -68,7 +68,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        self.login.clicked.connect(self.loginCheck)
+        self.login.clicked.connect(lambda: self.loginCheck(MainWindow))
+
         
 
 #########################################################
@@ -197,12 +198,14 @@ class Ui_MainWindow(object):
 	        self.alert1()
     
 
-
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
         self.ui.setupUi(self.window,self.darkmode)
         self.window.show()
+        MainWindow.close()
+
+
 
     def alert1(self):
         self.alert_pkt = QLabel()
@@ -212,4 +215,5 @@ class Ui_MainWindow(object):
 "font: 75 italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.alert_pkt.setText(QCoreApplication.translate("MainWindow", u"Please complete all the fields before proceeding.", None))
+
 

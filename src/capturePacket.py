@@ -84,7 +84,7 @@ def handleDNS(dnsPacket):
 		if packet["dport"] == dnsPacket.getlayer(UDP).dport and packet['type'] == 'DNS':
 			dateReceived = datetime.today().strftime('%Y-%m-%d')
 			ampFactor = dnsAmplificationFactor(packet['size'], dnsPacket.getlayer(UDP).len)
-			insertDB(dnsPacket.getlayer(IP).dst, dateReceived, packet['size'],dnsPacket.getlayer(UDP).len , ampFactor)
+			insertDB(dnsPacket.getlayer(IP).src, dateReceived, packet['size'],dnsPacket.getlayer(UDP).len , ampFactor)
 	#dnsPackets = sniff(filter = "dst port 6700 ", prn= lambda x: x.haslayer(DNSQR) or x.haslayer(DNSRR), timeout=20)
 
 def dnsQAlengthCal(dnsQPkt):
