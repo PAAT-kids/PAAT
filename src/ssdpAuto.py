@@ -2,6 +2,7 @@ from scapy.all import *
 from localAddress import *
 import threading
 import random
+from sendPacket import sendPacketClass
 
 popSize = 10
 totalGen = 7
@@ -125,6 +126,7 @@ def nextGeneration():
 						bestEver[0] = child[0]
 						bestEver[1] = child[1]
 						fittest = totalFitness
+		
 			print("Kid fitness: "+str(totalFitness))
 			newFitness.append(totalFitness)
 			newPopulation.append(child)
@@ -169,8 +171,6 @@ if __name__ == '__main__':
 
 	print("Parent New population: \n",population)
 	
-	# while i < 3:
-	# 	print(str(i)+'\n')
 	while(i < totalGen):
 		print("Current Best Ever:  ", bestEver, fittest)
 		normalizeFitness()
@@ -179,11 +179,18 @@ if __name__ == '__main__':
 		
 		nextGeneration()
 		print("Next gen New population: ",population)
-		
-		
-
-		
 		i = i + 1
-	print("Best Ever:  ", bestEver, fittest)
-	print("Total Gen: "+str(gen))
+	
+	if bestEver[0] != '0.0.0.0' and bestEver[1] != '':
+		queryPacket = Ether(src='94:65:9c:25:ef:40',dst='7c:8f:de:ab:cb:e0')/IP(src="192.168.1.16",dst=bestEver[0])/UDP(sport=4565,dport=1900)
+		#payload = Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
+		listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
+		sendPkt = sendPacketClass()
+		sendPkt.sendPacketSSDP(queryPacket,listValue)
+		#packet = queryPacket/payload
+		#send(packet)
+		print("Best Ever:  ", bestEver, fittest)
+		print("Total Gen: "+str(gen))
+	else:
+		print("No upnp services.")
 #x.join()
