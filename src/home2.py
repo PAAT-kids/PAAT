@@ -125,6 +125,8 @@ class Ui_OtherWindow(object):
 
         self.formLayout.setWidget(4, QFormLayout.LabelRole, self.info_icon)
 
+        self.info_icon.clicked.connect(self.printHelp);
+
 
 ## DRAFTS ICON ##
         self.drafts_icon = QPushButton(self.side_menu)
@@ -396,10 +398,27 @@ class Ui_OtherWindow(object):
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.ty.setToolTip("<b style='background:white; font:9pt; color:black;'>Indicates the encapsulated protocol in frame payload and determines how it is processed when recieved by the data link layer. [2 Octet]</b>")
+        
+        self.back_eth = QPushButton(self.ETH)
+        self.back_eth.setObjectName(u"back_eth")
+        self.back_eth.setGeometry(QRect(130, 80, 241, 91))
+        self.back_eth.setAutoFillBackground(False)
+        self.back_eth.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_eth.setIcon(icon9)
+        self.back_eth.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.ETH)
         
         self.nxt_eth.clicked.connect(self.setEthernet)
         self.nxt_eth.clicked.connect(self.ippage)
+        self.back_eth.clicked.connect(self.goback)
         
 
 ## Page 4 -  IP PACKET labels, inputs and buttons ##
@@ -574,10 +593,27 @@ class Ui_OtherWindow(object):
         self.info_2.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_ip = QPushButton(self.IP)
+        self.back_ip.setObjectName(u"back_ip")
+        self.back_ip.setGeometry(QRect(130, 80, 241, 91))
+        self.back_ip.setAutoFillBackground(False)
+        self.back_ip.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_ip.setIcon(icon9)
+        self.back_ip.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.IP)
 
         self.nxt_ip.clicked.connect(self.setIP)
         self.nxt_ip.clicked.connect(self.udppage)
+        self.back_ip.clicked.connect(self.goeth)
 
 
 ## Page 5 -  UDP PACKET labels, inputs and buttons ##
@@ -663,12 +699,28 @@ class Ui_OtherWindow(object):
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
 
+        self.back_udp = QPushButton(self.UDP)
+        self.back_udp.setObjectName(u"back_udp")
+        self.back_udp.setGeometry(QRect(130, 80, 241, 91))
+        self.back_udp.setAutoFillBackground(False)
+        self.back_udp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_udp.setIcon(icon9)
+        self.back_udp.setIconSize(QSize(52, 52))
+
         self.def_udp.clicked.connect(self.default_udp)
 
         self.stackedWidget.addWidget(self.UDP)
         
         self.nxt_udp.clicked.connect(self.setUDP)
         self.nxt_udp.clicked.connect(self.nxtpage)
+        self.back_udp.clicked.connect(self.ippage)
 
 ## Page 6 -  NTP PACKET labels, inputs and buttons ##
 
@@ -866,7 +918,25 @@ class Ui_OtherWindow(object):
         self.info_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_ntp = QPushButton(self.NTP)
+        self.back_ntp.setObjectName(u"back_ntp")
+        self.back_ntp.setGeometry(QRect(130, 80, 241, 91))
+        self.back_ntp.setAutoFillBackground(False)
+        self.back_ntp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_ntp.setIcon(icon9)
+        self.back_ntp.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.NTP)
+
+        self.back_ntp.clicked.connect(self.udppage)
 
 ## Page 6 -  DNS PACKET labels, inputs and buttons ##
 
@@ -943,8 +1013,25 @@ class Ui_OtherWindow(object):
         self.info_7.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_dns = QPushButton(self.DNS)
+        self.back_dns.setObjectName(u"back_dns")
+        self.back_dns.setGeometry(QRect(130, 80, 241, 91))
+        self.back_dns.setAutoFillBackground(False)
+        self.back_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_dns.setIcon(icon9)
+        self.back_dns.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.DNS)
         self.draft_dns.clicked.connect(self.saveDraftDNS)
+        self.back_dns.clicked.connect(self.udppage)
 
 ## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
@@ -1045,7 +1132,25 @@ class Ui_OtherWindow(object):
         self.info_8.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_ssdp = QPushButton(self.SSDP)
+        self.back_ssdp.setObjectName(u"back_ssdp")
+        self.back_ssdp.setGeometry(QRect(130, 80, 241, 91))
+        self.back_ssdp.setAutoFillBackground(False)
+        self.back_ssdp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_ssdp.setIcon(icon9)
+        self.back_ssdp.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.SSDP)
+
+        self.back_ssdp.clicked.connect(self.udppage)
 
 ## Page 8 - Settings ##
 
@@ -1579,6 +1684,12 @@ class Ui_OtherWindow(object):
         self.host_field.setText("")
         self.info_8.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
         self.darkm.setText("")
+        self.back_eth.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_ip.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_udp.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_ntp.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_ssdp.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_dns.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
         self.name.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.accpic.setText("")
         self.usernamee.setText(QCoreApplication.translate("MainWindow", u"@username", None))
@@ -1876,6 +1987,138 @@ class Ui_OtherWindow(object):
 
         x = msg.exec_()
 
-    
+    def sendPacket(self):
+
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Packet Sent</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
+
+    def printHelp(self):
+
+        page = self.stackedWidget.currentIndex()
+        if page == 0:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 1:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 2:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 3:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 4:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 5:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 6:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 7:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 8:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 9:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 10:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 11:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 12:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 13:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+
+    def goback(self):
+
+        self.stackedWidget.setCurrentIndex(1)
+
+    def goeth(self):
+
+        self.stackedWidget.setCurrentIndex(2)
 
 

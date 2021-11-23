@@ -68,7 +68,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        self.login.clicked.connect(self.loginCheck)
+        self.login.clicked.connect(lambda: self.loginCheck(MainWindow))
+
         
 
 #########################################################
@@ -189,9 +190,9 @@ class Ui_MainWindow(object):
     def loginCheck(self, MainWindow):
         self.openwindow(MainWindow)
 
-
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
         self.ui.setupUi(self.window,self.darkmode)
         self.window.show()
+        MainWindow.close()
