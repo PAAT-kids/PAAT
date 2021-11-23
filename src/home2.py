@@ -918,7 +918,7 @@ class Ui_OtherWindow(object):
         self.info_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-
+        
         self.back_ntp = QPushButton(self.NTP)
         self.back_ntp.setObjectName(u"back_ntp")
         self.back_ntp.setGeometry(QRect(130, 80, 241, 91))
@@ -933,7 +933,8 @@ class Ui_OtherWindow(object):
         icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
         self.back_ntp.setIcon(icon9)
         self.back_ntp.setIconSize(QSize(52, 52))
-
+        self.draft_ntp.clicked.connect(self.saveDraftNTP)
+        
         self.stackedWidget.addWidget(self.NTP)
 
         self.back_ntp.clicked.connect(self.udppage)
@@ -1280,7 +1281,7 @@ class Ui_OtherWindow(object):
         self.tableDrafts.setAlternatingRowColors(True)
         self.tableDrafts.setSortingEnabled(True)
         self.tableDrafts.setColumnCount(6)
-        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send", "Edit"])
+        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send"])
         self.tableDrafts.horizontalHeader().setDefaultSectionSize(220)
         self.tableDrafts.horizontalHeader().setProperty("showSortIndicator", True)
         self.tableDrafts.verticalHeader().setCascadingSectionResizes(True)
@@ -1910,14 +1911,59 @@ class Ui_OtherWindow(object):
         i = 0
         self.tableDrafts.setRowCount(len(drafts))
         for draft in drafts:
-                drafting1  = drafts[i]
-                self.tableDrafts.setItem(row,0,QtWidgets.QTableWidgetItem(drafting1[0]))
-                self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(drafting1[1]))
-                self.tableDrafts.setItem(row,2,QtWidgets.QTableWidgetItem(drafting1[9]))
-                self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(drafting1[17]))
+                print(draft)
+                self.tableDrafts.setItem(row,0,QtWidgets.QTableWidgetItem(draft[0]))
+                self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(draft[1]))
+                self.tableDrafts.setItem(row,2,QtWidgets.QTableWidgetItem(draft[9]))
+                self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(draft[22]))
+                self.btn_send = QPushButton('Send')
+                self.tableDrafts.setCellWidget(row,4,self.btn_send)
+                self.btn_send.clicked.connect(lambda: self.sendDraft(self.tableDrafts.currentRow()))
                 row = row+1
-                i = i +1
 
+
+    def sendDraft(self,index):
+        index = index +1 
+        draft = drafting.getSelectedDraft(index)
+        sPacket.setEthernet(draft[3],draft[4],draft[5])
+        sPacket.setIP(draft[6], draft[7],draft[8],draft[9],draft[10],draft[11],draft[12],draft[13],draft[14],draft[15],draft[16],draft[16],draft[17])  
+        sPacket.setUDP(draft[19], draft[20], draft[21] )
+        if draft[22] == "DNS":
+                drafts2 = drafting.getSelectedDraftType(index,"DNS")
+                self.qname_field.setText(drafts2[1])
+                self.qtype_field.setText(str(drafts2[2]))
+                self.qclass_field.setText(str(drafts2[3]))
+                self.sPacketType = 1
+                self.setListValues()
+        elif draft[22] == "NTP":
+                drafts2 = drafting.getSelectedDraftType(index,"NTP")
+                self.leap_field.setText(drafts2[1])
+                self.version_field.setText(drafts2[2])
+                self.mode_field.setText(drafts2[3])
+                self.stratum_field.setText(drafts2[4])
+                self.poll_field.setText(drafts2[5])
+                self.precision_field.setText(drafts2[6])
+                self.delay_field.setText(drafts2[7])
+                self.dispersion_field.setText(drafts2[8])
+                self.id_field.setText(drafts2[9])
+                self.referenceid_field.setText(drafts2[10])
+                self.reference_field.setText(drafts2[11])
+                self.origin_field.setText(drafts2[12])
+                self.recieve_field.settext(drafts2[13])
+                self.sent_field.settext(drafts2[14])
+                self.sPacketType = 2
+                self.setListValues()
+        else:
+                drafts2 = drafting.getSelectedDraftType(index,"SSDP")
+                self.host_field.setText(drafts2[1])
+                self.port_field.setText(drafts2[2])
+                self.man_field.setText(drafts2[3])
+                self.mx_field.setText(drafts2[4])
+                self.st_field.setText(str(drafts2[5]))
+                self.sPacketType = 3 
+                self.setListValues()
+
+        
 
     def slideleft(self):
         width = self.side_menu.width()

@@ -195,6 +195,28 @@ def getDrafts():
     results = cursor.fetchall()
     return results
 
+def getSelectedDraft(index):
+    conn = connectToDatabase()
+    cursor = conn.cursor()
+    Getdraft = "SELECT * FROM Drafts WHERE ID = %s"
+    cursor.execute(Getdraft, (index,))
+    results = cursor.fetchone()
+    return results
+
+def getSelectedDraftType(index, type):
+    conn = connectToDatabase()
+    cursor = conn.cursor()
+    if type == "DNS":
+        Getdraft = "SELECT * FROM DNS2 WHERE ID = %s"
+    elif type == "NTP":
+        Getdraft = "SELECT * FROM NTP2 WHERE ID = %s"
+    else:
+        Getdraft = "SELECT * FROM SSDP2 WHERE ID = %s"
+
+    cursor.execute(Getdraft, (index,))
+    results = cursor.fetchone()
+    return results
+
 def getID():
     global lastID
     lastID = lastID + 1
