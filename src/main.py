@@ -10,8 +10,8 @@
 ################################################################################
 import sys
 import os
-#from signup import signup
-#from login import connections
+from signup import signup
+from login import connections
 from PyQt5.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
     QRect, QSize, QUrl, Qt)
 from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
