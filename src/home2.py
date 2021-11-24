@@ -17,8 +17,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from sendPacket import sendPacketClass
 from receiver import startSniffing, displayReceiveLog
-
-
+from ssdpAuto import startSsdpGA
+from worker import WorkerThread
 
 
 import source_rc
@@ -1528,7 +1528,7 @@ class Ui_OtherWindow(object):
         self.progressBar.setOrientation(Qt.Horizontal)
         self.progressBar.setInvertedAppearance(False)
 
-        self.create_bt.clicked.connect(self.helpUi)
+        self.create_bt.clicked.connect(self.startRandomSelection)
         self.pkt_type.activated.connect(self.chosen2)
 
         self.stackedWidget.addWidget(self.autocreate)
@@ -2022,12 +2022,22 @@ class Ui_OtherWindow(object):
         #self.stackedWidget.setCurrentIndex(11)
         startSniffing() #start capturing packets
 
-    def helpUi(self):
+
+
+
+    def startRandomSelection(self):
+        #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
+        #     t1.start()
+        self.worker = WorkerThread(self)
+        self.worker.start()
+        #startSsdpGA(self)
+
+    def helpUi(self, message):
             
-        self.stackedWidget.setCurrentIndex(0)
+        #self.stackedWidget.setCurrentIndex(0)
         msg = QMessageBox()
         msg.setWindowTitle(" ")
-        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">"+message+"</span></p></body></html>")
         msg.setIcon(QMessageBox.Question)
         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
