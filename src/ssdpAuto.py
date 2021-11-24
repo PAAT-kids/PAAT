@@ -164,6 +164,43 @@ def crossover(parent1, parent2):
 	child.append(parent2[1])
 	return child
 
+def startSsdpGA(self):
+	#self.helpUi("SSDP GA Started!")
+
+	i = 0
+	createInitPop()
+
+	print("Parent New population: \n",population)
+	
+	while(i < totalGen):
+		print("Current Best Ever:  ", bestEver, fittest)
+		normalizeFitness()
+		print("fitness: \n",fitness)
+		# 	print('outside normalize')
+		
+		nextGeneration()
+		print("Next gen New population: ",population)
+		i = i + 1
+	
+	if bestEver[0] != '0.0.0.0' and bestEver[1] != '':
+		queryPacket = Ether(src='94:65:9c:25:ef:40',dst='7c:8f:de:ab:cb:e0')/IP(src="192.168.1.16",dst=bestEver[0])/UDP(sport=4565,dport=1900)
+		#payload = Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
+		listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
+		sendPkt = sendPacketClass()
+		sendPkt.sendPacketSSDP(queryPacket,listValue)
+		#packet = queryPacket/payload
+		#send(packet)
+		
+		self.helpUi('<div> <h1> SSDP Best Fields: </h1>' +
+		'<p> dst: '+bestEver[0]+'</p>'+
+		'<p> ST Header: '+bestEver[1]+'</p>'+
+		'</div>')
+
+		print("Best Ever:  ", bestEver, fittest)
+		print("Total Gen: "+str(gen))
+	else:
+		print("No upnp services.")
+
 if __name__ == '__main__':
 	
 	i = 0
