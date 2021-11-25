@@ -29,7 +29,7 @@ def get_arp_cost(destinationIP,serverIP):
 
 #PURPOSE: send arp broadcast packet and receive response
 def sendARPPacket(arpPkt,destinationIP):
-	arpPkt[ARP].hwsrc = '00:0c:29:4a:f5:5b' #sender mac address
+	arpPkt[ARP].hwsrc = get_if_hwaddr(conf.iface) #sender mac address
 	arpPkt[ARP].pdst = destinationIP #receiver machine ip address
 	arpPkt[Ether].dst = "ff:ff:ff:ff:ff:ff"
 	rans,runans = srp(arpPkt, filter='arp',timeout=3,verbose=False)
@@ -42,17 +42,17 @@ def sendARPPacket(arpPkt,destinationIP):
 
 #Purpose: get mac of local ip address
 def getMac(ip):
-	arppkt = Ether()/ARP()
-	resp = sendARPPacket(arppkt,ip)
+	# arppkt = Ether()/ARP()
+	# resp = sendARPPacket(arppkt,ip)
 
-	if resp != 1:
-		if resp.haslayer(ARP):
-			return resp.getlayer(ARP).hwsrc
-	return -1
+	# if resp != -1:
+	# 	if resp.haslayer(ARP):
+	# 		return resp.getlayer(ARP).hwsrc
+	mac = getmacbyip(ip)
+	return mac
 
-#Purpose: caller function
-def arpAdditionalCost(source,dest):
-	get_arp_cost(source,dest)
-
+# #Purpose: caller function
+# def arpAdditionalCost(source,dest):
+# 	get_arp_cost(source,dest)
 if __name__ == '__main__':
 	arpAdditionalCost("0.0.0.0","0.0.0.0")
