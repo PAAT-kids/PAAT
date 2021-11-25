@@ -17,8 +17,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from sendPacket import sendPacketClass
 from receiver import startSniffing, displayReceiveLog
-from ssdpAuto import startSsdpGA
-from worker import WorkerThread
+from ssdpAuto import helpUi, startSsdpGA
+from ssdpWorker import WorkerThread
 
 
 import source_rc
@@ -1530,9 +1530,9 @@ class Ui_OtherWindow(object):
 
         self.create_bt.clicked.connect(self.startRandomSelection)
         self.pkt_type.activated.connect(self.chosen2)
-
+        
         self.stackedWidget.addWidget(self.autocreate)
-
+        
         if self.darkmode == True:
                 self.changebg()
 
@@ -1811,6 +1811,7 @@ class Ui_OtherWindow(object):
     def chosen2(self):
     
         text = self.pkt_type.currentText()
+        self.chosen = text
 
         if text == 'DNS':
 
@@ -2028,8 +2029,10 @@ class Ui_OtherWindow(object):
     def startRandomSelection(self):
         #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
         #     t1.start()
-        self.worker = WorkerThread(self)
-        self.worker.start()
+        if self.chosen == 'SSDP':
+                self.worker = WorkerThread(self.sorc_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
         #startSsdpGA(self)
 
     def helpUi(self, message):
