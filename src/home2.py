@@ -2032,16 +2032,27 @@ class Ui_OtherWindow(object):
                 self.worker.update_progress.connect(self.helpUi)
         #startSsdpGA(self)   
 
-    def helpUi(self):
+    def helpUi(self, message):
             
-        self.stackedWidget.setCurrentIndex(0)
+        #self.stackedWidget.setCurrentIndex(0)
         msg = QMessageBox()
         msg.setWindowTitle(" ")
-        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">"+message+"</span></p></body></html>")
         msg.setIcon(QMessageBox.Question)
         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
         x = msg.exec_()
+
+#     def helpUi(self):
+            
+#         self.stackedWidget.setCurrentIndex(0)
+#         msg = QMessageBox()
+#         msg.setWindowTitle(" ")
+#         msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+#         msg.setIcon(QMessageBox.Question)
+#         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+#         x = msg.exec_()
 
     def sendPacket(self):
 
