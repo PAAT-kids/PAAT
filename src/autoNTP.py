@@ -15,17 +15,15 @@ from sendPacket import sendPacketClass
 sPacket = sendPacketClass()
 
 #required list variables to store values for feilds
-mode = [1,2]
-leaplist = 10
-versionlist = [1,2,3]
-stratumList = [1 , 2 , 3 , 4 , 5, 6 , 7 , 8 , 9 , 10 , 11 , 12 , 13 , 14 , 15, 16,]
-delayList = [0.00489807128906,0.00489807128906]
-polllist = 10
+ntpip = "216.239.35.4"
+mode = [0,1,2,3]
+leaplist = [0]
+versionlist = [1,2,3,4]
 solutions = [""] * 100
 rankedSolutions = [""] * 50
-rankedQNAME = [""] * 10
-rankedQCLASS = [""] * 10
-rankedQTYPE = [""] * 10
+rankedmode = [""] * 10
+rankedversion = [""] * 10
+rankedleap= [""] * 10
 
 """
 FUNCTION NAME: sendAutoPacket
@@ -33,46 +31,39 @@ PURPOSE: Calls the function to be tested
 INPUT: Single list variable which conatins information of the packet
 OUTPUT: int size of sent packet
 """
-def sendAutoPacket():
+def sendAutoPacket(valuesList):
     packet = (scapy.IP(
-                            version=4,
-                            ihl=5,
-                            tos=0,
+                            #version=4,
+                            #ihl=5,
+                            #tos=0,
                             #len=ipLen, #length is calculated later in the program, user shouldnt enter it 
-                            id=1,
-                            flags=0,
-                            frag=0,
-                            ttl=64,
-                            proto=17,
+                            #id=1,
+                            #flags=0,
+                            #frag=0,
+                            #ttl=64,
+                            #proto=17,
                             #chksum=ipChksum,#either have to find a way to calculate chksum or just let scapy do it
                             src="192.168.1.153",
-                            dst="132.163.97.5",
+                            dst=ntpip,
                             #options=ipOptions
                             )
                     /scapy.UDP(
-                            sport=4040,
+                            sport=50000,
                             dport=123,
                             #chksum=udpChksum #either have to find a way to calculate chksum or just let scapy do it
                             )
                     /scapy.NTPHeader(
-                                    #leap=leaplist,
-                                    #version=versionlist[1],
-                                    #mode=mode[1],
-                                    #stratum=stratumList[3],
-                                    #poll=polllist,
-                                    #precision=235,
-                                    #delay=delayList[0],
-                                    #dispersion=0.0449066162109,  
+                                    leap=valuesList[1],
+                                    version=valuesList[2],
+                                    mode=valuesList[3],
                                     )
 
                     )
 
-    srcPort = scapy.RandShort()._fix()
-    #packet[scapy.UDP].sport = srcPort
-    sizePkt = sizePacket('\"NTP\"',srcPort,packet[scapy.UDP].len)
-    #print('\"NTP\"')
-    #scapy.send(sizePkt)
-    scapy.sr(packet)
+
+    packetSize = int(sPacket.autoSendNTP(packet))
+    return packetSize
+    
     
 """
 FUNCTION NAME: fitness
@@ -94,7 +85,7 @@ OUTPUT: none
 """
 def getSolutions():
     for x in range (0 , 100):
-        solutions[x] = [0 , random.choice(qnameList) , random.choice(qtypeList) , random.choice(qclassList)]
+        solutions[x] = [0 , random.choice(mode) , random.choice(leaplist) , random.choice(versionlist)]
 
 
 """
@@ -105,13 +96,13 @@ OUTPUT: none
 """
 def getRankedSolutions():
     for x in range (0 ,10):
-        rankedQNAME[x] = solutions[x][1]
-        rankedQCLASS[x] = solutions[x][3]
-        rankedQTYPE[x] = solutions[x][2]
+        rankedmode[x] = solutions[x][1]
+        rankedversion[x] = solutions[x][3]
+        rankedleap[x] = solutions[x][2]
         
 
     for x in range (0 , 50):
-        rankedSolutions[x] = [0 , random.choice(rankedQNAME) , random.choice(rankedQTYPE) , random.choice(rankedQCLASS)]
+        rankedSolutions[x] = [0 , random.choice(rankedmode) , random.choice(rankedversion) , random.choice(rankedleap)]
 
 
 """
@@ -150,9 +141,17 @@ def sizePacket(Type,QID, size):
         s = '\"size\"'
         ldDict = f"{{{t}:" +Type+f",{q}:"+str(QID)+f",{s}:"+str(size)+"}"
         print('QID: '+str(QID))
-        sizePkt = scapy.IP(dst="132.163.96.5")/scapy.UDP(sport=4040,dport=123)/scapy.Raw(load=ldDict)
+        sizePkt = scapy.IP(dst="216.239.35.4")/scapy.UDP(sport=50000,dport=123)/scapy.Raw(load=ldDict)
+        print(sizePkt)
         return sizePkt
 
 
 
-sendAutoPacket()
+getSolutions()
+runSolutions()
+
+getRankedSolutions()
+runRankedSolutions()
+
+print("THE BEST SOLUTION IS")
+print(rankedSolutions[0])

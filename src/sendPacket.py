@@ -266,5 +266,14 @@ class sendPacketClass:
 
         return 1
 
+    def autoSendNTP(self,packet):
+        response, unans= scapy.sr(packet,timeout=1,verbose=0,multi=True)
+
+        if len(response[scapy.UDP]) != 0:
+            for responses in response[scapy.UDP]:
+                                return (responses[1][scapy.UDP].len)
+        else:
+            return 0
+
     def autoSend(listValue):
         print("Todo")
