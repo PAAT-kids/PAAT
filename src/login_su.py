@@ -68,7 +68,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
-        self.login.clicked.connect(self.loginCheck)
+        self.login.clicked.connect(lambda: self.loginCheck(MainWindow))
+
         
 
 #########################################################
@@ -181,17 +182,38 @@ class Ui_MainWindow(object):
 
         if not checked:
                 self.centralwidget.setStyleSheet(u"background-image: url(:/bg1/darkbg.png)")
-                self.darkmode = True;
+                self.darkmode = True
         elif checked:
                 self.centralwidget.setStyleSheet(u"background-image: url(:/bg1/bg9.png)")
-                self.darkmode = False;
+                self.darkmode = False
 
     def loginCheck(self, MainWindow):
-        self.openwindow(MainWindow)
 
+        password = self.password_lg.text()
+        username = self.username_lg.text()
+        root = ahmed.connections()
+        if root.connect_database(username, password) == True:
+                self.openwindow(MainWindow)
+        else:
+	        self.alert1()
+    
 
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
         self.ui.setupUi(self.window,self.darkmode)
         self.window.show()
+        MainWindow.close()
+
+
+
+    def alert1(self):
+        self.alert_pkt = QLabel()
+        self.alert_pkt.setObjectName(u"alert_pkt")
+        self.alert_pkt.setGeometry(QRect(1270, 710, 491, 31))
+        self.alert_pkt.setStyleSheet(u"color: rgb(255, 0, 0);\n"
+"font: 75 italic 13pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.alert_pkt.setText(QCoreApplication.translate("MainWindow", u"Please complete all the fields before proceeding.", None))
+
+
