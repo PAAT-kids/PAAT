@@ -32,8 +32,8 @@ host = ""
 port = ""
 man = ""
 Qname = ""
-Qtype = 40
-Qclass = 50
+Qtype = ""
+Qclass = ""
 leap = 1
 versionNTP = 2
 modee = ""
@@ -123,6 +123,7 @@ def setVariablesNTP(modee1,disp1,IDNTP1,delay1,poll1,sent1,stra1,versn1,prec1,le
     global Origin
     global rev
     global sent
+    global modee
     leap = leap1
     versionNTP = versn1
     modee = modee1
@@ -139,9 +140,12 @@ def setVariablesNTP(modee1,disp1,IDNTP1,delay1,poll1,sent1,stra1,versn1,prec1,le
     sent = sent1
 
 def setVariablesDNS(Qname1,Qtype1,Qclass1):
+    global Qname
+    global Qtype
+    global Qclass
     Qname = Qname1
-    Qtype = int(Qtype1)
-    Qclass = int(Qclass1)
+    Qtype = Qtype1
+    Qclass = Qclass1
 
 def saveDraft(type1):
     randomID = getID()
@@ -152,7 +156,7 @@ def saveDraft(type1):
     print(randomID, date_now,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length)
     conn = connectToDatabase()
     cursor = conn.cursor()
-    add_draft = """INSERT INTO Drafts(ID,Datee,Time1,SourceETH,DestinationETH,Type1,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options1,SourcePort,DestinationPort,Checksum1,PacketType,Length) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+    add_draft = """INSERT INTO Drafts(ID,Datee,Time,SourceETH,DestinationETH,Type1,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options1,SourcePort,DestinationPort,Checksum1,PacketType,Length) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
     cursor.execute(add_draft, (randomID, date_now,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length))
     conn.commit()
     if type1 == "SSDP":
@@ -224,7 +228,7 @@ def getID():
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='ahmed',password='1234')
+		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')

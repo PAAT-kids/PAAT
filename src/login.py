@@ -5,7 +5,7 @@ import login_su
 
 class connections:
     __HOST = '127.0.0.1'
-    __USERNAME = 'ahmed'
+    __USERNAME = 'PAAT'
     __PASSWORD = '1234'
     __DATABASE = 'paat'
     
