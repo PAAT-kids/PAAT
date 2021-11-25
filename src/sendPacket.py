@@ -337,8 +337,7 @@ class sendPacketClass:
         get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
 
         return 1
-
-    
+      
     def autoSend(listValue):
         print("Todo")
 
