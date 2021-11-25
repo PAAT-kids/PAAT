@@ -15,8 +15,8 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from sendPacket import sendPacketClass
-
+from sendPacket import sendPacketClass, displaySent
+from receiver import startSniffing, displayReceiveLog
 
 
 
@@ -59,7 +59,7 @@ class Ui_OtherWindow(object):
         self.formLayout = QFormLayout()
         self.formLayout.setObjectName(u"formLayout")
 
-        self.darkmode = darkmodes;
+        self.darkmode = darkmodes
 
 ## HOME ICON ##
         self.home_icon = QPushButton(self.side_menu)
@@ -124,6 +124,8 @@ class Ui_OtherWindow(object):
         self.info_icon.setIconSize(QSize(55, 55))
 
         self.formLayout.setWidget(4, QFormLayout.LabelRole, self.info_icon)
+
+        self.info_icon.clicked.connect(self.printHelp);
 
 
 ## DRAFTS ICON ##
@@ -190,18 +192,6 @@ class Ui_OtherWindow(object):
 
         self.horizontalLayout_2.addWidget(self.menu_icon)
 
-## NOTIF ICON ##
-        self.notif_icon = QPushButton(self.top_menu)
-        self.notif_icon.setObjectName(u"notif_icon")
-        self.notif_icon.setGeometry(QRect(910, 10, 91, 51))
-        self.notif_icon.setStyleSheet(u"background:transparent;\n"
-"color: rgb(255, 255, 255);")
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/notific.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.notif_icon.setIcon(icon6)
-        self.notif_icon.setIconSize(QSize(45, 45))
-
-        self.horizontalLayout_2.addWidget(self.notif_icon)
 
 ## SETTINGS ICON ##
         self.settings_icon = QPushButton(self.top_menu)
@@ -369,6 +359,7 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+
         self.info = QLabel(self.ETH)
         self.info.setObjectName(u"info")
         self.info.setGeometry(QRect(230, 850, 351, 16))
@@ -396,10 +387,28 @@ class Ui_OtherWindow(object):
 "font: italic 13pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
         self.ty.setToolTip("<b style='background:white; font:9pt; color:black;'>Indicates the encapsulated protocol in frame payload and determines how it is processed when recieved by the data link layer. [2 Octet]</b>")
+        
+        self.back_eth = QPushButton(self.ETH)
+        self.back_eth.setObjectName(u"back_eth")
+        self.back_eth.setGeometry(QRect(130, 80, 241, 91))
+        self.back_eth.setAutoFillBackground(False)
+        self.back_eth.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_eth.setIcon(icon9)
+        self.back_eth.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.ETH)
         
         self.nxt_eth.clicked.connect(self.setEthernet)
         self.nxt_eth.clicked.connect(self.ippage)
+        
+        self.back_eth.clicked.connect(self.goback)
         
 
 ## Page 4 -  IP PACKET labels, inputs and buttons ##
@@ -445,7 +454,7 @@ class Ui_OtherWindow(object):
         self.length.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.length.setToolTip("<b style='background:white; font: 9pt; color:black;'>It is measured in bytes and can be used to calculate the payload dimension with IHL. [20-65535 Bits] </b>")
+        self.length.setToolTip("<b style='background:white; font: 9pt; color:black;'>Size of data being sent, it is measured in bytes and can be used to calculate the payload dimension with IHL. [20-65535 Bits] </b>")
         self.len_box = QLineEdit(self.IP)
         self.len_box.setObjectName(u"len_box")
         self.len_box.setGeometry(QRect(660, 260, 381, 61))
@@ -559,6 +568,9 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        
+
+
         self.def_ip = QPushButton(self.IP)
         self.def_ip.setObjectName(u"def_ip")
         self.def_ip.setGeometry(QRect(250, 810, 151, 41))
@@ -574,10 +586,27 @@ class Ui_OtherWindow(object):
         self.info_2.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_ip = QPushButton(self.IP)
+        self.back_ip.setObjectName(u"back_ip")
+        self.back_ip.setGeometry(QRect(130, 80, 241, 91))
+        self.back_ip.setAutoFillBackground(False)
+        self.back_ip.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_ip.setIcon(icon9)
+        self.back_ip.setIconSize(QSize(52, 52))
+
         self.stackedWidget.addWidget(self.IP)
 
         self.nxt_ip.clicked.connect(self.setIP)
         self.nxt_ip.clicked.connect(self.udppage)
+        self.back_ip.clicked.connect(self.goeth)
 
 
 ## Page 5 -  UDP PACKET labels, inputs and buttons ##
@@ -594,13 +623,14 @@ class Ui_OtherWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        
         self.srcad_txtt = QLabel(self.UDP)
         self.srcad_txtt.setObjectName(u"srcad_txtt")
         self.srcad_txtt.setGeometry(QRect(420, 390, 181, 41))
         self.srcad_txtt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.srcad_txtt.setToolTip("<b style='background:white; color:black;'>Source Port</b>")
+        self.srcad_txtt.setToolTip("<b style='background:white; color:black;'>The number used to identify the process sending data.</b>")
         self.ovr_chksm = QCheckBox(self.UDP)
         self.ovr_chksm.setObjectName(u"ovr_chksm")
         self.ovr_chksm.setGeometry(QRect(770, 350, 321, 31))
@@ -625,7 +655,7 @@ class Ui_OtherWindow(object):
         self.chksm_text.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.chksm_text.setToolTip("<b style='background:white; color:black;'>Checksum</b>")
+        self.chksm_text.setToolTip("<b style='background:white; color:black;'> Mechanism to determine the integrity of data transmitted over network.</b>")
         self.chksum_box_2 = QLineEdit(self.UDP)
         self.chksum_box_2.setObjectName(u"chksum_box_2")
         self.chksum_box_2.setGeometry(QRect(1190, 330, 141, 61))
@@ -642,14 +672,14 @@ class Ui_OtherWindow(object):
         self.leng_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.leng_txt.setToolTip("<b style='background:white; color:black;'>Length</b>")
+        self.leng_txt.setToolTip("<b style='background:white; color:black;'>Size of data being sent, it is measured in bytes. [8-65535 bytes]</b>")
         self.dst_txt = QLabel(self.UDP)
         self.dst_txt.setObjectName(u"dst_txt")
         self.dst_txt.setGeometry(QRect(420, 530, 181, 41))
         self.dst_txt.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.dst_txt.setToolTip("<b style='background:white; color:black;'>Destination Port</b>")
+        self.dst_txt.setToolTip("<b style='background:white; color:black;'>The number used to identify the process recieving data.</b>")
         self.info3 = QLabel(self.UDP)
         self.info3.setObjectName(u"info3")
         self.info3.setGeometry(QRect(220, 820, 351, 16))
@@ -663,12 +693,29 @@ class Ui_OtherWindow(object):
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
 
+        self.back_udp = QPushButton(self.UDP)
+        self.back_udp.setObjectName(u"back_udp")
+        self.back_udp.setGeometry(QRect(130, 80, 241, 91))
+        self.back_udp.setAutoFillBackground(False)
+        self.back_udp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_udp.setIcon(icon9)
+        self.back_udp.setIconSize(QSize(52, 52))
+
         self.def_udp.clicked.connect(self.default_udp)
 
         self.stackedWidget.addWidget(self.UDP)
         
         self.nxt_udp.clicked.connect(self.setUDP)
         self.nxt_udp.clicked.connect(self.nxtpage)
+        self.back_udp.clicked.connect(self.ippage)
+
 
 ## Page 6 -  NTP PACKET labels, inputs and buttons ##
 
@@ -768,106 +815,122 @@ class Ui_OtherWindow(object):
         self.precision_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.precision_label.setToolTip("<b style='background:white; color:black;'>Precision</b>")
+        self.precision_label.setToolTip("<b style='background:white; color:black;'>The smallest possible increase of time that can be experienced by a program.</b>")
         self.dispersion_label = QLabel(self.NTP)
         self.dispersion_label.setObjectName(u"dispersion_label")
         self.dispersion_label.setGeometry(QRect(1130, 470, 141, 41))
         self.dispersion_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.dispersion_label.setToolTip("<b style='background:white; color:black;'>Dispersion</b>")
+        self.dispersion_label.setToolTip("<b style='background:white; color:black;'>The maximum difference recorded between the NTP client and the NTP server. [seconds]</b>")
         self.delay_label = QLabel(self.NTP)
         self.delay_label.setObjectName(u"delay_label")
         self.delay_label.setGeometry(QRect(970, 470, 141, 41))
         self.delay_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.delay_label.setToolTip("<b style='background:white; color:black;'>Delay</b>")
+        self.delay_label.setToolTip("<b style='background:white; color:black;'>The round-trip delay of a timing message passed from client to server and back again.</b>")
         self.poll_label = QLabel(self.NTP)
         self.poll_label.setObjectName(u"poll_label")
         self.poll_label.setGeometry(QRect(650, 470, 141, 41))
         self.poll_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.poll_label.setToolTip("<b style='background:white; color:black;'>Poll</b>")
+        self.poll_label.setToolTip("<b style='background:white; color:black;'>The process sends NTP packets at intervals determined by the clock discipline algorithm to increase accuracy and decrease network overhead.</b>")
         self.id_label = QLabel(self.NTP)
         self.id_label.setObjectName(u"id_label")
         self.id_label.setGeometry(QRect(650, 590, 621, 41))
         self.id_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.id_label.setToolTip("<b style='background:white; color:black;'>ID</b>")
+        self.id_label.setToolTip("<b style='background:white; color:black;'>It identifies the source of time in a timestamp.</b>")
         self.recieve_label = QLabel(self.NTP)
         self.recieve_label.setObjectName(u"recieve_label")
         self.recieve_label.setGeometry(QRect(970, 830, 141, 41))
         self.recieve_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.recieve_label.setToolTip("<b style='background:white; color:black;'>Recieve</b>")
+        self.recieve_label.setToolTip("<b style='background:white; color:black;'>This value is the time at which the client request arrived at the server in 64-bit time-stamp format.</b>")
         self.reference_label = QLabel(self.NTP)
         self.reference_label.setObjectName(u"reference_label")
         self.reference_label.setGeometry(QRect(650, 830, 141, 41))
         self.reference_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.reference_label.setToolTip("<b style='background:white; color:black;'>Reference</b>")
+        self.reference_label.setToolTip("<b style='background:white; color:black;'>This field is the time the system clock was last set or corrected, in 64-bit time-stamp format.</b>")
         self.origin_label = QLabel(self.NTP)
         self.origin_label.setObjectName(u"origin_label")
         self.origin_label.setGeometry(QRect(810, 830, 141, 41))
         self.origin_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.origin_label.setToolTip("<b style='background:white; color:black;'>Origin</b>")
+        self.origin_label.setToolTip("<b style='background:white; color:black;'>This value is the time at which the request departed the client for the server, in 64-bit time-stamp format.</b>")
         self.sent_label = QLabel(self.NTP)
         self.sent_label.setObjectName(u"sent_label")
         self.sent_label.setGeometry(QRect(1130, 830, 141, 41))
         self.sent_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.sent_label.setToolTip("<b style='background:white; color:black;'>Sent</b>")
+        self.sent_label.setToolTip("<b style='background:white; color:black;'>This value is the time at which the server reply departed the server, in 64-bit time-stamp format.</b>")
         self.referenceid_label = QLabel(self.NTP)
         self.referenceid_label.setObjectName(u"referenceid_label")
         self.referenceid_label.setGeometry(QRect(650, 710, 621, 41))
         self.referenceid_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.referenceid_label.setToolTip("<b style='background:white; color:black;'>Reference ID</b>")
+        self.referenceid_label.setToolTip("<b style='background:white; color:black;'>This value is a four-character ASCII code that describes the external reference source. </b>")
         self.mode_label = QLabel(self.NTP)
         self.mode_label.setObjectName(u"mode_label")
         self.mode_label.setGeometry(QRect(970, 350, 141, 41))
         self.mode_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.mode_label.setToolTip("<b style='background:white; color:black;'>Mode</b>")
+        self.mode_label.setToolTip("<b style='background:white; color:black;'>NTP packet mode\n The values of the Mode field follow:\n0: Reserved \n 1: Symmetric active\n2: Symmetric passive\n3: Client\n4: Server\n5: Broadcast\n6: NTP control message\n7: Reserved for private use\n [3 bits]</b>")
         self.stratum_label = QLabel(self.NTP)
         self.stratum_label.setObjectName(u"stratum_label")
         self.stratum_label.setGeometry(QRect(1130, 350, 141, 41))
         self.stratum_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.stratum_label.setToolTip("<b style='background:white; color:black;'>Stratum</b>")
+        self.stratum_label.setToolTip("<b style='background:white; color:black;'>Stratum level of the time source (8 bits) The values of the Stratum field follow:\n0: Unspecified or invalid\n1: Primary server\n2â€“15: Secondary server\n16: Unsynchronized\n17â€“255: Reserved\n [8 bits]</b>")
         self.version_label = QLabel(self.NTP)
         self.version_label.setObjectName(u"version_label")
         self.version_label.setGeometry(QRect(810, 350, 141, 41))
         self.version_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.version_label.setToolTip("<b style='background:white; color:black;'>Version</b>")
+        self.version_label.setToolTip("<b style='background:white; color:black;'>NTP Version Number. [3 bits]</b>")
         self.leap_label = QLabel(self.NTP)
         self.leap_label.setObjectName(u"leap_label")
         self.leap_label.setGeometry(QRect(650, 350, 141, 41))
         self.leap_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.leap_label.setToolTip("<b style='background:white; color:black;'>Leap</b>")
+        self.leap_label.setToolTip("<b style='background:white; color:black;'>Leap Indicator\nThis field indicates whether the last minute of the current day is to have a leap second applied. The field values follow:\n0: No leap second adjustment\n1: Last minute of the day has 61 seconds\n2: Last minute of the day has 59 seconds\n3: Clock is unsynchronized\n[2 bits]</b>")
         self.info_6 = QLabel(self.NTP)
         self.info_6.setObjectName(u"info_6")
         self.info_6.setGeometry(QRect(200, 910, 351, 16))
         self.info_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+        self.back_ntp = QPushButton(self.NTP)
+        self.back_ntp.setObjectName(u"back_ntp")
+        self.back_ntp.setGeometry(QRect(130, 80, 241, 91))
+        self.back_ntp.setAutoFillBackground(False)
+        self.back_ntp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_ntp.setIcon(icon9)
+        self.back_ntp.setIconSize(QSize(52, 52))
         self.draft_ntp.clicked.connect(self.saveDraftNTP)
         self.stackedWidget.addWidget(self.NTP)
+
+        self.back_ntp.clicked.connect(self.udppage)
 
 ## Page 6 -  DNS PACKET labels, inputs and buttons ##
 
@@ -911,14 +974,14 @@ class Ui_OtherWindow(object):
         self.qtype_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qtype_label.setToolTip("<b style='background:white; color:black;'>Qtype</b>")
+        self.qtype_label.setToolTip("<b style='background:white; color:black;'>A code which specifies the type of the query. [2 Octets]</b>")
         self.qclass_label = QLabel(self.DNS)
         self.qclass_label.setObjectName(u"qclass_label")
         self.qclass_label.setGeometry(QRect(1010, 650, 141, 41))
         self.qclass_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qclass_label.setToolTip("<b style='background:white; color:black;'>Qclass</b>")
+        self.qclass_label.setToolTip("<b style='background:white; color:black;'>A code which specifies the class of the query. [2 Octets]</b>")
         self.qname_field = QLineEdit(self.DNS)
         self.qname_field.setObjectName(u"qname_field")
         self.qname_field.setGeometry(QRect(460, 370, 1021, 61))
@@ -929,7 +992,7 @@ class Ui_OtherWindow(object):
         self.qname_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.qname_label.setToolTip("<b style='background:white; color:black;'>Qname</b>")
+        self.qname_label.setToolTip("<b style='background:white; color:black;'>Minimization of Qname is a privacy oriented feature which tries limiting sending of full domain destination to the root nameservers.</b>")
         self.qtype_field = QLineEdit(self.DNS)
         self.qtype_field.setObjectName(u"qtype_field")
         self.qtype_field.setGeometry(QRect(790, 590, 141, 61))
@@ -944,8 +1007,25 @@ class Ui_OtherWindow(object):
         self.info_7.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_dns = QPushButton(self.DNS)
+        self.back_dns.setObjectName(u"back_dns")
+        self.back_dns.setGeometry(QRect(130, 80, 241, 91))
+        self.back_dns.setAutoFillBackground(False)
+        self.back_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_dns.setIcon(icon9)
+        self.back_dns.setIconSize(QSize(52, 52))
+        
         self.stackedWidget.addWidget(self.DNS)
         self.draft_dns.clicked.connect(self.saveDraftDNS)
+        self.back_dns.clicked.connect(self.udppage)
 
 ## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
@@ -991,7 +1071,7 @@ class Ui_OtherWindow(object):
         self.st_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.st_label.setToolTip("<b style='background:white; color:black;'>ST</b>")
+        self.st_label.setToolTip("<b style='background:white; color:black;'>The search target of the service the search request is attempting to discover.</b>")
         self.mx_field = QLineEdit(self.SSDP)
         self.mx_field.setObjectName(u"mx_field")
         self.mx_field.setGeometry(QRect(1020, 490, 371, 61))
@@ -1002,7 +1082,7 @@ class Ui_OtherWindow(object):
         self.mx_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.mx_label.setToolTip("<b style='background:white; color:black;'>MX</b>")
+        self.mx_label.setToolTip("<b style='background:white; color:black;'>The maximum seconds to delay a response.</b>")
         self.st_field = QLineEdit(self.SSDP)
         self.st_field.setObjectName(u"st_field")
         self.st_field.setGeometry(QRect(770, 640, 371, 61))
@@ -1013,7 +1093,7 @@ class Ui_OtherWindow(object):
         self.port_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.port_label.setToolTip("<b style='background:white; color:black;'>Port</b>")
+        self.port_label.setToolTip("<b style='background:white; color:black;'>The port the message will be sent to.</b>")
         self.man_field = QLineEdit(self.SSDP)
         self.man_field.setObjectName(u"man_field")
         self.man_field.setGeometry(QRect(550, 490, 371, 61))
@@ -1024,7 +1104,7 @@ class Ui_OtherWindow(object):
         self.man_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.man_label.setToolTip("<b style='background:white; color:black;'>Man</b>")
+        self.man_label.setToolTip("<b style='background:white; color:black;'>The message type, for an M-Search  is always ssdp:discover.</b>")
         self.port_field = QLineEdit(self.SSDP)
         self.port_field.setObjectName(u"port_field")
         self.port_field.setGeometry(QRect(1020, 360, 371, 61))
@@ -1035,7 +1115,7 @@ class Ui_OtherWindow(object):
         self.host_label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 14pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.host_label.setToolTip("<b style='background:white; color:black;'>Host</b>")
+        self.host_label.setToolTip("<b style='background:white; color:black;'>The host the message will be sent to.</b>")
         self.host_field = QLineEdit(self.SSDP)
         self.host_field.setObjectName(u"host_field")
         self.host_field.setGeometry(QRect(550, 360, 371, 61))
@@ -1046,7 +1126,25 @@ class Ui_OtherWindow(object):
         self.info_8.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 10pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
+
+        self.back_ssdp = QPushButton(self.SSDP)
+        self.back_ssdp.setObjectName(u"back_ssdp")
+        self.back_ssdp.setGeometry(QRect(130, 80, 241, 91))
+        self.back_ssdp.setAutoFillBackground(False)
+        self.back_ssdp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+"text-decoration: underline;\n"
+"color: rgb(255, 255, 255);\n"
+"background: transparent;\n"
+"\n"
+"")
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/back.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_ssdp.setIcon(icon9)
+        self.back_ssdp.setIconSize(QSize(52, 52))
+        
         self.stackedWidget.addWidget(self.SSDP)
+
+        self.back_ssdp.clicked.connect(self.udppage)
 
 ## Page 8 - Settings ##
 
@@ -1168,14 +1266,16 @@ class Ui_OtherWindow(object):
         self.drafts_pg.setObjectName(u"drafts_pg")
         self.drafts_pg.setStyleSheet(u"background-image: url(:/bg1/drafts.png);")
         self.tableDrafts = QTableWidget(self.drafts_pg)
-        if (self.tableDrafts.columnCount() < 6):
-            self.tableDrafts.setColumnCount(6)
+        if (self.tableDrafts.columnCount() < 5):
+            self.tableDrafts.setColumnCount(5)
         self.tableDrafts.setObjectName(u"tableDrafts")
         self.tableDrafts.setGeometry(QRect(260, 320, 1351, 561))
         self.tableDrafts.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
         self.tableDrafts.setAlternatingRowColors(True)
         self.tableDrafts.setSortingEnabled(True)
-        self.tableDrafts.setColumnCount(6)
+
+        self.tableDrafts.setColumnCount(5)
+
         self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send"])
         self.tableDrafts.horizontalHeader().setDefaultSectionSize(220)
         self.tableDrafts.horizontalHeader().setProperty("showSortIndicator", True)
@@ -1371,12 +1471,6 @@ class Ui_OtherWindow(object):
         self.sorc_ad.setObjectName(u"sorc_ad")
         self.sorc_ad.setGeometry(QRect(400, 330, 361, 51))
         self.sorc_ad.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.addcont = QPushButton(self.autocreate)
-        self.addcont.setObjectName(u"addcont")
-        self.addcont.setGeometry(QRect(770, 490, 81, 51))
-        self.addcont.setStyleSheet(u"background: transparent;")
-        self.addcont.setIcon(icon8)
-        self.addcont.setIconSize(QSize(55, 55))
         self.pkt_type = QComboBox(self.autocreate)
         self.pkt_type.addItem("")
         self.pkt_type.addItem("")
@@ -1405,11 +1499,11 @@ class Ui_OtherWindow(object):
         self.packetsel.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 16pt \"Franklin Gothic Cond\";\n"
 "background: transparent;")
-        self.create_bt = QPushButton(self.autocreate)
-        self.create_bt.setObjectName(u"create_bt")
-        self.create_bt.setGeometry(QRect(850, 640, 241, 91))
-        self.create_bt.setAutoFillBackground(False)
-        self.create_bt.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
+        self.send_pkt = QPushButton(self.autocreate)
+        self.send_pkt.setObjectName(u"send_pkt")
+        self.send_pkt.setGeometry(QRect(850, 640, 241, 91))
+        self.send_pkt.setAutoFillBackground(False)
+        self.send_pkt.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 40px;\n"
 "padding: 10px 10px;\n"
@@ -1423,7 +1517,7 @@ class Ui_OtherWindow(object):
         self.progressBar.setOrientation(Qt.Horizontal)
         self.progressBar.setInvertedAppearance(False)
 
-        self.create_bt.clicked.connect(self.helpUi)
+        self.send_pkt.clicked.connect(self.helpUi)
         self.pkt_type.activated.connect(self.chosen2)
 
         self.stackedWidget.addWidget(self.autocreate)
@@ -1453,7 +1547,6 @@ class Ui_OtherWindow(object):
         self.info_icon.setText(QCoreApplication.translate("MainWindow", u"HELP", None))
         self.drafts_icon.setText(QCoreApplication.translate("MainWindow", u"DRAFTS", None))
         self.menu_icon.setText("")
-        self.notif_icon.setText("")
         self.settings_icon.setText("")
         self.contact_icon.setText("")
         self.sentl.setText(QCoreApplication.translate("MainWindow", u"     Send", None))
@@ -1464,14 +1557,13 @@ class Ui_OtherWindow(object):
 
         self.src_adlabel.setText(QCoreApplication.translate("MainWindow", u"Source Address", None))
         self.dest_adlabel.setText(QCoreApplication.translate("MainWindow", u"Destination Address", None))
-        self.addcont.setText("")
         self.pkt_type.setItemText(0, QCoreApplication.translate("MainWindow", u"DNS", None))
         self.pkt_type.setItemText(1, QCoreApplication.translate("MainWindow", u"NTP", None))
         self.pkt_type.setItemText(2, QCoreApplication.translate("MainWindow", u"SSDP", None))
         self.pkt_type.setCurrentText(QCoreApplication.translate("MainWindow", u"DNS", None))
         self.pt_labrl.setText(QCoreApplication.translate("MainWindow", u"Packet Type", None))
         self.packetsel.setText(QCoreApplication.translate("MainWindow", u"Select a Packet", None))
-        self.create_bt.setText(QCoreApplication.translate("MainWindow", u"Create Packet", None))
+        self.send_pkt.setText(QCoreApplication.translate("MainWindow", u"Send Packet", None))
 
 #if QT_CONFIG(tooltip)
         self.sentop.setToolTip("")
@@ -1580,6 +1672,12 @@ class Ui_OtherWindow(object):
         self.host_field.setText("")
         self.info_8.setText(QCoreApplication.translate("MainWindow", u"Place cursor over field name for more info on it!", None))
         self.darkm.setText("")
+        self.back_eth.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_ip.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_udp.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_ntp.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_ssdp.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
+        self.back_dns.setText(QCoreApplication.translate("MainWindow", u"BACK", None))
         self.name.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.accpic.setText("")
         self.usernamee.setText(QCoreApplication.translate("MainWindow", u"@username", None))
@@ -1601,6 +1699,7 @@ class Ui_OtherWindow(object):
         self.delete_bt.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.save_bt.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.cancel_bt.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
+
     # retranslateUi
 
     def homepg(self):
@@ -1614,10 +1713,12 @@ class Ui_OtherWindow(object):
     def gosent(self):
 
         self.stackedWidget.setCurrentIndex(10)
+        displaySent(self)
 
     def gorecvd(self):
 
         self.stackedWidget.setCurrentIndex(11)
+        displayReceiveLog(self)
 
     def goconts(self):
 
@@ -1641,6 +1742,10 @@ class Ui_OtherWindow(object):
 
         self.stackedWidget.setCurrentIndex(4)
 
+    def netselect(self):
+
+        self.stackedWidget.setCurrentIndex(1)        
+
     def nxtpage(self):
 
         if self.pressed == 'ntp':
@@ -1655,6 +1760,7 @@ class Ui_OtherWindow(object):
 
 
     def setEthernet(self):
+        #print("Ethernet values: "+self.source.text(),self.dest.text(),self.type.text())
         sPacket.setEthernet(self.source.text(),self.dest.text(),self.type.text())
 
     def setIP(self):  
@@ -1666,7 +1772,7 @@ class Ui_OtherWindow(object):
     def setListValues(self):
 
         if(self.sPacketType == 1):
-                self.tempListValues = [self.qname_field.text() , self.qclass_field.text(), self.qtype_field.text()]
+                self.tempListValues = [self.qname_field.text() , self.qtype_field.text(), self.qclass_field.text()]
                 
         elif(self.sPacketType == 2):
                 self.tempListValues = [self.host_field.text(),self.port_field.text(),self.man_field.text(),self.mx_field.text(),self.st_field.text()]
@@ -1712,29 +1818,30 @@ class Ui_OtherWindow(object):
 
     def default_eth(self):
         
-        self.type.setText("0x800")
+        self.type.setText("2048")
 
 
     def default_ip(self):
         
         self.textEdit.setText("  ")
-        self.chksum_box.setText("0x3b10")
-        self.prtcl_box.setText("UDP")
+        self.chksum_box.setText("0")
+        self.prtcl_box.setText("17")
         self.ttl_box.setText("64")
-        self.frag_box.setText("0L")
-        self.flags_box.setText("DF")
-        self.id_box.setText("28350")
-        self.len_box.setText("61")
-        self.tos_box.setText("0x0")
-        self.IHL_box.setText("5L")
-        self.vrsn_box.setText("4L")
+        self.frag_box.setText("0")
+        self.flags_box.setText("0")
+        self.id_box.setText("1")
+        self.len_box.setText("0")
+        self.tos_box.setText("0")
+        self.IHL_box.setText("5")
+        self.vrsn_box.setText("4")
+        self.opts.setText("0")
 
     def default_udp(self):
         
-        self.source_box.setText("isakmp")
-        self.chksum_box_2.setText("0x5794")
-        self.leng_box.setText("41")
-        self.dest_box.setText("isakmp")
+        #self.source_box.setText(" ")
+        self.chksum_box_2.setText("0")
+        self.leng_box.setText("0")
+        #self.dest_box.setText(" ")
         self.ovr_chksm.setChecked(True)
         self.ovr_lenval.setChecked(True)
 
@@ -1807,6 +1914,14 @@ class Ui_OtherWindow(object):
                 self.btn_send.clicked.connect(lambda: self.sendDraft(self.tableDrafts.currentRow()))
                 row = row+1
 
+    def alert1(self):
+        self.alert_pkt = QLabel()
+        self.alert_pkt.setObjectName(u"alert_pkt")
+        self.alert_pkt.setGeometry(QRect(1270, 710, 491, 31))
+        self.alert_pkt.setStyleSheet(u"color: rgb(255, 0, 0);\n"
+"font: 75 italic 13pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.alert_pkt.setText(QCoreApplication.translate("MainWindow", u"Please complete all the fields before proceeding.", None))
 
     def sendDraft(self,index):
         index = index +1 
@@ -1905,7 +2020,8 @@ class Ui_OtherWindow(object):
 
     def recieve_page(self):
         
-        self.stackedWidget.setCurrentIndex(11)
+        #self.stackedWidget.setCurrentIndex(11)
+        startSniffing() #start capturing packets
 
     def helpUi(self):
             
@@ -1917,3 +2033,139 @@ class Ui_OtherWindow(object):
         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
         x = msg.exec_()
+
+    def sendPacket(self):
+
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Packet Sent</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
+
+    def printHelp(self):
+
+        page = self.stackedWidget.currentIndex()
+        if page == 0:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 1:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 2:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 3:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 4:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 5:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 6:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 7:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 8:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 9:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 10:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 11:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 12:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+        elif page == 13:
+                msg = QMessageBox()
+                msg.setWindowTitle(" ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setIcon(QMessageBox.Question)
+                msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+                x = msg.exec_()
+
+    def goback(self):
+
+        self.stackedWidget.setCurrentIndex(1)
+
+    def goeth(self):
+
+        self.stackedWidget.setCurrentIndex(2)
+
+

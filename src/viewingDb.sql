@@ -1,18 +1,18 @@
 -- Viewing Tables
 --
 
-SELECT * FROM contacts;
-SELECT * FROM creates;
-SELECT * FROM dns;
-SELECT * FROM dns2;
-SELECT * FROM drafts;
-SELECT * FROM ntp;
-SELECT * FROM ntp2;
-SELECT * FROM received;
-SELECT * FROM receives;
-SELECT * FROM saves;
-SELECT * FROM sends;
-SELECT * FROM sent;
-SELECT * FROM ssdp;
-SELECT * FROM ssdp2;
-SELECT * FROM users;
+SELECT * FROM Contacts;
+SELECT * FROM Creates;
+SELECT * FROM DNS;
+SELECT * FROM DNS2;
+SELECT * FROM Drafts;
+SELECT * FROM NTP;
+SELECT * FROM NTP2;
+SELECT * FROM Received;
+SELECT * FROM Receives;
+SELECT * FROM Saves;
+SELECT * FROM Sends;
+SELECT * FROM Sent;
+SELECT * FROM SSDP;
+SELECT * FROM SSDP2;
+SELECT * FROM Users;
