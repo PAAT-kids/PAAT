@@ -1803,6 +1803,7 @@ class Ui_OtherWindow(object):
     def chosen2(self):
     
         text = self.pkt_type.currentText()
+        self.choice = text
 
         if text == 'DNS':
 
@@ -2025,7 +2026,7 @@ class Ui_OtherWindow(object):
     def startRandomSelection(self):
         #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
         #     t1.start()
-        if self.chosen == 'SSDP':
+        if self.choice == 'SSDP':
                 self.worker = WorkerThread(self.sorc_ad.text())
                 self.worker.start()
                 self.worker.update_progress.connect(self.helpUi)
