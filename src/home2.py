@@ -15,7 +15,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from sendPacket import sendPacketClass
+from sendPacket import sendPacketClass, displaySent
 from receiver import startSniffing, displayReceiveLog
 from ssdpWorker import WorkerThread
 
@@ -1713,6 +1713,7 @@ class Ui_OtherWindow(object):
     def gosent(self):
 
         self.stackedWidget.setCurrentIndex(10)
+        displaySent(self)
 
     def gorecvd(self):
 
