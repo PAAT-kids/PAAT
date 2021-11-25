@@ -12,6 +12,13 @@ import random
 import mysql.connector
 from mysql.connector import Error
 from datetime import datetime
+#Qtablewidgetitem
+from PyQt5.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
+    QRect, QSize, QUrl, Qt)
+from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
+    QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
+    QRadialGradient)
+from PyQt5.QtWidgets import *
 
 class sendPacketClass:
 
@@ -182,7 +189,12 @@ class sendPacketClass:
         now = datetime.now()
         date_now = now.strftime('%Y-%m-%d')
         current_time = now.strftime("%H:%M:%S")
-        conn = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
+        try:
+            conn = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
+            print("Connection To Database Established..\n")
+        except Error as e:
+            print("Connection To Database Failed!\n")
+
         cursor = conn.cursor()
         randomID = my_list.pop(0)
         temp = 'aaa'
@@ -335,3 +347,23 @@ class sendPacketClass:
         print('QID: '+str(QID))
         sizePkt = scapy.IP(dst=dest)/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
         return sizePkt
+
+def displaySent(self):
+    cnx = mysql.connector.connect(user='PAAT', password='1234',host='127.0.0.1',database='paat')
+    cursor = cnx.cursor()
+    self.tableSent.setRowCount(0) #refreshing the table each time the sent log is viewed
+    query = ("SELECT Users.Username, Sent.Datee, Sent.Sizee, Sent.ReceiverAdd FROM Users LEFT JOIN Sends ON Users.Username = Sends.Username LEFT JOIN Sent ON Sent.ID = Sends.ID;")
+    cursor.execute(query)
+    self.tableSent.setRowCount(0)
+    self.tableSent.setSortingEnabled(False)
+    for (Users, Date,Size,Addr) in cursor:
+        print(Users, Date, Size, Addr)
+        rowPosition = self.tableSent.rowCount()
+        self.tableSent.insertRow(rowPosition)
+        self.tableSent.setItem(rowPosition, 0, QTableWidgetItem(Users))
+        self.tableSent.setItem(rowPosition, 1, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
+        self.tableSent.setItem(rowPosition, 2, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
+        self.tableSent.setItem(rowPosition, 3, QTableWidgetItem(str(Size)))
+        self.tableSent.setItem(rowPosition, 4, QTableWidgetItem(Addr))
+    cursor.close()
+    cnx.close()
