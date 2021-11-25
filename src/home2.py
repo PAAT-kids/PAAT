@@ -17,7 +17,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from sendPacket import sendPacketClass
 from receiver import startSniffing, displayReceiveLog
-
+from ssdpWorker import WorkerThread
 
 
 
@@ -1508,7 +1508,7 @@ class Ui_OtherWindow(object):
 "border-radius: 40px;\n"
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
-"")
+"")     
         self.progressBar = QProgressBar(self.autocreate)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setGeometry(QRect(750, 800, 471, 41))
@@ -1517,7 +1517,7 @@ class Ui_OtherWindow(object):
         self.progressBar.setOrientation(Qt.Horizontal)
         self.progressBar.setInvertedAppearance(False)
 
-        self.send_pkt.clicked.connect(self.helpUi)
+        self.send_pkt.clicked.connect(self.startRandomSelection)
         self.pkt_type.activated.connect(self.chosen2)
 
         self.stackedWidget.addWidget(self.autocreate)
@@ -2021,6 +2021,15 @@ class Ui_OtherWindow(object):
         
         #self.stackedWidget.setCurrentIndex(11)
         startSniffing() #start capturing packets
+
+    def startRandomSelection(self):
+        #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
+        #     t1.start()
+        if self.chosen == 'SSDP':
+                self.worker = WorkerThread(self.sorc_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
+        #startSsdpGA(self)   
 
     def helpUi(self):
             
