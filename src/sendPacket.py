@@ -7,7 +7,7 @@ LAST EDITED DATE: 16/10/2021
 """
 
 import scapy.all as scapy
-from arpCost import arpAdditionalCost
+from arpCost import get_arp_cost
 
 class sendPacketClass:
 
@@ -222,7 +222,7 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        arpAdditionalCost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
 
         return 1
 
@@ -260,7 +260,7 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        arpAdditionalCost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
         return 1
 
                                         
@@ -291,7 +291,7 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        arpAdditionalCost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
 
         return 1
 
