@@ -4,6 +4,13 @@ import threading
 import random
 from sendPacket import sendPacketClass
 from arpCost import getMac
+from typing import Text
+from PyQt5 import QtWidgets
+from PyQt5 import QtGui
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 popSize = 10
 totalGen = 7
@@ -165,8 +172,20 @@ def crossover(parent1, parent2):
 	child.append(parent2[1])
 	return child
 
-def startSsdpGA(self):
-	#self.helpUi("SSDP GA Started!")
+def helpUi(message):
+		
+	#self.stackedWidget.setCurrentIndex(0)
+	msg = QMessageBox()
+	msg.setWindowTitle(" ")
+	msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">"+message+"</span></p></body></html>")
+	msg.setIcon(QMessageBox.Question)
+	msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+	x = msg.exec_()
+def startSsdpGA(source):
+	#helpUi("SSDP GA Started!")
+	prompt = "Nothing to display."
+	
 
 	i = 0
 	createInitPop()
@@ -182,25 +201,42 @@ def startSsdpGA(self):
 		nextGeneration()
 		print("Next gen New population: ",population)
 		i = i + 1
-	
+	print("source:" +source)
 	if bestEver[0] != '0.0.0.0' and bestEver[1] != '':
-		queryPacket = Ether(src='94:65:9c:25:ef:40',dst='7c:8f:de:ab:cb:e0')/IP(src="192.168.1.16",dst=bestEver[0])/UDP(sport=4565,dport=1900)
-		#payload = Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
-		listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
-		sendPkt = sendPacketClass()
-		sendPkt.sendPacketSSDP(queryPacket,listValue)
-		#packet = queryPacket/payload
-		#send(packet)
 		
-		self.helpUi('<div> <h1> SSDP Best Fields: </h1>' +
-		'<p> dst: '+bestEver[0]+'</p>'+
-		'<p> ST Header: '+bestEver[1]+'</p>'+
-		'</div>')
+	
+		sourceMac = getMac(source)
+		destinationMac = getMac(bestEver[0])
+		if sourceMac is not None and destinationMac is not None:
+			queryPacket = Ether(src= sourceMac,dst= destinationMac)/IP(src=source,dst=bestEver[0])/UDP(sport=4565,dport=1900)
+			#payload = Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
+			listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
+			sendPkt = sendPacketClass()
+			sendPkt.sendPacketSSDP(queryPacket,listValue)
+			prompt = '<div> <h1> SSDP Best Fields: </h1>' +'<p> upnp device: '+bestEver[0]+'</p>'+'<p> ST Header: '+bestEver[1]+'</p>'+'</div>'
 
-		print("Best Ever:  ", bestEver, fittest)
-		print("Total Gen: "+str(gen))
-	else:
-		print("No upnp services.")
+			# helpUi('<div> <h1> SSDP Best Fields: </h1>' +
+			# '<p> upnp device: '+bestEver[0]+'</p>'+
+			# '<p> ST Header: '+bestEver[1]+'</p>'+
+			# '</div>')
+		else:
+				prompt = '<div> <h1>Error</h1>' +'<p> Source or destination does not belong to local network! </p>'+'</div>'
+				# helpUi('<div> <h1>Error</h1>' +
+				# '<p> Source or destination does not belong to local network! </p>'+
+				# '</div>')
+			# helpUi('<div> <h1>Error</h1>' +
+			# '<p> No source Address specified! </p>'+
+			# '</div>')	
+	return prompt	
+	# 	#packet = queryPacket/payload
+	# 	#send(packet)
+		
+	
+
+	# 	print("Best Ever:  ", bestEver, fittest)
+	# 	print("Total Gen: "+str(gen))
+	# else:
+	# 	print("No upnp services.")
 
 if __name__ == '__main__':
 	
