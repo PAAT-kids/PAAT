@@ -18,6 +18,8 @@ from PyQt5.QtWidgets import *
 from sendPacket import sendPacketClass, displaySent
 from receiver import startSniffing, displayReceiveLog
 from ssdpWorker import WorkerThread
+from dnsWorker import WorkerThreadDns
+
 
 
 
@@ -25,10 +27,12 @@ import source_rc
 
 sPacket = sendPacketClass()
 sPacketType = 0
+
 #####################################################
 ## Main Window Object
 #####################################################
 class Ui_OtherWindow(object):
+    
     def setupUi(self, MainWindow, darkmodes):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -41,6 +45,7 @@ class Ui_OtherWindow(object):
 #####################################################
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.choice = "nope"
 
 #####################################################
 ## Side menu Object (side menu icons and buttons )
@@ -2031,6 +2036,13 @@ class Ui_OtherWindow(object):
                 self.worker = WorkerThread(self.sorc_ad.text())
                 self.worker.start()
                 self.worker.update_progress.connect(self.helpUi)
+        elif self.choice == 'DNS':
+                self.worker = WorkerThreadDns(self.sorc_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
+        elif self.choice == 'nope':
+                print("Do Nothing")
+
         #startSsdpGA(self)   
 
     def helpUi(self, message):

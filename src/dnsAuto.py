@@ -23,6 +23,7 @@ rankedSolutions = [""] * 50
 rankedQNAME = [""] * 10
 rankedQCLASS = [""] * 10
 rankedQTYPE = [""] * 10
+ipSource = ""
 
 """
 FUNCTION NAME: sendAutoPacket
@@ -42,8 +43,8 @@ def sendAutoPacket(valuesList):
                             ttl=64,
                             proto=17,
                             #chksum=ipChksum,#either have to find a way to calculate chksum or just let scapy do it
-                            src="192.168.56.128",
-                            dst="8.8.8.8",
+                            src= ipSource,
+                            dst= "8.8.8.8",
                             #options=ipOptions
                             )
                     /scapy.UDP(
@@ -135,12 +136,18 @@ def runRankedSolutions():
 
 
 
+def startDNSAuto(source):
 
-getSolutions()
-runSolutions()
+    ipSource = source
 
-getRankedSolutions()
-runRankedSolutions()
+    getSolutions()
+    runSolutions()
 
-print("THE BEST SOLUTION IS")
-print(rankedSolutions[0])
+    getRankedSolutions()
+    runRankedSolutions()
+
+    print("THE BEST SOLUTION IS")
+    print(rankedSolutions[0])
+    prompt = '<div> <h1> DNS Best Fields: </h1>' +'<p> Qname: '+ rankedSolutions[0][1]+'</p>'+'<p> Qtype: '+ rankedSolutions[0][2]+'<p> Qclass: '+ rankedSolutions[0][3]+'</p>'+'</div>'
+
+    return prompt

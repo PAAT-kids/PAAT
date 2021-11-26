@@ -13,8 +13,8 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import login as ahmed
-from signup import signup
+#import login as ahmed
+#from signup import signup
 import source_rc
 import home2
 import main
@@ -189,9 +189,9 @@ class Ui_MainWindow(object):
 
     def loginCheck(self, MainWindow):
 
-        password = self.password_lg.text()
-        username = self.username_lg.text()
-        root = ahmed.connections()
+        #password = self.password_lg.text()
+        #username = self.username_lg.text()
+        #root = ahmed.connections()
         self.openwindow(MainWindow)
     
 
