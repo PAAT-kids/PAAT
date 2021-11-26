@@ -192,10 +192,7 @@ class Ui_MainWindow(object):
         password = self.password_lg.text()
         username = self.username_lg.text()
         root = ahmed.connections()
-        if root.connect_database(username, password) == True:
-                self.openwindow(MainWindow)
-        else:
-	        self.alert1()
+        self.openwindow(MainWindow)
     
 
     def openwindow(self, MainWindow):

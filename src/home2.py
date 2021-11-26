@@ -15,9 +15,9 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from sendPacket import sendPacketClass
+from sendPacket import sendPacketClass, displaySent
 from receiver import startSniffing, displayReceiveLog
-
+from ssdpWorker import WorkerThread
 
 
 
@@ -1508,7 +1508,7 @@ class Ui_OtherWindow(object):
 "border-radius: 40px;\n"
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
-"")
+"")     
         self.progressBar = QProgressBar(self.autocreate)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setGeometry(QRect(750, 800, 471, 41))
@@ -1517,7 +1517,7 @@ class Ui_OtherWindow(object):
         self.progressBar.setOrientation(Qt.Horizontal)
         self.progressBar.setInvertedAppearance(False)
 
-        self.send_pkt.clicked.connect(self.helpUi)
+        self.send_pkt.clicked.connect(self.startRandomSelection)
         self.pkt_type.activated.connect(self.chosen2)
 
         self.stackedWidget.addWidget(self.autocreate)
@@ -1713,6 +1713,7 @@ class Ui_OtherWindow(object):
     def gosent(self):
 
         self.stackedWidget.setCurrentIndex(10)
+        displaySent(self)
 
     def gorecvd(self):
 
@@ -1803,6 +1804,7 @@ class Ui_OtherWindow(object):
     def chosen2(self):
     
         text = self.pkt_type.currentText()
+        self.choice = text
 
         if text == 'DNS':
 
@@ -2022,16 +2024,36 @@ class Ui_OtherWindow(object):
         #self.stackedWidget.setCurrentIndex(11)
         startSniffing() #start capturing packets
 
-    def helpUi(self):
+    def startRandomSelection(self):
+        #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
+        #     t1.start()
+        if self.choice == 'SSDP':
+                self.worker = WorkerThread(self.sorc_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
+        #startSsdpGA(self)   
+
+    def helpUi(self, message):
             
-        self.stackedWidget.setCurrentIndex(0)
+        #self.stackedWidget.setCurrentIndex(0)
         msg = QMessageBox()
         msg.setWindowTitle(" ")
-        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">"+message+"</span></p></body></html>")
         msg.setIcon(QMessageBox.Question)
         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
         x = msg.exec_()
+
+#     def helpUi(self):
+            
+#         self.stackedWidget.setCurrentIndex(0)
+#         msg = QMessageBox()
+#         msg.setWindowTitle(" ")
+#         msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+#         msg.setIcon(QMessageBox.Question)
+#         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+#         x = msg.exec_()
 
     def sendPacket(self):
 
