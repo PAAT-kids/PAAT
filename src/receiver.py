@@ -33,9 +33,9 @@ def displayReceiveLog(self):
         self.tableRecvd.setRowCount(0) #refreshing the table each time the receive log is viewed
         #select Sizee,Datee, ReceiverAdd, FinalSize,Amplification FROM Received JOIN Receives on Received.ID = Receives.ID JOIN Users on Users.Username = Receives.username
         query = ("SELECT Sizee, Datee,ReceiverAdd, FinalSize, Amplification FROM Received"
-                 " JOIN Receives on Received.ID = Receives.ID JOIN Users on Users.Username = Receives.username")
+                 " JOIN Receives on Received.ID = Receives.ID where Receives.Username = %s")
 
-        cursor.execute(query)
+        cursor.execute(query,(self.currentUser,))
         self.tableRecvd.setRowCount(0)
         #self.tableRecvd.sortByColumn(0,Qt.AscendingOrder)
         self.tableRecvd.setSortingEnabled(False)
@@ -53,8 +53,8 @@ def displayReceiveLog(self):
         cnx.close()
 
 #sniff sniff
-def startSniffing():
-    t1 = threading.Thread(target=startSniff, args=(10,))
+def startSniffing(currentUser):
+    t1 = threading.Thread(target=startSniff, args=(currentUser,))
     t1.start()
     # displayReceiveLog(self)
     
