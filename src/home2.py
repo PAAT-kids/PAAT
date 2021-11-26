@@ -29,13 +29,14 @@ sPacketType = 0
 ## Main Window Object
 #####################################################
 class Ui_OtherWindow(object):
-    def setupUi(self, MainWindow, darkmodes):
+    def setupUi(self, MainWindow, darkmodes,currentUser):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1920, 1077)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet(u"")
 
+        self.currentUser = currentUser
 #####################################################
 ## Central Widget Object (all page contents)
 #####################################################
@@ -343,6 +344,7 @@ class Ui_OtherWindow(object):
         self.def_eth = QPushButton(self.ETH)
         self.def_eth.setObjectName(u"def_eth")
         self.def_eth.setGeometry(QRect(230, 790, 151, 41))
+        self.def_eth.move(20,250)
         self.def_eth.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
@@ -352,6 +354,7 @@ class Ui_OtherWindow(object):
         self.nxt_eth = QPushButton(self.ETH)
         self.nxt_eth.setObjectName(u"nxt_eth")
         self.nxt_eth.setGeometry(QRect(1410, 760, 241, 91))
+        self.nxt_eth.move(10,250)
         self.nxt_eth.setAutoFillBackground(False)
         self.nxt_eth.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -561,6 +564,7 @@ class Ui_OtherWindow(object):
         self.nxt_ip = QPushButton(self.IP)
         self.nxt_ip.setObjectName(u"nxt_ip")
         self.nxt_ip.setGeometry(QRect(1410, 760, 241, 91))
+        self.nxt_ip.move(10,250)
         self.nxt_ip.setAutoFillBackground(False)
         self.nxt_ip.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -574,6 +578,7 @@ class Ui_OtherWindow(object):
         self.def_ip = QPushButton(self.IP)
         self.def_ip.setObjectName(u"def_ip")
         self.def_ip.setGeometry(QRect(250, 810, 151, 41))
+        self.def_ip.move(20,250)
         self.def_ip.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
@@ -616,6 +621,7 @@ class Ui_OtherWindow(object):
         self.nxt_udp = QPushButton(self.UDP)
         self.nxt_udp.setObjectName(u"nxt_udp")
         self.nxt_udp.setGeometry(QRect(1410, 760, 241, 91))
+        self.nxt_udp.move(10,250)
         self.nxt_udp.setAutoFillBackground(False)
         self.nxt_udp.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -689,6 +695,7 @@ class Ui_OtherWindow(object):
         self.def_udp = QPushButton(self.UDP)
         self.def_udp.setObjectName(u"def_udp")
         self.def_udp.setGeometry(QRect(220, 760, 151, 41))
+        self.def_udp.move(20,250)
         self.def_udp.setStyleSheet(u"font: 20pt \"Franklin Gothic Cond\";\n"
 "background: rgb(79, 192, 232);\n"
 "color: rgb(255, 255, 255);")
@@ -950,6 +957,7 @@ class Ui_OtherWindow(object):
         self.send_dns = QPushButton(self.DNS)
         self.send_dns.setObjectName(u"send_dns")
         self.send_dns.setGeometry(QRect(1560, 680, 241, 91))
+        self.send_dns.move(50,250)
         self.send_dns.setAutoFillBackground(False)
         self.send_dns.clicked.connect(self.setListValues)
         self.send_dns.setStyleSheet(u"font: 20pt \"Franklin Gothic Raw\";\n"
@@ -2022,7 +2030,7 @@ class Ui_OtherWindow(object):
     def recieve_page(self):
         
         #self.stackedWidget.setCurrentIndex(11)
-        startSniffing() #start capturing packets
+        startSniffing(self.currentUser) #start capturing packets
 
     def startRandomSelection(self):
         #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
