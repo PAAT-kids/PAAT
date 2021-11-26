@@ -61,6 +61,7 @@ class Ui_MainWindow(object):
         self.login = QPushButton(self.centralwidget)
         self.login.setObjectName(u"login")
         self.login.setGeometry(QRect(540, 720, 271, 91))
+        self.login.move(50,250)
         self.login.setAutoFillBackground(False)
         self.login.setStyleSheet(u"font: 18pt \"Franklin Gothic Raw\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -191,6 +192,7 @@ class Ui_MainWindow(object):
 
         password = self.password_lg.text()
         username = self.username_lg.text()
+        self.currentUser = username
         root = ahmed.connections()
         self.openwindow(MainWindow)
     
@@ -198,7 +200,7 @@ class Ui_MainWindow(object):
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
-        self.ui.setupUi(self.window,self.darkmode)
+        self.ui.setupUi(self.window,self.darkmode,self.currentUser)
         self.window.show()
         MainWindow.close()
 
