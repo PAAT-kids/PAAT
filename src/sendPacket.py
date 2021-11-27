@@ -192,39 +192,39 @@ class sendPacketClass:
         now = datetime.now()
         date_now = now.strftime('%Y-%m-%d')
         current_time = now.strftime("%H:%M:%S")
-        # try:
-        #     conn = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
-        #     print("Connection To Database Established..\n")
-        # except Error as e:
-        #     print("Connection To Database Failed!\n")
+        try:
+            conn = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
+            print("Connection To Database Established..\n")
+        except Error as e:
+            print("Connection To Database Failed!\n")
 
-        # cursor = conn.cursor()
+        cursor = conn.cursor()
         randomID = my_list.pop(0)
         temp = 'aaa'
         sizepacket = len(packet)
-        # add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-        # cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
-        # conn.commit()
+        add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+        cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
+        conn.commit()
         if(type == 1):
             #self.sendInitPacket(initPacket,"DNS")
             out = self.sendPacketDNS(packet,listValues)
-            # add_draft = "INSERT INTO DNS(ID,Qname,Qtype,Qclass) VALUES(%s,%s,%s,%s)"
-            # cursor.execute(add_draft, (randomID,listValues[0],listValues[1],listValues[2]))
-            # conn.commit()
+            add_draft = "INSERT INTO DNS(ID,Qname,Qtype,Qclass) VALUES(%s,%s,%s,%s)"
+            cursor.execute(add_draft, (randomID,listValues[0],listValues[1],listValues[2]))
+            conn.commit()
 
         elif(type == 3):
             #self.sendInitPacket(initPacket,"SSDP")
             out = self.sendPacketNTP(packet,listValues)
-            # add_draft = "INSERT INTO NTP(ID,Leap,Version,Modee,Stratum,Poll,Precisionn,Delay,Dispersion,ID2,ReferenceID,Reference,Origin,Receive,Sent) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            # cursor.execute(add_draft, (randomID,listValues[0],listValues[1], listValues[2],listValues[3],listValues[4], listValues[5],listValues[6], listValues[7],listValues[8],listValues[9],listValues[10], listValues[11],listValues[12],listValues[13]))
-            # conn.commit()
+            add_draft = "INSERT INTO NTP(ID,Leap,Version,Modee,Stratum,Poll,Precisionn,Delay,Dispersion,ID2,ReferenceID,Reference,Origin,Receive,Sent) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            cursor.execute(add_draft, (randomID,listValues[0],listValues[1], listValues[2],listValues[3],listValues[4], listValues[5],listValues[6], listValues[7],listValues[8],listValues[9],listValues[10], listValues[11],listValues[12],listValues[13]))
+            conn.commit()
 
         elif(type == 2):
             #self.sendInitPacket(initPacket,"NTP")
             out = self.sendPacketSSDP(packet,listValues)
-            # add_draft = "INSERT INTO SSDP(ID,Hostt,Port,MAN,MX,ST) VALUES(%s,%s,%s,%s,%s,%s)"
-            # cursor.execute(add_draft, (randomID,listValues[0],listValues[1], listValues[2],listValues[3],listValues[4]))
-            # conn.commit()
+            add_draft = "INSERT INTO SSDP(ID,Hostt,Port,MAN,MX,ST) VALUES(%s,%s,%s,%s,%s,%s)"
+            cursor.execute(add_draft, (randomID,listValues[0],listValues[1], listValues[2],listValues[3],listValues[4]))
+            conn.commit()
 
         return out
 
