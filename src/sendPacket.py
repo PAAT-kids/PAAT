@@ -265,7 +265,9 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
+        
 
         return 1
 
@@ -303,7 +305,8 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
         return 1
 
                                         
@@ -334,13 +337,15 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst) #calculate arp cost
+        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
 
         return 1
       
     def autoSend(listValue):
         print("Todo")
 
+    #PURPOSE: send a raw udp packet containing the size of the query packet
     def sizePacket(self,Type,QID, size, dest):
         t = '\"Type\"'
         q = '\"QID\"'
@@ -349,6 +354,17 @@ class sendPacketClass:
         print('QID: '+str(QID))
         sizePkt = scapy.IP(dst=dest)/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
         return sizePkt
+
+    #PURPOSE: pop up to alert user when packet is sent successfully!
+    def sendPacketAlert(self,message):
+
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\"><h1>Packet Sent!</h1>"+message+"</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
 
 def displaySent(self):
     cnx = mysql.connector.connect(user='PAAT', password='1234',host='127.0.0.1',database='paat')

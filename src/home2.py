@@ -29,13 +29,14 @@ sPacketType = 0
 ## Main Window Object
 #####################################################
 class Ui_OtherWindow(object):
-    def setupUi(self, MainWindow, darkmodes):
+    def setupUi(self, MainWindow, darkmodes,currentUser):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1920, 1077)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet(u"")
 
+        self.currentUser = currentUser
 #####################################################
 ## Central Widget Object (all page contents)
 #####################################################
@@ -2022,7 +2023,7 @@ class Ui_OtherWindow(object):
     def recieve_page(self):
         
         #self.stackedWidget.setCurrentIndex(11)
-        startSniffing() #start capturing packets
+        startSniffing(self.currentUser) #start capturing packets
 
     def startRandomSelection(self):
         #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
