@@ -203,8 +203,8 @@ class Ui_MainWindow(object):
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
+        self.ui.setupUi(self.window,self.darkmode,self.currentUser)
         self.window.show()
-
         MainWindow.close()
 
     def setName(self):
