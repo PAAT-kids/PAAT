@@ -62,6 +62,7 @@ def sendAutoPacket(valuesList):
 
 
     packetSize = int(sPacket.autoSendNTP(packet))
+    print(packetSize)
     return packetSize
     
     
@@ -152,6 +153,3 @@ runSolutions()
 
 getRankedSolutions()
 runRankedSolutions()
-
-print("THE BEST SOLUTION IS")
-print(rankedSolutions[0])

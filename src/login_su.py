@@ -199,10 +199,19 @@ class Ui_MainWindow(object):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
         self.ui.setupUi(self.window,self.darkmode)
+        self.setName()
         self.window.show()
+
         MainWindow.close()
 
-
+    def setName(self):
+        accountname = self.username_lg.text()
+        self.ui.usernamee.setText("@" + accountname)
+        root = ahmed.connections()
+        email = root.getEmail(accountname)
+        self.ui.em_txt.setText(email)
+        self.ui.psd_txt.setText(self.password_lg.text())
+        self.ui.name.setText(accountname)
 
     def alert1(self):
         self.alert_pkt = QLabel()
