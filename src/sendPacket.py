@@ -314,7 +314,7 @@ class sendPacketClass:
         return 1
 
                                         
-
+    
     """
     FUNCTION NAME: sendPacketSSDP
     PURPOSE: Crafts the first three layers.

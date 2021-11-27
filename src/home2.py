@@ -66,7 +66,6 @@ class Ui_OtherWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.formLayout = QFormLayout()
         self.formLayout.setObjectName(u"formLayout")
-
         self.darkmode = darkmodes
 
 ## HOME ICON ##
@@ -1237,15 +1236,14 @@ class Ui_OtherWindow(object):
 "text-decoration: underline;\n"
 "color: rgb(255, 255, 255);\n"
 "")
-        self.em_txt = QLineEdit(self.Account)
+        self.em_txt = QLabel(self.Account)
         self.em_txt.setObjectName(u"em_txt")
         self.em_txt.setGeometry(QRect(680, 580, 411, 31))
-        self.em_txt.setStyleSheet(u"background: rgb(183, 197, 208);")
-        self.psd_txt = QLineEdit(self.Account)
+        self.psd_txt = QLabel(self.Account)
         self.psd_txt.setObjectName(u"psd_txt")
         self.psd_txt.setGeometry(QRect(680, 640, 411, 31))
-        self.psd_txt.setStyleSheet(u"background: rgb(183, 197, 208);")
-
+        self.em_txt.setStyleSheet(u"background: url(:/bg1/settingss.png);")
+        self.psd_txt.setStyleSheet(u"background: url(:/bg1/settingss.png);")
         self.stackedWidget.addWidget(self.Account)
 
         self.darkm.clicked.connect(self.changebg)
@@ -1944,15 +1942,14 @@ class Ui_OtherWindow(object):
         i = 0
         self.tableDrafts.setRowCount(len(drafts))
         for draft in drafts:
-                print(draft)
                 self.tableDrafts.setItem(row,0,QtWidgets.QTableWidgetItem(draft[0]))
-                self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(draft[1]))
+                self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(draft[1].strftime('%Y-%m-%d')))
                 self.tableDrafts.setItem(row,2,QtWidgets.QTableWidgetItem(draft[9]))
                 self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(draft[22]))
                 self.btn_send = QPushButton('Send')
                 self.tableDrafts.setCellWidget(row,4,self.btn_send)
                 self.btn_send.clicked.connect(lambda: self.sendDraft(self.tableDrafts.currentRow()))
-                row = row+1
+                row = row + 1
 
     def alert1(self):
         self.alert_pkt = QLabel()

@@ -5,12 +5,13 @@ import login_su
 
 class connections:
     __HOST = '127.0.0.1'
-    __USERNAME = 'PAAT'
+    __USERNAME = 'ahmed'
     __PASSWORD = '1234'
     __DATABASE = 'paat'
     
     def __init__(self):
         self.con = sql.connect(host=connections.__HOST,user=connections.__USERNAME,password=connections.__PASSWORD,database=connections.__DATABASE)
+
 
 
     def connect_database(self,username,password):
@@ -33,6 +34,24 @@ class connections:
             print('no match')
             self.con.close()
             return False
+
+
+    def getEmail(self,username):
+        email = ""
+        sql_query = "SELECT Email FROM Users WHERE Username ='%s'" % (username) #retrieve password by matching the entered username to the one in DB
+
+        mycursor = self.con.cursor()
+        print(username)
+
+        try:
+
+             mycursor.execute(sql_query)
+             email = mycursor.fetchone() 
+             return email[0]
+        except:
+            print('error occured')
+            print('match')
+            self.con.close()
 
 
 

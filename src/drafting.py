@@ -4,6 +4,8 @@ import mysql.connector
 from mysql.connector import Error
 from scapy.utils import checksum
 from datetime import datetime
+from datetime import date
+import random
 
 lastID = 0
 srcEth = ""
@@ -150,14 +152,14 @@ def setVariablesDNS(Qname1,Qtype1,Qclass1):
 def saveDraft(type1):
     randomID = getID()
     now = datetime.now()
-    date_now = now.strftime("%Y/%M/%D")
+    date_object = date.today()
     current_time = now.strftime("%H:%M:%S")
-    print(date_now)
-    print(randomID, date_now,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length)
+    print(date_object)
+    print(randomID, date_object,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length)
     conn = connectToDatabase()
     cursor = conn.cursor()
-    add_draft = """INSERT INTO Drafts(ID,Datee,Time,SourceETH,DestinationETH,Type1,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options1,SourcePort,DestinationPort,Checksum1,PacketType,Length) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-    cursor.execute(add_draft, (randomID, date_now,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length))
+    add_draft = """INSERT INTO Drafts(ID,Datee,Time,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum,PacketType,Length) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+    cursor.execute(add_draft, (randomID, date_object,current_time, srcEth, dstEth,type, version, ihl, tos, totallength,id, flgs, frag, ttl, protocol, headersum, srcip, dstip, options, srcport, dstport, cheksum,type1, length))
     conn.commit()
     if type1 == "SSDP":
         saveSSDP(randomID)
@@ -222,13 +224,16 @@ def getSelectedDraftType(index, type):
     return results
 
 def getID():
-    global lastID
-    lastID = lastID + 1
-    return lastID
+    my_list = []
+    if not my_list:
+        n = random.randint(1,99)
+        my_list.append(n)
+        my_list = list(set(my_list))
+    return my_list.pop(0)
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
+		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='ahmed',password='1234')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')
