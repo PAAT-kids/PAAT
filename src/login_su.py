@@ -198,6 +198,7 @@ class Ui_MainWindow(object):
 	        self.alert1()
         self.openwindow(MainWindow)
 
+
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()

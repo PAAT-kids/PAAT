@@ -74,8 +74,8 @@ CREATE TABLE DNS
 (	
 	ID CHAR(50) NOT NULL,
 	Qname CHAR(50) NULL,
-	Qtype INT(50) NULL,
-	Qclass INT(50) NULL,
+	Qtype CHAR(50) NULL,
+	Qclass CHAR(50) NULL,
 	FOREIGN KEY(ID) REFERENCES Sent(ID),
 	PRIMARY KEY(ID)
 );
@@ -86,8 +86,8 @@ CREATE TABLE SSDP
 	Hostt CHAR(50) NULL,
 	Port CHAR(50) NULL,
 	MAN CHAR(50) NULL,
-	MX CHAR(50) NULL,
-	ST INT(50) NULL,
+	MX INT(50) NULL,
+	ST CHAR(50) NULL,
 	FOREIGN KEY(ID) REFERENCES Sent(ID),
 	PRIMARY KEY(ID)
 );
@@ -161,8 +161,8 @@ CREATE TABLE DNS2
 (	
 	ID CHAR(50) NOT NULL,
 	Qname CHAR(50) NULL,
-	Qtype INT(50) NULL,
-	Qclass INT(50) NULL,
+	Qtype CHAR(50) NULL,
+	Qclass CHAR(50) NULL,
 	FOREIGN KEY(ID) REFERENCES Drafts(ID),
 	PRIMARY KEY(ID)
 );
@@ -173,8 +173,8 @@ CREATE TABLE SSDP2
 	Hostt CHAR(50) NULL,
 	Port CHAR(50) NULL,
 	MAN CHAR(50) NULL,
-	MX CHAR(50) NULL,
-	ST INT(50) NULL,
+	MX INT(50) NULL,
+	ST CHAR(50) NULL,
 	FOREIGN KEY(ID) REFERENCES Drafts(ID),
 	PRIMARY KEY(ID)
 );
@@ -210,64 +210,7 @@ CREATE TABLE Saves
 	FOREIGN KEY(Username) REFERENCES Users(Username),
 	FOREIGN KEY(ContactName) REFERENCES Contacts(ContactName)
 );
-
-CREATE TABLE AutoSend
-(	
-	ID CHAR(50) NOT NULL,
-	Sizee INT(50) NULL,
-	Datee DATE NULL,
-	Time TIME(0) NULL,
-	SenderAdd CHAR(50) NULL,
-	ReceiverAdd CHAR(50) NULL,
-	SourceETH CHAR(50) NULL,
-	DestinationETH CHAR(50) NULL, 
-	Type CHAR(50) NULL,
-	Version INT(50) NULL,
-	IHL CHAR(50) NULL,
-	TOS VARBINARY(50) NULL,
-	TotalLength CHAR(50) NULL,
-	Identification INT(50) NULL,
-	Flags CHAR(50) NULL,
-	FragmentOffset INT(50) NULL,
-	TTL INT(50) NULL,
-	Protocol CHAR(50) NULL,
-	HeaderChecksum VARBINARY(50) NULL,
-	SourceIP CHAR(50) NULL,
-	DestinationIP CHAR(50) NULL, 
-	Options CHAR(50) NULL,
-	SourcePort CHAR(50) NULL,
-	DestinationPort CHAR(50) NULL,
-	Checksum VARBINARY(50) NULL,
-	PRIMARY KEY(ID)
-);
-
-CREATE TABLE AutoReceive
-(	
-	ID CHAR(50) NOT NULL,
-	Sizee INT(50) NULL,
-	Type CHAR(50) NULL,
-	Datee DATE NULL,
-	Time TIME(0) NULL,
-	SenderAdd CHAR(50) NULL,
-	ReceiverAdd CHAR(50) NULL,
-	FinalSize INT(50) NULL,
-	Amplification INT(50) NULL,
-	PRIMARY KEY(ID)
-);
 DELIMITER $$
-
--- Procedures to delete values from autocreate tables
---
-
-CREATE PROCEDURE deleteSent()
-BEGIN
-	Delete FROM AutoSend;
-END$$
-
-CREATE PROCEDURE deleteReceived()
-BEGIN
-	Delete FROM AutoReceive;
-END$$
 
 -- Procedures to add values
 --
@@ -300,14 +243,14 @@ BEGIN
 	END IF;
 END$$
 
-CREATE PROCEDURE insDNS(a CHAR(50), b CHAR(50), c INT(50), d INT(50))
+CREATE PROCEDURE insDNS(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
 		INSERT INTO DNS VALUES (a,b,c,d);
 	END IF;
 END$$
 
-CREATE PROCEDURE insSSDP(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50), e CHAR(50), f INT(50))
+CREATE PROCEDURE insSSDP(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50), e INT(50), f CHAR(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
 		INSERT INTO SSDP VALUES (a,b,c,d,e,f);
@@ -336,14 +279,14 @@ BEGIN
 	END IF;
 END$$
 
-CREATE PROCEDURE insDNS2(a CHAR(50), b CHAR(50), c INT(50), d INT(50))
+CREATE PROCEDURE insDNS2(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
 		INSERT INTO DNS2 VALUES (a,b,c,d);
 	END IF;
 END$$
 
-CREATE PROCEDURE insSSDP2(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50), e CHAR(50), f INT(50))
+CREATE PROCEDURE insSSDP2(a CHAR(50), b CHAR(50), c CHAR(50), d CHAR(50), e INT(50), f CHAR(50))
 BEGIN
 	IF (a IS NOT NULL) THEN
 		INSERT INTO SSDP2 VALUES (a,b,c,d,e,f);
@@ -375,20 +318,6 @@ CREATE PROCEDURE insSaves(a CHAR(50), b CHAR(50))
 BEGIN
 	IF (a IS NOT NULL AND b IS NOT NULL) THEN
 		INSERT INTO Saves VALUES (a,b);
-	END IF;
-END$$
-
-CREATE PROCEDURE insAutoSend(a CHAR(50), b INT(50), c DATE, d TIME(0), e CHAR(50), f CHAR(50), g CHAR(50), h CHAR(50), i CHAR(50), j INT(50), k CHAR(50), l VARBINARY(50), m CHAR(50), n INT(50), o CHAR(50), p INT(50), q INT(50), r CHAR(50), s VARBINARY(50), t CHAR(50), u CHAR(50), v CHAR(50), w CHAR(50), x CHAR(50), y VARBINARY(50))
-BEGIN
-	IF (a IS NOT NULL) THEN
-		INSERT INTO AutoSend VALUES (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y);
-	END IF;
-END$$
-
-CREATE PROCEDURE insAutoReceive(a CHAR(50), b INT(50), c CHAR(50), d DATE, e TIME(0), f CHAR(50), g CHAR(50), h INT(50), i INT(50))
-BEGIN
-	IF (a IS NOT NULL) THEN
-		INSERT INTO AutoReceive VALUES (a,b,c,d,e,f,h,g,i);
 	END IF;
 END$$
 
