@@ -932,6 +932,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.NTP)
 
         self.back_ntp.clicked.connect(self.udppage)
+        self.draft_ntp.clicked.connect(self.makeDraft)
 
 ## Page 6 -  DNS PACKET labels, inputs and buttons ##
 
@@ -1027,6 +1028,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.DNS)
         self.draft_dns.clicked.connect(self.saveDraftDNS)
         self.back_dns.clicked.connect(self.udppage)
+        self.draft_dns.clicked.connect(self.makeDraft)
 
 ## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
@@ -1146,6 +1148,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.SSDP)
 
         self.back_ssdp.clicked.connect(self.udppage)
+        self.draft_dns_2.clicked.connect(self.makeDraft)
 
 ## Page 8 - Settings ##
 
@@ -1267,17 +1270,17 @@ class Ui_OtherWindow(object):
         self.drafts_pg.setObjectName(u"drafts_pg")
         self.drafts_pg.setStyleSheet(u"background-image: url(:/bg1/drafts.png);")
         self.tableDrafts = QTableWidget(self.drafts_pg)
-        if (self.tableDrafts.columnCount() < 5):
-            self.tableDrafts.setColumnCount(5)
+        if (self.tableDrafts.columnCount() < 6):
+            self.tableDrafts.setColumnCount(6)
         self.tableDrafts.setObjectName(u"tableDrafts")
         self.tableDrafts.setGeometry(QRect(260, 320, 1351, 561))
         self.tableDrafts.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
         self.tableDrafts.setAlternatingRowColors(True)
         self.tableDrafts.setSortingEnabled(True)
 
-        self.tableDrafts.setColumnCount(5)
+        self.tableDrafts.setColumnCount(6)
 
-        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send"])
+        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Edit", "Send"])
         self.tableDrafts.horizontalHeader().setDefaultSectionSize(220)
         self.tableDrafts.horizontalHeader().setProperty("showSortIndicator", True)
         self.tableDrafts.verticalHeader().setCascadingSectionResizes(True)
@@ -1297,7 +1300,7 @@ class Ui_OtherWindow(object):
         self.tableSent.setAlternatingRowColors(True)
         self.tableSent.setSortingEnabled(True)
         self.tableSent.setColumnCount(7) 
-        self.tableSent.setHorizontalHeaderLabels(["Name", "Date Created", "Date Sent", "Initial Size", "Reciever Address", "Send Again", "Edit"])
+        self.tableSent.setHorizontalHeaderLabels(["Name", "Date Created", "Date Sent", "Initial Size", "Reciever Address", "Edit", "Send Again"])
         self.tableSent.horizontalHeader().setDefaultSectionSize(220)
         self.tableSent.horizontalHeader().setProperty("showSortIndicator", True)
         self.tableSent.verticalHeader().setCascadingSectionResizes(True)
@@ -2066,6 +2069,15 @@ class Ui_OtherWindow(object):
 
         x = msg.exec_()
 
+    def makeDraft(self):
+
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Packet Draft Saved</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
     def printHelp(self):
 
         page = self.stackedWidget.currentIndex()
