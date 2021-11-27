@@ -201,6 +201,9 @@ class sendPacketClass:
         sizepacket = len(packet)
         add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
+        add_packet2 = """INSERT INTO Sends(Username,ID) VALUES(%s,%s)"""
+        name = 'PAAT'
+        cursor.execute(add_packet2, (name, randomID))
         conn.commit()
         if(type == 1):
             #self.sendInitPacket(initPacket,"DNS")
@@ -357,7 +360,6 @@ def displaySent(self):
     self.tableSent.setRowCount(0)
     self.tableSent.setSortingEnabled(False)
     for (Users, Date,Size,Addr) in cursor:
-        print(Users, Date, Size, Addr)
         rowPosition = self.tableSent.rowCount()
         self.tableSent.insertRow(rowPosition)
         self.tableSent.setItem(rowPosition, 0, QTableWidgetItem(Users))
