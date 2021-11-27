@@ -2037,7 +2037,7 @@ class Ui_OtherWindow(object):
                 self.worker.start()
                 self.worker.update_progress.connect(self.helpUi)
         elif self.choice == 'DNS':
-                self.worker = WorkerThreadDns(self.sorc_ad.text())
+                self.worker = WorkerThreadDns(self.sorc_ad.text(),self.dest_ad.text())
                 self.worker.start()
                 self.worker.update_progress.connect(self.helpUi)
         elif self.choice == 'nope':

