@@ -10,7 +10,7 @@ LAST EDITED DATE: 13/10/2021
 import sys
 sys.path.insert(0, 'src')
 
-from sendPacket import sendPacket
+from sendPacket import sendPacketClass , sendPacket
 
 #Testing sendPacket (DNS)
 print("----------- TESTING DNS -----------\n")

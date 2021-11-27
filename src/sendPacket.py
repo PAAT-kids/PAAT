@@ -7,7 +7,9 @@ LAST EDITED DATE: 16/10/2021
 """
 
 import scapy.all as scapy
-from arpCost import arpAdditionalCost
+
+from arpCost import get_arp_cost
+
 import random
 import mysql.connector
 from mysql.connector import Error
@@ -19,6 +21,7 @@ from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
     QRadialGradient)
 from PyQt5.QtWidgets import *
+
 
 class sendPacketClass:
 
@@ -119,6 +122,7 @@ class sendPacketClass:
     INPUT: String all the necessary value and a single list variable which conatins information of the specific UDP packet type
     OUTPUT: Int result (1 = sent , 0 = error)
     """
+    
     def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
 
         out = 0
@@ -201,6 +205,9 @@ class sendPacketClass:
         sizepacket = len(packet)
         add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
+        add_packet2 = """INSERT INTO Sends(Username,ID) VALUES(%s,%s)"""
+        name = 'PAAT'
+        cursor.execute(add_packet2, (name, randomID))
         conn.commit()
         if(type == 1):
             #self.sendInitPacket(initPacket,"DNS")
@@ -262,7 +269,9 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        arpAdditionalCost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
+        
 
         return 1
 
@@ -300,7 +309,8 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        arpAdditionalCost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
         return 1
 
                                         
@@ -331,13 +341,22 @@ class sendPacketClass:
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        arpAdditionalCost(packet[scapy.IP].src, packet[scapy.IP].dst)
+        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst) #calculate arp cost
+        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
 
         return 1
-      
-    def autoSend(listValue):
-        print("Todo")
 
+    
+    def autoSendDNS(self,packet):
+        response, unans= scapy.sr(packet,timeout=1,verbose=0,multi=True)
+
+        if len(response[scapy.UDP]) != 0:
+            for responses in response[scapy.UDP]:
+                                return (responses[1][scapy.UDP].len)
+        else:
+            return 0
+
+    #PURPOSE: send a raw udp packet containing the size of the query packet
     def sizePacket(self,Type,QID, size, dest):
         t = '\"Type\"'
         q = '\"QID\"'
@@ -346,6 +365,17 @@ class sendPacketClass:
         print('QID: '+str(QID))
         sizePkt = scapy.IP(dst=dest)/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
         return sizePkt
+
+    #PURPOSE: pop up to alert user when packet is sent successfully!
+    def sendPacketAlert(self,message):
+
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\"><h1>Packet Sent!</h1>"+message+"</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
 
 def displaySent(self):
     cnx = mysql.connector.connect(user='PAAT', password='1234',host='127.0.0.1',database='paat')
@@ -356,7 +386,6 @@ def displaySent(self):
     self.tableSent.setRowCount(0)
     self.tableSent.setSortingEnabled(False)
     for (Users, Date,Size,Addr) in cursor:
-        print(Users, Date, Size, Addr)
         rowPosition = self.tableSent.rowCount()
         self.tableSent.insertRow(rowPosition)
         self.tableSent.setItem(rowPosition, 0, QTableWidgetItem(Users))

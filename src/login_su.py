@@ -191,15 +191,18 @@ class Ui_MainWindow(object):
 
         password = self.password_lg.text()
         username = self.username_lg.text()
-        root = ahmed.connections()
-        self.openwindow(MainWindow)
-    
+
+        if password and username: #if password and username are not empty
+                self.currentUser = username
+                root = ahmed.connections()
+                if root.connect_database(username, password) == True:
+                        self.openwindow(MainWindow)
+        else:
+                self.alert1()
 
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
         self.ui = home2.Ui_OtherWindow()
-        self.ui.setupUi(self.window,self.darkmode)
-        self.setName()
         self.window.show()
 
         MainWindow.close()

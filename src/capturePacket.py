@@ -17,14 +17,14 @@ Author: Samrah
 Last Modified Date: 23/11/2021
 '''
 packets = [{"size":0,"dport":0, "type":None}]
-def startSniff(num):
+def startSniff(currentUser):
 	print('thread created')
 	
 	
-	received = sniff(filter="udp and (dst port 6700 or src port 53 or src port 123 or src port 1900)", prn=lambda pkt: trafficIdentifier(pkt))
+	received = sniff(filter="udp and (dst port 6700 or src port 53 or src port 123 or src port 1900)", prn=lambda pkt: trafficIdentifier(pkt,currentUser))
 	
 #Purpose: to identify type of packet it is
-def trafficIdentifier(pkt):
+def trafficIdentifier(pkt, currentUser):
 	print('inside traffic')
 	#print(repr(pkt))
 	#print('src port '+str(pkt.getlayer(IP).sport))
@@ -41,16 +41,16 @@ def trafficIdentifier(pkt):
 				print(packets)
 	elif pkt.haslayer(UDP) and  pkt.getlayer(UDP).sport == 53:
 		#print('inside pkt.getlayer(IP).src == 53')
-		handleDNS(pkt)
+		handleDNS(pkt,currentUser)
 	elif pkt.haslayer(UDP) and pkt.getlayer(UDP).sport == 1900:
 		#print('inside pkt.getlayer(IP).src == 1900')
-		handleSSDP(pkt)
+		handleSSDP(pkt, currentUser)
 	elif pkt.haslayer(UDP) and pkt.getlayer(UDP).sport == 123:
 		#print('inside pkt.getlayer(IP).src == 123')
-		handleNTP(pkt)
+		handleNTP(pkt, currentUser)
 
 #Purpose: calculate amp of ntp packets and insert into DB
-def handleNTP(ntpPacket):
+def handleNTP(ntpPacket, currentUser):
 	#print('inside handleNTP')
 	#print('ntpPacket dport '+str(ntpPacket.getlayer(UDP).dport))
 	#global packets
@@ -61,10 +61,10 @@ def handleNTP(ntpPacket):
 		if packet["dport"] == ntpPacket.getlayer(UDP).dport and packet['type'] == 'NTP':
 			ampFactor = dnsAmplificationFactor(packet['size'], ntpPacket.getlayer(UDP).len)
 			dateReceived = datetime.today().strftime('%Y-%m-%d')
-			insertDB(ntpPacket.getlayer(IP).src, dateReceived, packet['size'],ntpPacket.getlayer(UDP).len , ampFactor)
+			insertDB(currentUser,ntpPacket.getlayer(IP).src, dateReceived, packet['size'],ntpPacket.getlayer(UDP).len , ampFactor)
 
 #Purpose: calculate amp of ssdp packets and insert into DB
-def handleSSDP(ssdpPacket):
+def handleSSDP(ssdpPacket,currentUser):
 	#print('inside handleSSDP')
 	#print('ssdpdnsPacket dport '+str(ssdpPacket.getlayer(UDP).dport))
 	#global packets
@@ -75,10 +75,10 @@ def handleSSDP(ssdpPacket):
 		if packet["dport"] == ssdpPacket.getlayer(UDP).dport and packet['type'] == 'SSDP':
 			dateReceived = datetime.today().strftime('%Y-%m-%d')
 			ampFactor = dnsAmplificationFactor(packet['size'], ssdpPacket.getlayer(UDP).len)
-			insertDB(ssdpPacket.getlayer(IP).src, dateReceived, packet['size'],ssdpPacket.getlayer(UDP).len , ampFactor)
+			insertDB(currentUser,ssdpPacket.getlayer(IP).src, dateReceived, packet['size'],ssdpPacket.getlayer(UDP).len , ampFactor)
 
 #Purpose: calculate ampFactor and insert into DB
-def handleDNS(dnsPacket):
+def handleDNS(dnsPacket, currentUser):
 	#print('inside handleDNS')
 	#print(repr(dnsPacket))
 	#print('dnsPacket dport '+str(dnsPacket.getlayer(UDP).dport))
@@ -90,7 +90,7 @@ def handleDNS(dnsPacket):
 		if packet["dport"] == dnsPacket.getlayer(UDP).dport and packet['type'] == 'DNS':
 			dateReceived = datetime.today().strftime('%Y-%m-%d')
 			ampFactor = dnsAmplificationFactor(packet['size'], dnsPacket.getlayer(UDP).len)
-			insertDB(dnsPacket.getlayer(IP).src, dateReceived, packet['size'],dnsPacket.getlayer(UDP).len , ampFactor)
+			insertDB(currentUser,dnsPacket.getlayer(IP).src, dateReceived, packet['size'],dnsPacket.getlayer(UDP).len , ampFactor)
 	#dnsPackets = sniff(filter = "dst port 6700 ", prn= lambda x: x.haslayer(DNSQR) or x.haslayer(DNSRR), timeout=20)
 
 
@@ -113,7 +113,7 @@ def convertToDict(pkt):
 
 
 #to insert received values into database
-def insertDB(receiverAddr, dateRec, initSize, respSize, ampFactor):
+def insertDB(currentUser,receiverAddr, dateRec, initSize, respSize, ampFactor):
 	
 	#figure out how to add the unique id
 	try:
@@ -134,7 +134,7 @@ def insertDB(receiverAddr, dateRec, initSize, respSize, ampFactor):
 		add_rel = ("INSERT INTO Receives "
 				"(Username, ID) "
 				"VALUES (%s, %s)")
-		data_rel = ('samrahtahir123',uniqueID)#need to figure out how to get the name of the user logged in
+		data_rel = (currentUser,uniqueID)#need to figure out how to get the name of the user logged in
 		cursor.execute(add_rel, data_rel)
 		cnx.commit()
 		print('done inserting')

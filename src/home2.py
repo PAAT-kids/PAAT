@@ -15,8 +15,11 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from paatSecurity import validateEthAddr, validateIPAddr, validateIntOnly
 from sendPacket import sendPacketClass, displaySent
 from receiver import startSniffing, displayReceiveLog
+from ssdpWorker import WorkerThread
+from dnsWorker import WorkerThreadDns
 
 
 
@@ -25,22 +28,27 @@ import source_rc
 
 sPacket = sendPacketClass()
 sPacketType = 0
+
 #####################################################
 ## Main Window Object
 #####################################################
 class Ui_OtherWindow(object):
-    def setupUi(self, MainWindow, darkmodes):
+
+    def setupUi(self, MainWindow, darkmodes,currentUser):
+
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1920, 1077)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet(u"")
 
+        self.currentUser = currentUser
 #####################################################
 ## Central Widget Object (all page contents)
 #####################################################
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.choice = "nope"
 
 #####################################################
 ## Side menu Object (side menu icons and buttons )
@@ -403,9 +411,8 @@ class Ui_OtherWindow(object):
         self.back_eth.setIconSize(QSize(52, 52))
 
         self.stackedWidget.addWidget(self.ETH)
-        
-        self.nxt_eth.clicked.connect(self.setEthernet)
-        self.nxt_eth.clicked.connect(self.ippage)
+
+        self.nxt_eth.clicked.connect(self.validateEth)
         
         self.back_eth.clicked.connect(self.goback)
         
@@ -603,8 +610,7 @@ class Ui_OtherWindow(object):
 
         self.stackedWidget.addWidget(self.IP)
 
-        self.nxt_ip.clicked.connect(self.setIP)
-        self.nxt_ip.clicked.connect(self.udppage)
+        self.nxt_ip.clicked.connect(self.validateIP)
         self.back_ip.clicked.connect(self.goeth)
 
 
@@ -930,6 +936,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.NTP)
 
         self.back_ntp.clicked.connect(self.udppage)
+        self.draft_ntp.clicked.connect(self.makeDraft)
 
 ## Page 6 -  DNS PACKET labels, inputs and buttons ##
 
@@ -1025,6 +1032,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.DNS)
         self.draft_dns.clicked.connect(self.saveDraftDNS)
         self.back_dns.clicked.connect(self.udppage)
+        self.draft_dns.clicked.connect(self.makeDraft)
 
 ## Page 7 -  SSDP PACKET labels, inputs and buttons ##
 
@@ -1144,6 +1152,7 @@ class Ui_OtherWindow(object):
         self.stackedWidget.addWidget(self.SSDP)
 
         self.back_ssdp.clicked.connect(self.udppage)
+        self.draft_dns_2.clicked.connect(self.makeDraft)
 
 ## Page 8 - Settings ##
 
@@ -1264,17 +1273,17 @@ class Ui_OtherWindow(object):
         self.drafts_pg.setObjectName(u"drafts_pg")
         self.drafts_pg.setStyleSheet(u"background-image: url(:/bg1/drafts.png);")
         self.tableDrafts = QTableWidget(self.drafts_pg)
-        if (self.tableDrafts.columnCount() < 5):
-            self.tableDrafts.setColumnCount(5)
+        if (self.tableDrafts.columnCount() < 6):
+            self.tableDrafts.setColumnCount(6)
         self.tableDrafts.setObjectName(u"tableDrafts")
         self.tableDrafts.setGeometry(QRect(260, 320, 1351, 561))
         self.tableDrafts.setStyleSheet(u"background: rgb(221, 221, 221);\n""font: 8pt \"Franklin Gothic Demi\";\n""color: rgb(1, 58, 83);")
         self.tableDrafts.setAlternatingRowColors(True)
         self.tableDrafts.setSortingEnabled(True)
 
-        self.tableDrafts.setColumnCount(5)
+        self.tableDrafts.setColumnCount(6)
 
-        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Send"])
+        self.tableDrafts.setHorizontalHeaderLabels(["Name", "Date Created", "Initial Size", "Reciever Address", "Edit", "Send"])
         self.tableDrafts.horizontalHeader().setDefaultSectionSize(220)
         self.tableDrafts.horizontalHeader().setProperty("showSortIndicator", True)
         self.tableDrafts.verticalHeader().setCascadingSectionResizes(True)
@@ -1294,7 +1303,7 @@ class Ui_OtherWindow(object):
         self.tableSent.setAlternatingRowColors(True)
         self.tableSent.setSortingEnabled(True)
         self.tableSent.setColumnCount(7) 
-        self.tableSent.setHorizontalHeaderLabels(["Name", "Date Created", "Date Sent", "Initial Size", "Reciever Address", "Send Again", "Edit"])
+        self.tableSent.setHorizontalHeaderLabels(["Name", "Date Created", "Date Sent", "Initial Size", "Reciever Address", "Edit", "Send Again"])
         self.tableSent.horizontalHeader().setDefaultSectionSize(220)
         self.tableSent.horizontalHeader().setProperty("showSortIndicator", True)
         self.tableSent.verticalHeader().setCascadingSectionResizes(True)
@@ -1506,7 +1515,7 @@ class Ui_OtherWindow(object):
 "border-radius: 40px;\n"
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
-"")
+"")     
         self.progressBar = QProgressBar(self.autocreate)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setGeometry(QRect(750, 800, 471, 41))
@@ -1515,7 +1524,7 @@ class Ui_OtherWindow(object):
         self.progressBar.setOrientation(Qt.Horizontal)
         self.progressBar.setInvertedAppearance(False)
 
-        self.send_pkt.clicked.connect(self.helpUi)
+        self.send_pkt.clicked.connect(self.startRandomSelection)
         self.pkt_type.activated.connect(self.chosen2)
 
         self.stackedWidget.addWidget(self.autocreate)
@@ -1756,6 +1765,36 @@ class Ui_OtherWindow(object):
                 self.sPacketType = 2
                 self.stackedWidget.setCurrentIndex(7)
 
+    def validateEth(self):
+        nextpage = 0
+
+        if (validateEthAddr(self.source.text()) == False):
+                self.source.setText("")
+                nextpage = 1
+                
+        if (validateEthAddr(self.dest.text()) == False):
+                self.dest.setText("")
+                nextpage = 1
+
+        if(nextpage == 0):
+                self.setEthernet()
+                self.ippage()
+
+    def validateIP(self):
+        nextPage =0
+
+        if(validateIPAddr(self.srcad1.text()) == False):
+                self.srcad1.setText("")
+                nextPage = 1
+
+
+        if(validateIPAddr(self.dstad1.text()) == False):
+                self.dstad1.setText("")
+                nextPage = 1 
+
+        if(nextPage == 0):
+                self.setIP()
+                self.udppage()
 
     def setEthernet(self):
         #print("Ethernet values: "+self.source.text(),self.dest.text(),self.type.text())
@@ -1802,6 +1841,7 @@ class Ui_OtherWindow(object):
     def chosen2(self):
     
         text = self.pkt_type.currentText()
+        self.choice = text
 
         if text == 'DNS':
 
@@ -1862,9 +1902,9 @@ class Ui_OtherWindow(object):
 
     def default_dns(self):
         
-        self.qname_field.setText("Hello")
-        self.qclass_field.setText("Hello")
-        self.qtype_field.setText("Hello")
+        self.qname_field.setText("google.com")
+        self.qclass_field.setText("IN")
+        self.qtype_field.setText("A")
 
     def default_ssdp(self):
         
@@ -2018,18 +2058,45 @@ class Ui_OtherWindow(object):
     def recieve_page(self):
         
         #self.stackedWidget.setCurrentIndex(11)
-        startSniffing() #start capturing packets
+        startSniffing(self.currentUser) #start capturing packets
 
-    def helpUi(self):
+    def startRandomSelection(self):
+        #     t1 = threading.Thread(target=startSsdpGA, args=(self,))
+        #     t1.start()
+        if self.choice == 'SSDP':
+                self.worker = WorkerThread(self.sorc_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
+        elif self.choice == 'DNS':
+                self.worker = WorkerThreadDns(self.sorc_ad.text(),self.dest_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
+        elif self.choice == 'nope':
+                print("Do Nothing")
+
+        #startSsdpGA(self)   
+
+    def helpUi(self, message):
             
-        self.stackedWidget.setCurrentIndex(0)
+        #self.stackedWidget.setCurrentIndex(0)
         msg = QMessageBox()
         msg.setWindowTitle(" ")
-        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">"+message+"</span></p></body></html>")
         msg.setIcon(QMessageBox.Question)
         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
         x = msg.exec_()
+
+#     def helpUi(self):
+            
+#         self.stackedWidget.setCurrentIndex(0)
+#         msg = QMessageBox()
+#         msg.setWindowTitle(" ")
+#         msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Autocreate Completed!</span></p></body></html>")
+#         msg.setIcon(QMessageBox.Question)
+#         msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+#         x = msg.exec_()
 
     def sendPacket(self):
 
@@ -2041,122 +2108,130 @@ class Ui_OtherWindow(object):
 
         x = msg.exec_()
 
+    def makeDraft(self):
+
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Packet Draft Saved</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
+
+        x = msg.exec_()
     def printHelp(self):
 
         page = self.stackedWidget.currentIndex()
         if page == 0:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help</span></p></body></html>")
+                msg.setWindowTitle("Home - Help ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the home page, you can perform two types of packet actions:\n Send a packet\nRecieve a packet\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 1:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Network Packet Selection - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Network Packet Selection Page, you can select the network you want to send the packet through:\n - NTP\n - DNS\n - SSDP</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 2:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Ethernet - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Ethernet Packet Page, you can enter your desired packet values or use the default values.\n To know more about each field, hover your cursor over it!\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 3:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("IP - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the IP Packet Page, you can enter your desired packet values or use the default values.\n To know more about each field, hover your cursor over it!\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 4:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("UDP - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the UDP Packet Page, you can enter your desired packet values or use the default values.\n To know more about each field, hover your cursor over it!\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 5:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("NTP - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the NTP Network Page, you can enter your desired packet values or use the default values.\n To know more about each field, hover your cursor over it!\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 6:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("DNS - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the DNS Network Page, you can enter your desired packet values or use the default values.\n To know more about each field, hover your cursor over it!\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 7:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("SSDP - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the SSDP Network Page, you can enter your desired packet values or use the default values.\n To know more about each field, hover your cursor over it!\n</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 8:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Settings - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Settings Page, you can edit your details and preferences here.</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 9:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Drafts - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Drafts Page, you can find your saved and unsent packets here.</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 10:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Sent - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Sent Page, you can find all of your previously sent packets here.</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 11:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Recieved - Help ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Recieved Page, you can find of all your recieved packets here.</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 12:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("Contacts - Help ")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is your Contacts Page, you can find your contacts here.</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
         elif page == 13:
                 msg = QMessageBox()
-                msg.setWindowTitle(" ")
-                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Help2</span></p></body></html>")
+                msg.setWindowTitle("AutoCreate - Help")
+                msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">This is the Autocreate Page, you can send an auto-created packet right away to and from the address of your choice.</span></p></body></html>")
                 msg.setIcon(QMessageBox.Question)
                 msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
                 x = msg.exec_()
-
     def goback(self):
 
         self.stackedWidget.setCurrentIndex(1)
