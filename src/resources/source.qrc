@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>back.png</file>
     <file>search_icon.png</file>
     <file>account.png</file>
     <file>close.png</file>

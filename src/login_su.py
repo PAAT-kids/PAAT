@@ -13,8 +13,8 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import login as ahmed
-from signup import signup
+#import login as ahmed
+#from signup import signup
 import source_rc
 import home2
 import main
@@ -189,14 +189,14 @@ class Ui_MainWindow(object):
 
     def loginCheck(self, MainWindow):
 
-        password = self.password_lg.text()
-        username = self.username_lg.text()
-        root = ahmed.connections()
-        if root.connect_database(username, password) == True:
-                self.openwindow(MainWindow)
-        else:
-	        self.alert1()
-    
+        #password = self.password_lg.text()
+        #username = self.username_lg.text()
+        #root = ahmed.connections()
+        #if root.connect_database(username, password) == True:
+        #        self.openwindow(MainWindow)
+        #else:
+	#        self.alert1()
+        self.openwindow(MainWindow)
 
     def openwindow(self, MainWindow):
         self.window = QtWidgets.QMainWindow()
@@ -207,13 +207,12 @@ class Ui_MainWindow(object):
 
 
 
-    def alert1(self):
-        self.alert_pkt = QLabel()
-        self.alert_pkt.setObjectName(u"alert_pkt")
-        self.alert_pkt.setGeometry(QRect(1270, 710, 491, 31))
-        self.alert_pkt.setStyleSheet(u"color: rgb(255, 0, 0);\n"
-"font: 75 italic 13pt \"Franklin Gothic Cond\";\n"
-"background: transparent;")
-        self.alert_pkt.setText(QCoreApplication.translate("MainWindow", u"Please complete all the fields before proceeding.", None))
+    def alert1(self):  
+        msg = QMessageBox()
+        msg.setWindowTitle(" ")
+        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\">Invalid Log In/Sign Up data</span></p></body></html>")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
 
+        x = msg.exec_()
 
