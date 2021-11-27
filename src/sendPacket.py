@@ -122,6 +122,7 @@ class sendPacketClass:
     INPUT: String all the necessary value and a single list variable which conatins information of the specific UDP packet type
     OUTPUT: Int result (1 = sent , 0 = error)
     """
+    
     def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
 
         out = 0
@@ -344,9 +345,16 @@ class sendPacketClass:
         self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
 
         return 1
-      
-    def autoSend(listValue):
-        print("Todo")
+
+    
+    def autoSendDNS(self,packet):
+        response, unans= scapy.sr(packet,timeout=1,verbose=0,multi=True)
+
+        if len(response[scapy.UDP]) != 0:
+            for responses in response[scapy.UDP]:
+                                return (responses[1][scapy.UDP].len)
+        else:
+            return 0
 
     #PURPOSE: send a raw udp packet containing the size of the query packet
     def sizePacket(self,Type,QID, size, dest):

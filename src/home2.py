@@ -15,9 +15,12 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from paatSecurity import validateEthAddr, validateIPAddr, validateIntOnly
 from sendPacket import sendPacketClass, displaySent
 from receiver import startSniffing, displayReceiveLog
 from ssdpWorker import WorkerThread
+from dnsWorker import WorkerThreadDns
+
 
 
 
@@ -25,11 +28,14 @@ import source_rc
 
 sPacket = sendPacketClass()
 sPacketType = 0
+
 #####################################################
 ## Main Window Object
 #####################################################
 class Ui_OtherWindow(object):
+
     def setupUi(self, MainWindow, darkmodes,currentUser):
+
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1920, 1077)
@@ -42,6 +48,7 @@ class Ui_OtherWindow(object):
 #####################################################
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.choice = "nope"
 
 #####################################################
 ## Side menu Object (side menu icons and buttons )
@@ -405,9 +412,8 @@ class Ui_OtherWindow(object):
         self.back_eth.setIconSize(QSize(52, 52))
 
         self.stackedWidget.addWidget(self.ETH)
-        
-        self.nxt_eth.clicked.connect(self.setEthernet)
-        self.nxt_eth.clicked.connect(self.ippage)
+
+        self.nxt_eth.clicked.connect(self.validateEth)
         
         self.back_eth.clicked.connect(self.goback)
         
@@ -605,8 +611,7 @@ class Ui_OtherWindow(object):
 
         self.stackedWidget.addWidget(self.IP)
 
-        self.nxt_ip.clicked.connect(self.setIP)
-        self.nxt_ip.clicked.connect(self.udppage)
+        self.nxt_ip.clicked.connect(self.validateIP)
         self.back_ip.clicked.connect(self.goeth)
 
 
@@ -1762,6 +1767,36 @@ class Ui_OtherWindow(object):
                 self.sPacketType = 2
                 self.stackedWidget.setCurrentIndex(7)
 
+    def validateEth(self):
+        nextpage = 0
+
+        if (validateEthAddr(self.source.text()) == False):
+                self.source.setText("")
+                nextpage = 1
+                
+        if (validateEthAddr(self.dest.text()) == False):
+                self.dest.setText("")
+                nextpage = 1
+
+        if(nextpage == 0):
+                self.setEthernet()
+                self.ippage()
+
+    def validateIP(self):
+        nextPage =0
+
+        if(validateIPAddr(self.srcad1.text()) == False):
+                self.srcad1.setText("")
+                nextPage = 1
+
+
+        if(validateIPAddr(self.dstad1.text()) == False):
+                self.dstad1.setText("")
+                nextPage = 1 
+
+        if(nextPage == 0):
+                self.setIP()
+                self.udppage()
 
     def setEthernet(self):
         #print("Ethernet values: "+self.source.text(),self.dest.text(),self.type.text())
@@ -1869,9 +1904,9 @@ class Ui_OtherWindow(object):
 
     def default_dns(self):
         
-        self.qname_field.setText("Hello")
-        self.qclass_field.setText("Hello")
-        self.qtype_field.setText("Hello")
+        self.qname_field.setText("google.com")
+        self.qclass_field.setText("IN")
+        self.qtype_field.setText("A")
 
     def default_ssdp(self):
         
@@ -2035,6 +2070,13 @@ class Ui_OtherWindow(object):
                 self.worker = WorkerThread(self.sorc_ad.text())
                 self.worker.start()
                 self.worker.update_progress.connect(self.helpUi)
+        elif self.choice == 'DNS':
+                self.worker = WorkerThreadDns(self.sorc_ad.text(),self.dest_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
+        elif self.choice == 'nope':
+                print("Do Nothing")
+
         #startSsdpGA(self)   
 
     def helpUi(self, message):
