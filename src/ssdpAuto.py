@@ -244,7 +244,7 @@ if __name__ == '__main__':
 		dstMac = getMac(bestEver[0])
 
 		if srcMac != 0 and dstMac != 0:
-			queryPacket = Ether(src=srcMac,dst=dstMac)/IP(src="192.168.1.16",dst=bestEver[0])/UDP(sport=4565,dport=1900)
+			queryPacket = Ether(src=srcMac,dst=dstMac)/IP(src="192.168.1.16",dst=bestEver[0])/UDP(sport=RandShort()._fix(),dport=1900)
 			#payload = Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
 			listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
 			sendPkt = sendPacketClass()
