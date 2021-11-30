@@ -28,6 +28,9 @@ Purpose: display received packet info in received log
 # 	self.tableRecvd.setItem(rowPosition, 4, QTableWidgetItem(120))
 
 def displayReceiveLog(self):
+    currentRespSize = 0
+
+    try:
         cnx = mysql.connector.connect(user='me', password='myUserpassword',host='127.0.0.1',database='PAAT')
         cursor = cnx.cursor()
         self.tableRecvd.setRowCount(0) #refreshing the table each time the receive log is viewed
@@ -41,7 +44,14 @@ def displayReceiveLog(self):
         self.tableRecvd.setSortingEnabled(False)
         #print(cursor)
         for (initSize, dateRec,recAddr,respSize, ampFactor) in cursor:
-            print(initSize, dateRec,recAddr,respSize, ampFactor)
+            
+            if currentRespSize < respSize:#display the current highest in resp
+                self.rcvAd.setText(recAddr)
+                self.rcvBox.display(str(respSize))
+                self.intBox.display(str(initSize))
+                self.ampBox.display(str(ampFactor))
+                currentRespSize = respSize
+                
             rowPosition = self.tableRecvd.rowCount()
             self.tableRecvd.insertRow(rowPosition)
             self.tableRecvd.setItem(rowPosition, 0, QTableWidgetItem(recAddr))
@@ -51,6 +61,9 @@ def displayReceiveLog(self):
             self.tableRecvd.setItem(rowPosition, 4, QTableWidgetItem(str(ampFactor)))
         cursor.close()
         cnx.close()
+    except Exception as e:
+        pass
+
 
 #sniff sniff
 def startSniffing(currentUser):
