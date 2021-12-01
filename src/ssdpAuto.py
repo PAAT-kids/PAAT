@@ -165,6 +165,15 @@ def crossover(parent1, parent2):
 	child.append(parent2[1])
 	return child
 
+def sizePacket(Type,QID, size, dest):
+	t = '\"Type\"'
+	q = '\"QID\"'
+	s = '\"size\"'
+	ldDict = f"{{{t}:" +Type+f",{q}:"+str(QID)+f",{s}:"+str(size)+"}"
+	print('QID: '+str(QID))
+	sizePkt = IP(dst=dest)/UDP(sport=6700,dport=6700)/Raw(load=ldDict)
+	return sizePkt
+
 def startSsdpGA(source):
 	#helpUi("SSDP GA Started!")
 	prompt = "Nothing to display."
@@ -188,22 +197,28 @@ def startSsdpGA(source):
 	if bestEver[0] != '0.0.0.0' and bestEver[1] != '':
 		
 	
-		sourceMac = getMac(source)
-		destinationMac = getMac(bestEver[0])
-		if sourceMac is not None and destinationMac is not None:
-			queryPacket = Ether(src= sourceMac,dst= destinationMac)/IP(src=source,dst=bestEver[0])/UDP(sport=4565,dport=1900)
+		#sourceMac = getMac(source)
+		#destinationMac = getMac(bestEver[0])
+		#if sourceMac is not None and destinationMac is not None:
+			queryPacket = IP(src=source,dst=bestEver[0])/UDP(sport=RandShort()._fix(),dport=1900)/Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
 			#payload = Raw(load='M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nST: '+bestEver[1]+'\r\n\r\nMAN: "ssdp:discover"\r\nMX: 1\r\n\r\n')
-			listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
-			sendPkt = sendPacketClass()
-			sendPkt.sendPacketSSDP(queryPacket,listValue)
+			#listValue = ["239.255.255.250","1900","ssdp:discover","2",bestEver[1]]
+			#sendPkt = sendPacketClass()
+			#sendPkt.sendPacketSSDP(queryPacket,listValue)
+			queryPacket[UDP].len = len(queryPacket.getlayer(UDP))
+			sizePkt = sizePacket('\"SSDP\"',queryPacket.getlayer(UDP).sport,queryPacket[UDP].len,queryPacket[IP].src)
+			print('\"SSDP\"')
+			print(repr(queryPacket))
+			send(sizePkt)
+			send(queryPacket)
 			prompt = '<div> <h1> SSDP Best Fields: </h1>' +'<p> upnp device: '+bestEver[0]+'</p>'+'<p> ST Header: '+bestEver[1]+'</p>'+'</div>'
 
 			# helpUi('<div> <h1> SSDP Best Fields: </h1>' +
 			# '<p> upnp device: '+bestEver[0]+'</p>'+
 			# '<p> ST Header: '+bestEver[1]+'</p>'+
 			# '</div>')
-		else:
-				prompt = '<div> <h1>Error</h1>' +'<p> Source or destination does not belong to local network! </p>'+'</div>'
+		#else:
+				#prompt = '<div> <h1>Error</h1>' +'<p> Source or destination does not belong to local network! </p>'+'</div>'
 				# helpUi('<div> <h1>Error</h1>' +
 				# '<p> Source or destination does not belong to local network! </p>'+
 				# '</div>')
