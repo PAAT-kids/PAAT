@@ -52,14 +52,14 @@ def sendARPPacket(arpPkt,destinationIP):
 
 #Purpose: get mac of local ip address
 def getMac(ip):
-	# arppkt = Ether()/ARP()
-	# resp = sendARPPacket(arppkt,ip)
+	arppkt = Ether()/ARP()
+	resp = sendARPPacket(arppkt,ip)
 
-	# if resp != -1:
-	# 	if resp.haslayer(ARP):
-	# 		return resp.getlayer(ARP).hwsrc
-	mac = getmacbyip(ip)
-	return mac
+	if resp != -1:
+		if resp.haslayer(ARP):
+			return resp.getlayer(ARP).hwsrc
+	#mac = getmacbyip(ip)
+	#return mac
 
 # #Purpose: caller function
 # def arpAdditionalCost(source,dest):
