@@ -43,7 +43,7 @@ def sendAutoPacket(valuesList):
                             #ttl=64,
                             #proto=17,
                             #chksum=ipChksum,#either have to find a way to calculate chksum or just let scapy do it
-                            src="192.168.1.153",
+                            src="127.0.0.1",
                             dst=ntpip,
                             #options=ipOptions
                             )
