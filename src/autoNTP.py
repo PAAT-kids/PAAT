@@ -85,7 +85,7 @@ OUTPUT: none
 """
 def getSolutions():
     for x in range (0 , 100):
-        solutions[x] = [0 , random.choice(mode) , random.choice(versionlist) , random.choice(leaplist)]
+        solutions[x] = [0 , random.choice(leaplist) , random.choice(versionlist) , random.choice(mode)]
 
 
 """
@@ -96,13 +96,13 @@ OUTPUT: none
 """
 def getRankedSolutions():
     for x in range (0 ,10):
-        rankedmode[x] = solutions[x][1]
+        rankedleap[x] = solutions[x][1]
         rankedversion[x] = solutions[x][3]
-        rankedleap[x] = solutions[x][2]
+        rankedmode[x] = solutions[x][2]
         
 
     for x in range (0 , 50):
-        rankedSolutions[x] = [0 , random.choice(rankedmode) , random.choice(rankedversion) , random.choice(rankedleap)]
+        rankedSolutions[x] = [0 , random.choice(rankedleap) , random.choice(rankedversion) , random.choice(rankedmode)]
 
 
 """
@@ -160,7 +160,7 @@ def startNTPAuto(source,destination):
 
     print("THE BEST SOLUTION IS")
     print(rankedSolutions[0])
-    prompt = '<div> <h1> NTP Best Fields: </h1>' +'<p> mode: '+ rankedSolutions[0][1]+'</p>'+'<p> leap: '+ rankedSolutions[0][2]+'<p> version: '+ rankedSolutions[0][3]+'</p>'+'</div>'
+    prompt = '<div> <h1> NTP Best Fields: </h1>' +'<p> leap: '+ rankedSolutions[0][1]+'</p>'+'<p> version: '+ rankedSolutions[0][2]+'<p> mode: '+ rankedSolutions[0][3]+'</p>'+'</div>'
 
     packetFinal = (scapy.IP(
                             src= ipSource,
