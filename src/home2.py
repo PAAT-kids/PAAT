@@ -1722,6 +1722,8 @@ class Ui_OtherWindow(object):
 
         self.stackedWidget.setCurrentIndex(10)
         displaySent(self)
+        self.butSend.clicked.connect(self.goeth)
+        
 
     def gorecvd(self):
 
