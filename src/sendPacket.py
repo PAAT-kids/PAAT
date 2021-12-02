@@ -22,7 +22,7 @@ from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QRadialGradient)
 from PyQt5.QtWidgets import *
 
-sports = [0]
+
 class sendPacketClass:
 
     ethSrc = ""
@@ -131,10 +131,6 @@ class sendPacketClass:
         #newPkt =IP(version=4,ihl=5,tos=0,id=1,frag=0,ttl=64,proto=17,dst='8.8.8.8')/UDP(sport=6500,dport=53)/DNS(rd=1,qd=DNSQR(qname='www.google.com',qtype='ALL'))
 
         # print(type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues)
-        if udpSport in sports:
-            udpSport =  scapy.RandShort()._fix()
-        else:
-            sports.append(udpSport)
 
         packet = (scapy.Ether(
                             src=ethSrc,
@@ -209,9 +205,6 @@ class sendPacketClass:
         sizepacket = len(packet)
         add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
-        add_packet2 = """INSERT INTO Sends(Username,ID) VALUES(%s,%s)"""
-        name = 'PAAT'
-        cursor.execute(add_packet2, (name, randomID))
         conn.commit()
         if(type == 1):
             #self.sendInitPacket(initPacket,"DNS")
@@ -221,14 +214,14 @@ class sendPacketClass:
             conn.commit()
 
         elif(type == 3):
-            # self.sendInitPacket(initPacket,"SSDP")
+            #self.sendInitPacket(initPacket,"SSDP")
             out = self.sendPacketNTP(packet,listValues)
             add_draft = "INSERT INTO NTP(ID,Leap,Version,Modee,Stratum,Poll,Precisionn,Delay,Dispersion,ID2,ReferenceID,Reference,Origin,Receive,Sent) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(add_draft, (randomID,listValues[0],listValues[1], listValues[2],listValues[3],listValues[4], listValues[5],listValues[6], listValues[7],listValues[8],listValues[9],listValues[10], listValues[11],listValues[12],listValues[13]))
             conn.commit()
 
         elif(type == 2):
-            # self.sendInitPacket(initPacket,"NTP")
+            #self.sendInitPacket(initPacket,"NTP")
             out = self.sendPacketSSDP(packet,listValues)
             add_draft = "INSERT INTO SSDP(ID,Hostt,Port,MAN,MX,ST) VALUES(%s,%s,%s,%s,%s,%s)"
             cursor.execute(add_draft, (randomID,listValues[0],listValues[1], listValues[2],listValues[3],listValues[4]))
@@ -264,17 +257,16 @@ class sendPacketClass:
                                                 qclass=listValues[2]
                                                 )
                                 )
-        
+        srcPort = scapy.RandShort()._fix()
+        packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"DNS\"',packet[scapy.UDP].sport,packet[scapy.UDP].len,packet[scapy.IP].src)
+        sizePkt = self.sizePacket('\"DNS\"',srcPort,packet[scapy.UDP].len,packet[scapy.IP].src)
         print('\"DNS\"')
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
-        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
-        
+        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
 
         return 1
 
@@ -303,20 +295,20 @@ class sendPacketClass:
                                     #sent=listValues[13] #time when reply was sent by server
                                     
                                     )
-        
+        srcPort = scapy.RandShort()._fix()
+        packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"NTP\"',packet[scapy.UDP].sport,packet[scapy.UDP].len,packet[scapy.IP].src)
+        sizePkt = self.sizePacket('\"NTP\"',srcPort,packet[scapy.UDP].len,packet[scapy.IP].src)
         print('\"NTP\"')
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
-        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
+        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
         return 1
 
                                         
-    
+
     """
     FUNCTION NAME: sendPacketSSDP
     PURPOSE: Crafts the first three layers.
@@ -333,16 +325,17 @@ class sendPacketClass:
             "MX:" + listValues[3] +"\r\n\r\n"                
 
         packet = packet/payload
+        srcPort = scapy.RandShort()._fix()
+        packet[scapy.UDP].sport = srcPort
         packet[scapy.IP].len =  len(packet[scapy.IP])
         packet[scapy.UDP].len = len(packet[scapy.UDP]) #setting the length field of the IP and UDP layers
-        sizePkt = self.sizePacket('\"SSDP\"',packet[scapy.UDP].sport,packet[scapy.UDP].len,packet[scapy.IP].src)
+        sizePkt = self.sizePacket('\"SSDP\"',srcPort,packet[scapy.UDP].len,packet[scapy.IP].src)
         print('\"SSDP\"')
         print(repr(packet))
         scapy.send(sizePkt)
         scapy.sendp(packet)
 
-        message = get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst) #calculate arp cost
-        self.sendPacketAlert(message)#pop up to alert user when packet is sent successfully!
+        get_arp_cost(packet[scapy.IP].src, packet[scapy.IP].dst)
 
         return 1
 
@@ -356,7 +349,6 @@ class sendPacketClass:
         else:
             return 0
 
-    #PURPOSE: send a raw udp packet containing the size of the query packet
     def sizePacket(self,Type,QID, size, dest):
         t = '\"Type\"'
         q = '\"QID\"'
@@ -366,17 +358,6 @@ class sendPacketClass:
         sizePkt = scapy.IP(dst=dest)/scapy.UDP(sport=6700,dport=6700)/scapy.Raw(load=ldDict)
         return sizePkt
 
-    #PURPOSE: pop up to alert user when packet is sent successfully!
-    def sendPacketAlert(self,message):
-
-        msg = QMessageBox()
-        msg.setWindowTitle(" ")
-        msg.setText("<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Franklin Gothic Raw'; font-size:10.8pt; font-weight:496;\"><h1>Packet Sent!</h1>"+message+"</span></p></body></html>")
-        msg.setIcon(QMessageBox.Question)
-        msg.addButton(QPushButton('Done'), QMessageBox.YesRole)
-
-        x = msg.exec_()
-
 def displaySent(self):
     cnx = mysql.connector.connect(user='PAAT', password='1234',host='127.0.0.1',database='paat')
     cursor = cnx.cursor()
@@ -385,7 +366,9 @@ def displaySent(self):
     cursor.execute(query)
     self.tableSent.setRowCount(0)
     self.tableSent.setSortingEnabled(False)
+
     for (Users, Date,Size,Addr) in cursor:
+        print(Users, Date, Size, Addr)
         rowPosition = self.tableSent.rowCount()
         self.tableSent.insertRow(rowPosition)
         self.tableSent.setItem(rowPosition, 0, QTableWidgetItem(Users))
@@ -393,5 +376,8 @@ def displaySent(self):
         self.tableSent.setItem(rowPosition, 2, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
         self.tableSent.setItem(rowPosition, 3, QTableWidgetItem(str(Size)))
         self.tableSent.setItem(rowPosition, 4, QTableWidgetItem(Addr))
+        self.butSend = QPushButton('Send')
+        self.tableSent.setItem(rowPosition, 5, self.butSend)
+
     cursor.close()
     cnx.close()

@@ -13,8 +13,8 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import login as ahmed
-from signup import signup
+#import login as ahmed
+#from signup import signup
 import source_rc
 import home2
 import main
