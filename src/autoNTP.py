@@ -15,7 +15,7 @@ from sendPacket import sendPacketClass
 sPacket = sendPacketClass()
 
 #required list variables to store values for feilds
-ntpip = "216.239.35.4"
+ntpip = ""
 mode = [0,1,2,3]
 leaplist = [0]
 versionlist = [1,2,3,4]
@@ -62,7 +62,6 @@ def sendAutoPacket(valuesList):
 
 
     packetSize = int(sPacket.autoSendNTP(packet))
-    print(packetSize)
     return packetSize
     
     
@@ -86,7 +85,7 @@ OUTPUT: none
 """
 def getSolutions():
     for x in range (0 , 100):
-        solutions[x] = [0 , random.choice(mode) , random.choice(leaplist) , random.choice(versionlist)]
+        solutions[x] = [0 , random.choice(mode) , random.choice(versionlist) , random.choice(leaplist)]
 
 
 """
@@ -148,8 +147,33 @@ def sizePacket(Type,QID, size):
 
 
 
-getSolutions()
-runSolutions()
+def startNTPAuto(source,destination):
 
-getRankedSolutions()
-runRankedSolutions()
+    ipSource = source
+    ipDestination = destination
+
+    getSolutions()
+    runSolutions()
+
+    getRankedSolutions()
+    runRankedSolutions()
+
+    print("THE BEST SOLUTION IS")
+    print(rankedSolutions[0])
+    prompt = '<div> <h1> NTP Best Fields: </h1>' +'<p> mode: '+ rankedSolutions[0][1]+'</p>'+'<p> leap: '+ rankedSolutions[0][2]+'<p> version: '+ rankedSolutions[0][3]+'</p>'+'</div>'
+
+    packetFinal = (scapy.IP(
+                            src= ipSource,
+                            dst= ipDestination,
+                            )
+                    /scapy.UDP(
+                            sport=50000,
+                            dport=123,
+                            )
+                    )
+
+    sendlist = [rankedSolutions[0][1],rankedSolutions[0][2],rankedSolutions[0][3]]
+    sPacket.sendPacketDNS(packetFinal, sendlist)
+
+    return prompt
+

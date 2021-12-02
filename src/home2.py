@@ -20,6 +20,7 @@ from sendPacket import sendPacketClass, displaySent
 from receiver import startSniffing, displayReceiveLog
 from ssdpWorker import WorkerThread
 from dnsWorker import WorkerThreadDns
+from NtpWorker import WorkerThreadNTP
 
 
 
@@ -2071,8 +2072,10 @@ class Ui_OtherWindow(object):
                 self.worker = WorkerThreadDns(self.sorc_ad.text(),self.dest_ad.text())
                 self.worker.start()
                 self.worker.update_progress.connect(self.helpUi)
-        elif self.choice == 'nope':
-                print("Do Nothing")
+        elif self.choice == 'NTP':
+                self.worker = WorkerThreadNTP(self.sorc_ad.text(),self.dest_ad.text())
+                self.worker.start()
+                self.worker.update_progress.connect(self.helpUi)
 
         #startSsdpGA(self)   
 
