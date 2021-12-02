@@ -1817,7 +1817,7 @@ class Ui_OtherWindow(object):
         elif(self.sPacketType == 3):
                 self.tempListValues = [self.leap_field.text(),self.version_field.text(),self.mode_field.text(),self.stratum_field.text(),self.poll_field.text(),self.precision_field.text(),self.delay_field.text(),self.dispersion_field.text(),self.id_field.text(),self.referenceid_field.text(),self.reference_field.text(), self.origin_field.text(),self.recieve_field.text(),self.sent_field.text()]
 
-        sPacket.setListValues(self.tempListValues,self.sPacketType)
+        sPacket.setListValues(self.tempListValues,self.sPacketType,self.currentUser)
         
         
     
@@ -1943,14 +1943,16 @@ class Ui_OtherWindow(object):
         i = 0
         self.tableDrafts.setRowCount(len(drafts))
         for draft in drafts:
-                self.tableDrafts.setItem(row,0,QtWidgets.QTableWidgetItem(draft[0]))
+                self.tableDrafts.setItem(row,0,QtWidgets.QTableWidgetItem(self.currentUser))
                 self.tableDrafts.setItem(row,1,QtWidgets.QTableWidgetItem(draft[1].strftime('%Y-%m-%d')))
                 self.tableDrafts.setItem(row,2,QtWidgets.QTableWidgetItem(draft[9]))
-                self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(draft[22]))
+                self.tableDrafts.setItem(row,3,QtWidgets.QTableWidgetItem(draft[17]))
                 self.btn_send = QPushButton('Send')
+                self.tableDrafts.setCellWidget(row,5,self.btn_send)
+                self.btn_send = QPushButton('Edit')
                 self.tableDrafts.setCellWidget(row,4,self.btn_send)
                 self.btn_send.clicked.connect(lambda: self.sendDraft(self.tableDrafts.currentRow()))
-                row = row + 1
+                row = row+1
 
     def alert1(self):
         self.alert_pkt = QLabel()

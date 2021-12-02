@@ -181,7 +181,7 @@ def saveNTP(randomID):
     conn = connectToDatabase()
     cursor = conn.cursor()
     add_draft = "INSERT INTO NTP2(ID,Leap,Version,Modee,Stratum,Poll,Precisionn,Delay,Dispersion,ID2,ReferenceID,Reference,Origin,Receive,Sent) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    cursor.execute(add_draft, (leap,versionNTP,modee, stratum,poll,precision,delay,dispersion,IDNTP,refID,ref,Origin,rev,sent))
+    cursor.execute(add_draft, (randomID,leap,versionNTP,modee, stratum,poll,precision,delay,dispersion,IDNTP,refID,ref,Origin,rev,sent))
     conn.commit()
 
 
@@ -224,16 +224,19 @@ def getSelectedDraftType(index, type):
     return results
 
 def getID():
-    my_list = []
-    if not my_list:
-        n = random.randint(1,99)
-        my_list.append(n)
-        my_list = list(set(my_list))
-    return my_list.pop(0)
+    conn = connectToDatabase()
+    cursor = conn.cursor()
+    Query = "SELECT ID FROM Drafts;"
+    cursor.execute(Query)
+    value = [int(result) for (result,) in cursor]
+    n = random.randint(1,9999)
+    while n in value:
+         n = random.randint(1,9999)
+    return n
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='ahmed',password='1234')
+		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')

@@ -106,7 +106,7 @@ class sendPacketClass:
     INPUT: String all the necessary value and a single list variable which conatins information of the specific ListVAlues packet type
     OUTPUT: none
     """  
-    def setListValues(self,listValues1,type):
+    def setListValues(self,listValues1,type,username):
         if(type == 1):
             self.listValues = [listValues1[0],listValues1[1],listValues1[2]]
         elif(type == 2):
@@ -114,7 +114,7 @@ class sendPacketClass:
         elif(type == 3):
             self.listValues = [listValues1[0],listValues1[1],listValues1[2],listValues1[3],listValues1[4],listValues1[5],listValues1[6],listValues1[7],listValues1[8],listValues1[9],listValues1[10],listValues1[11],listValues1[12],listValues1[13]]
 
-        self.sendPacket(type,self.ethSrc,self.ethDst,self.ethType,self.ipVersion,self.ipIhl,self.ipTos,self.ipLen,self.ipId,self.ipFlags,self.ipFrag,self.ipTtl,self.ipProto,self.ipChksum,self.ipSrc,self.ipDst,self.udpSport,self.udpDport,self.udpChksum,self.listValues)
+        self.sendPacket(type,self.ethSrc,self.ethDst,self.ethType,self.ipVersion,self.ipIhl,self.ipTos,self.ipLen,self.ipId,self.ipFlags,self.ipFrag,self.ipTtl,self.ipProto,self.ipChksum,self.ipSrc,self.ipDst,self.udpSport,self.udpDport,self.udpChksum,self.listValues,username)
 
     """
     FUNCTION NAME: sendPacket
@@ -123,7 +123,7 @@ class sendPacketClass:
     OUTPUT: Int result (1 = sent , 0 = error)
     """
     
-    def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues):
+    def sendPacket(self,type,ethSrc,ethDst,ethType,ipVersion,ipIhl,ipTos,ipLen,ipId,ipFlags,ipFrag,ipTtl,ipProto,ipChksum,ipSrc,ipDst,udpSport,udpDport,udpChksum,listValues,username):
 
         out = 0
         #testPkt = Ether(src=ethSrc,dst=ethDst,type=ethType)/IP(version=ipVersion,ihl=ipIhl,tos=ipTos,id=ipId,frag=ipFrag,ttl=ipTtl,proto=ipProto,dst='8.8.8.8')/UDP(sport=udpSport,dport=udpDport)/DNS(rd=1,qd=DNSQR(qname='www.google.com',qtype='ALL'))
@@ -189,11 +189,6 @@ class sendPacketClass:
         #                     chksum=udpChksum
         #                     )
         #                 )
-        my_list = []
-        if not my_list:
-            n = random.randint(1,99)
-            my_list.append(n)
-            my_list = list(set(my_list))
         now = datetime.now()
         date_now = now.strftime('%Y-%m-%d')
         current_time = now.strftime("%H:%M:%S")
@@ -204,14 +199,19 @@ class sendPacketClass:
             print("Connection To Database Failed!\n")
 
         cursor = conn.cursor()
-        randomID = my_list.pop(0)
+        Query = "SELECT ID FROM Sent;"
+        cursor.execute(Query)
+        value = [int(result) for (result,) in cursor]
+        n = random.randint(1,9999)
+        while n in value:
+            n = random.randint(1,9999)
+        randomID = n
         temp = 'aaa'
         sizepacket = len(packet)
         add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
         add_packet2 = """INSERT INTO Sends(Username,ID) VALUES(%s,%s)"""
-        name = 'PAAT'
-        cursor.execute(add_packet2, (name, randomID))
+        cursor.execute(add_packet2, (username, randomID))
         conn.commit()
         if(type == 1):
             #self.sendInitPacket(initPacket,"DNS")
@@ -386,12 +386,15 @@ def displaySent(self):
     self.tableSent.setRowCount(0)
     self.tableSent.setSortingEnabled(False)
     for (Users, Date,Size,Addr) in cursor:
-        rowPosition = self.tableSent.rowCount()
-        self.tableSent.insertRow(rowPosition)
-        self.tableSent.setItem(rowPosition, 0, QTableWidgetItem(Users))
-        self.tableSent.setItem(rowPosition, 1, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
-        self.tableSent.setItem(rowPosition, 2, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
-        self.tableSent.setItem(rowPosition, 3, QTableWidgetItem(str(Size)))
-        self.tableSent.setItem(rowPosition, 4, QTableWidgetItem(Addr))
+        try:
+            rowPosition = self.tableSent.rowCount()
+            self.tableSent.insertRow(rowPosition)
+            self.tableSent.setItem(rowPosition, 0, QTableWidgetItem(Users))
+            self.tableSent.setItem(rowPosition, 1, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
+            self.tableSent.setItem(rowPosition, 2, QTableWidgetItem(Date.strftime('%Y-%m-%d')))
+            self.tableSent.setItem(rowPosition, 3, QTableWidgetItem(str(Size)))
+            self.tableSent.setItem(rowPosition, 4, QTableWidgetItem(Addr))
+        except Exception as error:
+            print("No values!")
     cursor.close()
     cnx.close()
