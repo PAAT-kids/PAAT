@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QThread, pyqtSignal
-from autoNTP import startNTPAuto #startSsdpGA
+from autoNTP import startNTPAuto
 
 class WorkerThreadNTP(QThread):
     update_progress = pyqtSignal(str)
