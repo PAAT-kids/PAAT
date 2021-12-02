@@ -287,9 +287,9 @@ class sendPacketClass:
     def sendPacketNTP(self,packet,listValues):
 
         packet = packet/scapy.NTPHeader(
-                                    leap=int(listValues[1]),
-                                    version=int(listValues[2]),
-                                    mode=int(listValues[0]),
+                                    leap=int(listValues[0]),
+                                    version=int(listValues[1]),
+                                    mode=int(listValues[2]),
                                     #stratum=listValues[3],
                                     #poll=listValues[4], #polling field is used by server
                                     #precision=int(listValues[5]),#used by server

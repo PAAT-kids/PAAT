@@ -97,8 +97,8 @@ OUTPUT: none
 def getRankedSolutions():
     for x in range (0 ,10):
         rankedleap[x] = solutions[x][1]
-        rankedversion[x] = solutions[x][3]
-        rankedmode[x] = solutions[x][2]
+        rankedversion[x] = solutions[x][2]
+        rankedmode[x] = solutions[x][3]
         
 
     for x in range (0 , 50):
