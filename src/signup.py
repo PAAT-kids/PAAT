@@ -20,13 +20,13 @@ def signup(email, username, password):
 			#email validation
 			if check(email):
 				#print('Email: ',email,'\nUsername: ',username,'\nPassword: ',password)
-				addNewUser(username, hashedPassword.decode('utf-8'), email)
-			#else:
-				#print('email not valid')
-		#else:
-			#print('password not valid')
-	#else:
-		#print('username not valid')
+				addNewUser(username, hashedPassword, email)
+			else:
+				print('email not valid')
+		else:
+			print('password not valid')
+	else:
+		print('username not valid')
 
 
 """
@@ -39,17 +39,19 @@ AUTHOR: Samrah Tahir
 
 def addNewUser(userN, passw, email):
 
-	#print(userN)
-	#print(passw)
-	#print(email)
+	# print(userN)
+	# print(passw)
+	# print(email)
+	
 	conn = connectToDatabase()
 	cursor = conn.cursor()
-	add_user = """insert into User(username,password,email) values(%s,%s,%s)"""
-	cursor.execute(add_user, (userN, passw, email))
+	add_user = """insert into Users(Username,Email,UserPassword) values(%s,%s,%s)"""
+	cursor.execute(add_user, (userN, email, passw))
 	conn.commit()
 	#record = cursor.fetchone()
 	#print(record)
-	print('done')
+	print('User added.')
+	
 
 """
 FUNCTION NAME: connectToDatabase
@@ -61,7 +63,7 @@ AUTHOR: Samrah Tahir
 
 def connectToDatabase():
 	try:
-		connection = mysql.connector.connect(host='',database='paat',user='me',password='')
+		connection = mysql.connector.connect(host='127.0.0.1',database='paat',user='PAAT',password='1234')
 		print('connection complete')
 	except Error as e:
 		print('Error while connecting')

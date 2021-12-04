@@ -11,7 +11,7 @@ import bcrypt
 #To Access the file in src directory
 import sys
 sys.path.insert(0, 'src')
-from paatSecurity import comparePass, passHash, validateUsername
+from paatSecurity import comparePass, passHash, validateEthAddr, validateIPAddr, validateIntOnly, validateStringOnly, validateUsername
 
 #Testing passHash
 print("----------- TESTING passHash -----------\n")
@@ -57,3 +57,60 @@ print("Actual Output: ", validateUsername("user name"))
 
 #Expected output 3
 #TODO 
+
+
+
+#Testing validateEthAddr
+print("\n----------- TESTING validateEthAddr -----------\n")
+
+#Expected output True
+print("\nInput: f4:d1:08:0f:84:12\nExpected Output: True")
+print("Actual Output: ", validateEthAddr("f4:d1:08:0f:84:12"))
+#Expected output False
+print("\nInput: Th:is:ma:ac:ad:re:ss\nExpected Output: False")
+print("Actual Output: ", validateEthAddr("Th:is:ma:ac:ad:re:ss"))
+#Expected output False
+print("\nInput: \nExpected Output: False")
+print("Actual Output: ", validateEthAddr(""))
+
+#Testing validateIPAddr
+print("\n----------- TESTING validateIPAddr -----------\n")
+
+#Expected output True
+print("\nInput: 192.168.0.130\nExpected Output: True")
+print("Actual Output: ", validateIPAddr("192.168.0.130"))
+#Expected output False
+print("\nInput: no.t.Ip\nExpected Output: False")
+print("Actual Output: ", validateIPAddr("no.t.Ip"))
+#Expected output False
+print("\nInput: \nExpected Output: False")
+print("Actual Output: ", validateIPAddr(""))
+
+#Testing validateStringOnly
+print("\n----------- TESTING validateStringOnly -----------\n")
+
+#Expected output True
+print("\nInput: ThisisaTest\nExpected Output: True")
+print("Actual Output: ", validateStringOnly("ThisisaTest"))
+#Expected output False
+print("\nInput: thi'swon'twork'\nExpected Output: False")
+print("Actual Output: ", validateStringOnly("thi'swon'twork'"))
+#Expected output False
+print("\nInput: \nExpected Output: False")
+print("Actual Output: ", validateStringOnly(""))
+
+#Testing validateIntOnly
+print("\n----------- TESTING validateStringOnly -----------\n")
+
+#Expected output True
+print("\nInput: 23\nExpected Output: True")
+print("Actual Output: ", validateIntOnly(23))
+#Expected output False
+print("\nInput: 23(as a string)\nExpected Output: False")
+print("Actual Output: ", validateIntOnly("23"))
+#Expected output False
+print("\nInput: 9223372036854775807\nExpected Output: False")
+print("Actual Output: ", validateIntOnly(9223372036854775807))
+#Expected output False
+print("\nInput: \nExpected Output: False")
+print("Actual Output: ", validateIntOnly(""))

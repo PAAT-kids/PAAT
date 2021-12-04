@@ -13,8 +13,11 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
+#import login as ahmed
+#from signup import signup
 import source_rc
+import home2
+import main
 
 #####################################################
 ## Main Window Object
@@ -25,7 +28,7 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1908, 1090)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
+        MainWindow.setStyleSheet(u"background-image: url(:/bg1/bg9.png)")
 
 
 #####################################################
@@ -65,6 +68,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        self.login.clicked.connect(lambda: self.loginCheck(MainWindow))
+
         
 
 #########################################################
@@ -95,6 +100,8 @@ class Ui_MainWindow(object):
 "padding: 10px 10px;\n"
 "background: rgb(0, 194, 203);\n"
 "")
+        #on click of the signup button, signup function is executed
+        self.signup.clicked.connect(lambda: signup(self.email_su.text(), self.username_su.text(), self.password_su.text()))
 
 #####################################################
 ## Top Icon Buttons: Settings icon + help window
@@ -129,6 +136,8 @@ class Ui_MainWindow(object):
         self.info_icon.setIcon(icon)
         self.info_icon.setIconSize(QSize(76, 66))
         self.info_icon.clicked.connect(self.helpUi)
+
+        self.darkmode = False;
                 
 #####################################################
 ## UI window setup
@@ -172,6 +181,48 @@ class Ui_MainWindow(object):
     def dark(self, checked):
 
         if not checked:
-                self.centralwidget.setStyleSheet(u"background-image: url(:/bg/darkbg.png)")
+                self.centralwidget.setStyleSheet(u"background-image: url(:/bg1/darkbg.png)")
+                self.darkmode = True
         elif checked:
-                self.centralwidget.setStyleSheet(u"background-image: url(:/bg/bg9.png)")
+                self.centralwidget.setStyleSheet(u"background-image: url(:/bg1/bg9.png)")
+                self.darkmode = False
+
+    def loginCheck(self, MainWindow):
+
+        password = self.password_lg.text()
+        username = self.username_lg.text()
+
+        if password and username: #if password and username are not empty
+                self.currentUser = username
+                root = ahmed.connections()
+                if root.connect_database(username, password) == True:
+                        self.openwindow(MainWindow)
+        else:
+                self.alert1()
+
+    def openwindow(self, MainWindow):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = home2.Ui_OtherWindow()
+        self.ui.setupUi(self.window,self.darkmode,self.currentUser)
+        self.window.show()
+        MainWindow.close()
+
+    def setName(self):
+        accountname = self.username_lg.text()
+        self.ui.usernamee.setText("@" + accountname)
+        root = ahmed.connections()
+        email = root.getEmail(accountname)
+        self.ui.em_txt.setText(email)
+        self.ui.psd_txt.setText(self.password_lg.text())
+        self.ui.name.setText(accountname)
+
+    def alert1(self):
+        self.alert_pkt = QLabel()
+        self.alert_pkt.setObjectName(u"alert_pkt")
+        self.alert_pkt.setGeometry(QRect(1270, 710, 491, 31))
+        self.alert_pkt.setStyleSheet(u"color: rgb(255, 0, 0);\n"
+"font: 75 italic 13pt \"Franklin Gothic Cond\";\n"
+"background: transparent;")
+        self.alert_pkt.setText(QCoreApplication.translate("MainWindow", u"Please complete all the fields before proceeding.", None))
+
+
