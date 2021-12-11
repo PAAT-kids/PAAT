@@ -206,11 +206,8 @@ class sendPacketClass:
         sizepacket = len(packet)
         add_packet = """INSERT INTO Sent(ID,Sizee,Datee,Time,SenderAdd,ReceiverAdd,SourceETH,DestinationETH,Type,Version,IHL,TOS,TotalLength,Identification,Flags,FragmentOffset,TTL,Protocol,HeaderChecksum,SourceIP,DestinationIP,Options,SourcePort,DestinationPort,Checksum) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         cursor.execute(add_packet, (randomID, sizepacket,date_now,current_time, ipSrc, ipDst, ethSrc, ethDst,ethType, ipVersion, ipIhl, ipTos, ipLen, ipId, ipFlags, ipFrag, ipTtl, ipProto, ipChksum, ipSrc, ipDst, temp, udpSport, udpDport, udpChksum))
-<<<<<<< HEAD
-=======
         add_packet2 = """INSERT INTO Sends(Username,ID) VALUES(%s,%s)"""
         cursor.execute(add_packet2, (username, randomID))
->>>>>>> 87a4814451016663a4174a59b651995e0ab2f917
         conn.commit()
         if(type == 1):
             #self.sendInitPacket(initPacket,"DNS")
